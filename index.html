@@ -1,0 +1,265 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+<form id="petcicionComercial">
+  <h3>Datos cliente</h3>
+
+  <input type="checkbox" name="nuevoCliente" id="nuevoCliente" value="nuevo"> Nuevo Cliente<br><br>
+
+  <label for="numeroCliente">Número cliente:</label>
+  <input type="text" id="numeroCliente" name="numero"><br><br>
+
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required><br><br>
+
+  <label for="personaContaco">Persona de contacto:</label>
+  <input type="text" id="personaContaco" name="personaContaco" required><br><br>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required><br><br>
+
+  <label for="telefonoPersonaContaco">Telefono persona de contacto:</label>
+  <input type="text" id="telefonoPersonaContaco" name="telefonoPersonaContaco" required><br><br>
+  <hr>
+  <br>
+  <h3>Nueva peticion</h3>
+
+  <label for="referencia">Referencia:</label>
+  <input type="text" id="referencia" name="referencia" required><br><br>
+
+
+  <label for="indicacionesCliente">Indicaciones del cliente: / Observaciones: ?</label>
+  <textarea id="indicacionesCliente" name="indicacionesCliente" required></textarea><br><br>
+
+  <label for="cantidadlote">Cantidad lote:</label>
+  <input type="text" id="cantidadlote" name="cantidadlote" required><br><br>
+
+  <label for="consumoanual">Consumo anual estimado:</label>
+  <input type="text" id="consumoanual" name="consumoanual" required><br><br>
+
+
+  <!-- Desplegable con checkbox -->
+  <label for="productosBtn">Tipo de documentación aportada:</label>
+  <div class="dropdown">
+    <button type="button" id="productosBtn">Seleccionar</button>
+    <div class="dropdown-content">
+      <label>
+        <input type="checkbox" name="documento" value="Muestra fisica para estructural"> Muestra fisica para
+        estructural
+      </label>
+      <label>
+        <input type="checkbox" name="documento" value="Muestra para color"> Muestra para color
+      </label>
+      <label>
+        <input type="checkbox" name="documento" value="Producto"> Producto
+      </label>
+      <label>
+        <input type="checkbox" name="documento" value="Pdf"> Pdf
+      </label>
+      <label>
+        <input type="checkbox" name="documento" value="Arte final"> Arte final
+      </label>
+      <label>
+        <input type="checkbox" name="documento" value="Plano Cad (No editable)"> Plano Cad (NO editable)
+      </label>
+      <label>
+        <input type="checkbox" name="documento" value="Plano Cad (editable)"> Plano Cad (editable)
+      </label>
+    </div>
+  </div>
+
+  <!-- Espacio para mostrar los productos seleccionados automáticamente -->
+  <div id="resultados"></div>
+  <br>
+
+
+  <!-- Anula Troquel -->
+  <label for="anulaTroquel">Anula troquel?:</label><br>
+  <label for="siAnulaTroquel">
+    <input type="radio" id="siAnulaTroquel" name="anulaTroquel" value="Si"> Sí
+  </label><br>
+  <label for="noAnulaTroquel">
+    <input type="radio" id="noAnulaTroquel" name="anulaTroquel" value="No"> No
+  </label><br><br>
+
+  <!-- Campo de texto que se mostrará si "Sí" es seleccionado -->
+  <div id="contenedorNumeroTroquel" style="display:none;">
+    <label for="numeroTroquel">Número de troquel:</label>
+    <input type="text" id="numeroTroquel" name="numeroTroquel">
+  </div>
+
+
+  <!-- Si selecciona "No" en "Anula Troquel", mostrar opciones para "Existe" o "No existe" -->
+  <div id="opcionesTroquel" style="display:none;">
+    <label for="existeTroquel">¿Existe el troquel?</label><br>
+    <label for="existeTroquelSi">
+      <input type="radio" id="existeTroquelSi" name="existeTroquel" value="Si"> Sí
+    </label><br>
+    <label for="existeTroquelNo">
+      <input type="radio" id="existeTroquelNo" name="existeTroquel" value="No"> No
+    </label><br><br>
+
+    <!-- Campo de texto que se mostrará si "Sí" es seleccionado en "¿Existe el troquel?" -->
+    <div id="campoNumeroTroquelExistente" style="display:none;">
+      <label for="numeroTroquelExistente">Número de troquel:</label>
+      <input type="text" id="numeroTroquelExistente" name="numeroTroquelExistente">
+    </div>
+  </div>
+
+
+  <!-- Anula Ficha -->
+  <label for="anulaFicha">Anula FF anterior?:</label><br>
+  <label for="siAnulaFicha">
+    <input type="radio" id="siAnulaFicha" name="anulaFicha" value="Si"> Si
+  </label><br>
+
+  <label for="noAnulaFicha">
+    <input type="radio" id="noAnulaFicha" name="anulaFicha" value="No"> No
+  </label><br><br>
+
+  <!-- Campo de texto que se mostrará si "Si" es seleccionado -->
+  <div id="contenedorFicha" style="display:none;">
+    <label for="numeroficha">Número de ficha:</label>
+    <input type="text" id="numeroficha" name="numeroficha">
+  </div>
+
+
+  <hr>
+  <br>
+  <h3>Acabados</h3>
+
+  <!-- Selección entre simple y multipieza -->
+  <label>
+    <input type="radio" name="tipoDiseño" value="simple"> Estructural simple
+  </label><br>
+  <label>
+    <input type="radio" name="tipoDiseño" value="multipieza" id="diseñoEstructuralMultipieza"> Estructural multipieza
+  </label><br><br>
+
+
+
+
+
+  <hr>
+  <br>
+  <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
+
+  <h4>Tipo</h4>
+  <!-- Radio buttons para seleccionar la familia de productos -->
+  <label for="cartoncillo">
+    <input type="radio" id="cartoncillo" name="familiaProductos" value="Cartoncillo"> Cartoncillo
+  </label><br>
+
+  <label for="contraencolado">
+    <input type="radio" id="contraencolado" name="familiaProductos" value="Contraencolado"> Contraencolado
+  </label><br>
+
+  <label for="ondulado">
+    <input type="radio" id="ondulado" name="familiaProductos" value="Ondulado"> Ondulado
+  </label><br><br>
+
+
+  <!-- Cartoncillo -->
+  <div id="cartoncilloListado" style="display:none;">
+    <h4>Tipos de impresion para Cartoncillo</h4>
+    <label for="sinImpresion">
+      <input type="radio" id="sinImpresion_cartoncillo" name="productoCartoncillo" value="sin impresion"> Sin
+      impresion
+    </label><br>
+    <label for="offset">
+      <input type="radio" id="offset_cartoncillo" name="productoCartoncillo" value="offset"> Offset
+    </label><br>
+  </div>
+
+  <!-- Contraencolado -->
+  <div id="contraencoladoListado" style="display:none;">
+    <h4>Tipos de impresion para Contraencolado</h4>
+    <label for="sinImpresion">
+      <input type="radio" id="sinImpresion_contraencolado" name="productoContraencolado"
+             value="sin impresion"> Sin impresion
+    </label><br>
+    <label for="offset">
+      <input type="radio" id="offset_contraencolado" name="productoContraencolado" value="offset"> Offset
+    </label><br>
+  </div>
+
+
+  <!-- Ondulado -->
+  <div id="onduladoListado" style="display:none;">
+    <h4>Tipos de impresion para Ondulado</h4>
+    <label for="sinImpresion">
+      <input type="radio" id="sinImpresion" name="productoOndulado" value="sin impresion"> Sin impresion
+    </label><br>
+    <label for="offset">
+      <input type="radio" id="offset" name="productoOndulado" value="offset"> Offset
+    </label><br>
+    <label for="digital">
+      <input type="radio" id="digital" name="productoOndulado" value="digital"> Digital
+    </label><br>
+    <label for="flexo">
+      <input type="radio" id="flexo" name="productoOndulado" value="flexo"> Flexo
+    </label><br>
+    <label for="flexoMejorado">
+      <input type="radio" id="flexoMejorado" name="productoOndulado" value="flexo mejorado"> Flexo mejorado
+    </label><br>
+    <label for="flexoHD">
+      <input type="radio" id="flexoHd" name="productoOndulado" value="flexo HD"> Flexo HD
+    </label><br>
+  </div>
+  <br><br>
+
+  <hr>
+
+  <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
+  <div id="tiposGenerados"></div>
+
+  <!-- Desplegable para seleccionar el número de tipos (inicialmente oculto) -->
+  <div id="numTiposContainer" style="display:none;">
+    <!--    <label for="numTipos">Número de tipos:</label>-->
+    <!--    <select id="numTipos">-->
+    <!--      <option value="1">1</option>-->
+    <!--      <option value="2">2</option>-->
+    <!--      <option value="3">3</option>-->
+    <!--      <option value="4">4</option>-->
+    <!--      <option value="5">5</option>-->
+    <!--    </select>-->
+    <!-- Botón para agregar tipos -->
+    <button type="button" id="numTiposInc" onclick="generarBloques()">Agregar Tipo</button>
+    <button type="button" id="numTiposDec" onclick="eliminarBloques()">Eliminar Tipo</button>
+  </div>
+  <hr>
+
+  <input type="checkbox" name="envioTrabajo" id="envioTrabajo" value="envio trabajo"> Enviar trabajo?<br><br>
+
+  <button type="submit">Enviar</button>
+</form>
+
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
