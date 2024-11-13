@@ -402,33 +402,6 @@ function eliminarBloques() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /////////////////////////////////////////////////////
 // Función para mostrar u ocultar los listados según el tipo de producto seleccionado
 function mostrarListado() {
@@ -462,7 +435,6 @@ function mostrarListado() {
 
 
 
-
 /////////////////////////////////////////////////////
 // Inicializar los bloques y los listados cuando la página se cargue
 document.addEventListener('DOMContentLoaded', function () {
@@ -474,7 +446,6 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   const contenedorTiposGenerados = document.getElementById('tiposGenerados');
   const radioDiseñoEstructuralMultipieza = document.getElementById('diseñoEstructuralMultipieza');
-
 
 
 
@@ -502,5 +473,90 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
 ////////    final  //
+document.getElementById("enviarTerminar").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
+
+  // Crear el objeto FormData con los datos del formulario
+  var formData = new FormData(document.getElementById("petcicionComercial"));
+
+  // Enviar el formulario usando fetch (AJAX)
+  fetch("ruta/a/tu/servidor", {
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.text())
+    .then(data => {
+      // Mostrar ventana con mensaje
+      alert("Formulario enviado y limpiado");
+      // Limpiar el formulario
+      document.getElementById("petcicionComercial").reset();
+    })
+    .catch(error => {
+      console.error("Error al enviar el formulario:", error);
+    });
+});
+
+document.getElementById("enviarSobreescribir").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
+
+  // Crear el objeto FormData con los datos del formulario
+  var formData = new FormData(document.getElementById("petcicionComercial"));
+
+  // Enviar el formulario usando fetch (AJAX)
+  fetch("ruta/a/tu/servidor", {
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.text())
+    .then(data => {
+      // Mostrar ventana con mensaje
+      alert("Formulario enviado sin limpiar");
+      // Limpiar solo el campo 'referencia'
+      document.getElementById("referencia").value = "";
+    })
+    .catch(error => {
+      console.error("Error al enviar el formulario:", error);
+    });
+});
+
+
+
+//////  envio    ///
+
+function generarPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Capturar los datos del formulario
+  const nombre = document.getElementById('nombre').value;
+  const email = "dmtomas@outlook.es";
+  const referencia = document.getElementById('referencia').value;
+
+  // Agregar contenido al PDF
+  doc.text(`Formulario de solicitud`, 10, 10);
+  doc.text(`Nombre: ${nombre}`, 10, 20);
+  doc.text(`Email: ${email}`, 10, 30);
+  doc.text(`Referencia: ${referencia}`, 10, 40);
+  // Agregar más campos según sea necesario...
+
+  // Descargar el PDF automáticamente
+  doc.save("formulario.pdf");
+
+  // Abrir el cliente de correo con 'mailto'
+  window.location.href = `mailto:${email}?subject=Formulario PDF&body=Adjunta el PDF descargado.`;
+}
+
+
+function enviarCorreoConPDF() {
+  const pdfBlob = generarPDF();
+
+  // Guardar el archivo temporalmente y pedir al usuario que lo adjunte manualmente
+  const enlace = document.createElement('a');
+  enlace.href = URL.createObjectURL(pdfBlob);
+  enlace.download = 'formulario.pdf';
+  enlace.click();
+
+  // Enviar correo con el enlace
+  window.location.href = 'mailto:correo@ejemplo.com?subject=Envío de Formulario';
+}
