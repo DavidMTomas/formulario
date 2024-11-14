@@ -1,445 +1,146 @@
-/*! HTML5 Boilerplate v9.0.1 | MIT License | https://html5boilerplate.com/ */
-
-/* main.css 3.0.0 | MIT License | https://github.com/h5bp/main.css#readme */
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
-
-html {
-  color: #222;
-  font-size: 1em;
-  line-height: 1.4;
-}
-
-/*
- * Remove text-shadow in selection highlight:
- * https://twitter.com/miketaylr/status/12228805301
- *
- * Customize the background color to match your design.
- */
-
-::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-
-::selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-
-/*
- * A better looking default horizontal rule
- */
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
-}
-
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-  vertical-align: middle;
-}
-
-/*
- * Remove default fieldset styles.
- */
-
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/*
- * Allow only vertical resizing of textareas.
- */
-
-textarea {
-  resize: vertical;
-}
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
-/*
- * Hide visually and from screen readers
- */
-
-.hidden,
-[hidden] {
-  display: none !important;
-}
-
-/*
- * Hide only visually, but have it available for screen readers:
- * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- *
- * 1. For long content, line feeds are not interpreted as spaces and small width
- *    causes content to wrap 1 word per line:
- *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
- */
-
-.visually-hidden {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  /* 1 */
-}
-
-/*
- * Extends the .visually-hidden class to allow the element
- * to be focusable when navigated to via the keyboard:
- * https://www.drupal.org/node/897638
- */
-
-.visually-hidden.focusable:active,
-.visually-hidden.focusable:focus {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  white-space: inherit;
-  width: auto;
-}
-
-/*
- * Hide visually and from screen readers, but maintain layout
- */
-
-.invisible {
-  visibility: hidden;
-}
-
-/*
- * Clearfix: contain floats
- *
- * The use of `table` rather than `block` is only necessary if using
- * `::before` to contain the top-margins of child elements.
- */
-
-.clearfix::before,
-.clearfix::after {
-  content: "";
-  display: table;
-}
-
-.clearfix::after {
-  clear: both;
-}
-
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
-}
-
-@media print,
-  (-webkit-min-device-pixel-ratio: 1.25),
-  (min-resolution: 1.25dppx),
-  (min-resolution: 120dpi) {
-  /* Style adjustments for high resolution devices */
-}
-
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   https://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
-
-@media print {
-  *,
-  *::before,
-  *::after {
-    background: #fff !important;
-    color: #000 !important;
-    /* Black prints faster */
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-
-  a[href]::after {
-    content: " (" attr(href) ")";
-  }
-
-  abbr[title]::after {
-    content: " (" attr(title) ")";
-  }
-
-  /*
-   * Don't show links that are fragment identifiers,
-   * or use the `javascript:` pseudo protocol
-   */
-  a[href^="#"]::after,
-  a[href^="javascript:"]::after {
-    content: "";
-  }
-
-  pre {
-    white-space: pre-wrap !important;
-  }
-
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
-}
-
-/* Resetear estilos predeterminados */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Fondo de la página */
+/* General */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
   padding: 20px;
 }
 
-/* Contenedor principal del formulario */
 form {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
   max-width: 900px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Títulos */
 h3 {
-  font-size: 24px;
-  margin-bottom: 15px;
   color: #333;
+  font-size: 1.5em;
+  margin-bottom: 20px;
 }
 
 h4 {
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 1.2em;
+  margin-top: 20px;
+  color: #555;
 }
 
-/* Espaciado entre los elementos */
-label {
-  font-size: 16px;
-  margin-bottom: 5px;
-  display: inline-block;
-}
-
-/* Campos de texto y otros inputs */
-input[type="text"],
-input[type="email"],
-input[type="number"],
-textarea {
+/* Inputs y Labels */
+input[type="text"], input[type="email"], input[type="number"], textarea, select {
   width: 100%;
-  padding: 12px;
-  margin: 8px 0 16px 0;
-  border: 1px solid #ccc;
+  padding: 8px; /* Reducido el padding para que no sea tan grande */
+  margin: 10px 0;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+  font-size: 1em;
 }
 
-/* Cambio de color del borde cuando el campo tiene foco */
-input:focus,
-textarea:focus {
-  border-color: #007bff;
-  outline: none;
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+textarea {
+  height: 120px; /* Reducido el tamaño de los campos de texto */
+  resize: none;
 }
 
 /* Botones */
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  color: white;
+button[type="submit"], button[type="button"] {
   background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 10px 0;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: background-color 0.3s;
 }
 
-button:hover {
+button[type="submit"]:hover, button[type="button"]:hover {
   background-color: #0056b3;
 }
 
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
-}
-
-/* Estilo de los checkboxes y radio buttons */
-input[type="checkbox"],
-input[type="radio"] {
-  margin-right: 8px;
-}
-
-/* Contenedor del desplegable (dropdown) */
+/* Estilo de Dropdown */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
 .dropdown button {
+  padding: 10px 20px;
+  font-size: 1em;
   background-color: #28a745;
-  border: 1px solid #28a745;
-  padding: 10px 15px;
-  font-size: 16px;
-  cursor: pointer;
+  color: white;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .dropdown button:hover {
   background-color: #218838;
-  border-color: #218838;
 }
 
-/* Estilo del desplegable */
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fff;
-  min-width: 200px;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
   z-index: 1;
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-.dropdown-content label {
-  display: block;
   padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-.dropdown-content label:hover {
-  background-color: #f1f1f1;
-}
-
-/* Mostrar el dropdown cuando se activa */
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* Estilo para los radio buttons dentro de los dropdown */
-.dropdown-content input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-/* Campos de radio buttons */
-input[type="radio"] {
-  margin-right: 8px;
-}
-
-/* Contenedor del formulario cuando el radio button está activo */
-#campoTexto {
-  margin-top: 15px;
-  display: none;
-}
-
-#campoTexto input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* Media query para dispositivos móviles */
-@media (max-width: 768px) {
-  form {
-    padding: 20px;
-  }
-
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    font-size: 14px;
-  }
-
-  button {
-    font-size: 14px;
-  }
-}
-
-.hidden {
-  display: none;
-}
-
-.visible {
+.dropdown-content label {
   display: block;
+  padding: 5px;
 }
 
+hr {
+  border: 1px solid #ddd;
+  margin: 20px 0;
+}
 
-#indicacionesCliente {
-  resize: none; /* Desactiva el redimensionamiento manual */
-  overflow: hidden; /* Elimina la barra de desplazamiento */
-  min-height: 50px; /* Altura mínima opcional */
+/* Estilo de los campos de opción (radio, checkbox) */
+label {
+  margin-bottom: 10px; /* Aumenta el espacio debajo de las etiquetas */
+}
+
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label {
+  color: #007bff;
+}
+
+/* Espaciado entre bloques */
+div {
+  margin-bottom: 20px; /* Espacio entre los bloques */
+}
+
+.campotextocorto {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  max-width: 300px; /* Ajusta el tamaño del campo si es necesario */
+}
+
+.input-20chars::placeholder {
+  color: #aaa; /* Color de texto del placeholder */
+}
+
+.campotextomuycorto {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  max-width: 100px; /* Ajusta el tamaño del campo si es necesario */
 }

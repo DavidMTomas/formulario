@@ -176,6 +176,7 @@ handleAnulaTroquel();
 const opcionesDiseño = document.getElementsByName('tipoDiseño');
 const numTiposContainer = document.getElementById('numTiposContainer');
 
+
 // Función para mostrar u ocultar el contenedor de número de tipos
 function toggleNumTipos() {
   // Comprobar si alguno de los radio buttons está seleccionado en "multipieza"
@@ -191,8 +192,13 @@ function toggleNumTipos() {
   // Mostrar u ocultar el contenedor según si la opción "multipieza" está seleccionada
   if (isMultipiezaSelected) {
     numTiposContainer.style.display = 'block';
+    const idPieza = document.getElementById('idPieza');
+    idPieza.style.display = "block"
+
   } else {
     numTiposContainer.style.display = 'none';
+    const idPieza = document.getElementById('idPieza');
+    idPieza.style.display = "none"
   }
 }
 
@@ -267,8 +273,9 @@ function generarBloques() {
 
   // Si "Estructural Multipieza" está seleccionado, inicializamos el contador a 2 y generamos dos bloques
   if (diseñoMultipieza.checked && contadorTipos === 1) {
-    contadorTipos = 1; // Generar 2 bloques cuando la opción de "Estructural Multipieza" se selecciona
+    contadorTipos = 2; // Generar 2 bloques cuando la opción de "Estructural Multipieza" se selecciona
   }
+
 
   // Crear un nuevo bloque por cada pulsación del botón
   const bloque = document.createElement('div');
@@ -276,29 +283,33 @@ function generarBloques() {
 
   // El tipo será el valor del contador actual
   bloque.innerHTML = `
+</class id="tipos">
     <h4>Tipo ${contadorTipos}</h4>
     <!-- Radio buttons para seleccionar la familia de productos -->
+     <label for="idPieza${contadorTipos}">
+    <input type="text" id="idPieza${contadorTipos}" name="familiaProductos${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
+  </label>
     <label for="cartoncillo${contadorTipos}">
       <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" onchange="mostrarListado(${contadorTipos})"> Cartoncillo
-    </label><br>
+    </label>
 
     <label for="contraencolado${contadorTipos}">
       <input type="radio" id="contraencolado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Contraencolado" onchange="mostrarListado(${contadorTipos})"> Contraencolado
-    </label><br>
+    </label>
 
     <label for="ondulado${contadorTipos}">
       <input type="radio" id="ondulado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Ondulado" onchange="mostrarListado(${contadorTipos})"> Ondulado
-    </label><br><br>
+    </label>
 
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
       <h4>Tipos de impresion para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo${contadorTipos}">
         <input type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="sin impresion"> Sin impresion
-      </label><br>
+      </label>
       <label for="offsetCartoncillo${contadorTipos}">
         <input type="radio" id="offsetCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="offset"> Offset
-      </label><br>
+      </label>
     </div>
 
     <!-- Contraencolado -->
@@ -306,10 +317,10 @@ function generarBloques() {
       <h4>Tipos de impresion para Contraencolado</h4>
       <label for="sinImpresionContraencolado${contadorTipos}">
         <input type="radio" id="sinImpresionContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="sin impresion"> Sin impresion
-      </label><br>
+      </label>
       <label for="offsetContraencolado${contadorTipos}">
         <input type="radio" id="offsetContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="offset"> Offset
-      </label><br>
+      </label>
     </div>
 
     <!-- Ondulado -->
@@ -317,25 +328,26 @@ function generarBloques() {
       <h4>Tipos de impresion para Ondulado</h4>
       <label for="sinImpresionOndulado${contadorTipos}">
         <input type="radio" id="sinImpresionOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="sin impresion"> Sin impresion
-      </label><br>
+      </label>
       <label for="offsetOndulado${contadorTipos}">
         <input type="radio" id="offsetOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="offset"> Offset
-      </label><br>
+      </label>
       <label for="digitalOndulado${contadorTipos}">
         <input type="radio" id="digitalOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="digital"> Digital
-      </label><br>
+      </label>
       <label for="flexoOndulado${contadorTipos}">
         <input type="radio" id="flexoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo"> Flexo
-      </label><br>
+      </label>
       <label for="flexoMejoradoOndulado${contadorTipos}">
         <input type="radio" id="flexoMejoradoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo mejorado"> Flexo mejorado
-      </label><br>
+      </label>
       <label for="flexoHDOndulado${contadorTipos}">
         <input type="radio" id="flexoHDOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo HD"> Flexo HD
-      </label><br>
+      </label>
     </div>
-    <br><br>
+
     <hr>
+      </class>
   `;
 
   // Añadir el bloque al contenedor
@@ -344,6 +356,9 @@ function generarBloques() {
   // Incrementar el contador para el siguiente tipo
   contadorTipos++;
 }
+
+
+
 
 
 /////////////////////////////////////////////////////
@@ -377,11 +392,15 @@ function eliminarBloques() {
     container.removeChild(container.lastElementChild);
 
     // Decrementar el contador de tipos
-    if (contadorTipos > 2) {
+    if (contadorTipos > 1) {
       contadorTipos--;
     }
   }
 }
+
+
+
+
 
 /////////////////////////////////////////////////////
 // Función para mostrar u ocultar los listados según el tipo de producto seleccionado
@@ -412,22 +431,7 @@ function mostrarListado() {
   });
 }
 
-/////////////////////////////////////////////////////
-// Escuchar el cambio en el desplegable para generar los bloques cuando el número cambie
-document.getElementById('numTipos').addEventListener('change', generarBloques);
 
-// Añadir un evento para cada cambio en los radio buttons generados dinámicamente
-document.getElementById('tiposGenerados').addEventListener('change', mostrarListado);
-
-// Escuchar el cambio en el radio button de "Diseño estructural Multipieza FEFCO"
-document.getElementById('diseñoEstructuralMultipieza').addEventListener('change', function () {
-  // Verificamos si la opción está seleccionada, si no lo está, limpiamos los bloques
-  if (!this.checked) {
-    document.getElementById('tiposGenerados').innerHTML = ''; // Limpiamos los bloques generados
-  } else {
-    generarBloques(); // Generamos los bloques nuevamente
-  }
-});
 
 
 
@@ -443,11 +447,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const contenedorTiposGenerados = document.getElementById('tiposGenerados');
   const radioDiseñoEstructuralMultipieza = document.getElementById('diseñoEstructuralMultipieza');
 
+
+
+
+
+  /// OK   ///
   // Función que vacía el contenedor #tiposGenerados si "Diseño estructural Multipieza" no está seleccionado
   function verificarYVaciarContenedor() {
     // Si "Diseño estructural Multipieza FEFCO" NO está seleccionado, vaciar el contenedor
     if (!radioDiseñoEstructuralMultipieza.checked) {
       contenedorTiposGenerados.innerHTML = ''; // Vaciar el contenedor
+      contadorTipos = 1; // Reiniciar el contador a 1
     }
   }
 
@@ -463,5 +473,90 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
 ////////    final  //
+document.getElementById("enviarTerminar").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
+
+  // Crear el objeto FormData con los datos del formulario
+  var formData = new FormData(document.getElementById("petcicionComercial"));
+
+  // Enviar el formulario usando fetch (AJAX)
+  fetch("ruta/a/tu/servidor", {
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.text())
+    .then(data => {
+      // Mostrar ventana con mensaje
+      alert("Formulario enviado y limpiado");
+      // Limpiar el formulario
+      document.getElementById("petcicionComercial").reset();
+    })
+    .catch(error => {
+      console.error("Error al enviar el formulario:", error);
+    });
+});
+
+document.getElementById("enviarSobreescribir").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
+
+  // Crear el objeto FormData con los datos del formulario
+  var formData = new FormData(document.getElementById("petcicionComercial"));
+
+  // Enviar el formulario usando fetch (AJAX)
+  fetch("ruta/a/tu/servidor", {
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.text())
+    .then(data => {
+      // Mostrar ventana con mensaje
+      alert("Formulario enviado sin limpiar");
+      // Limpiar solo el campo 'referencia'
+      document.getElementById("referencia").value = "";
+    })
+    .catch(error => {
+      console.error("Error al enviar el formulario:", error);
+    });
+});
+
+
+
+//////  envio    ///
+
+function generarPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Capturar los datos del formulario
+  const nombre = document.getElementById('nombre').value;
+  const email = "dmtomas@outlook.es";
+  const referencia = document.getElementById('referencia').value;
+
+  // Agregar contenido al PDF
+  doc.text(`Formulario de solicitud`, 10, 10);
+  doc.text(`Nombre: ${nombre}`, 10, 20);
+  doc.text(`Email: ${email}`, 10, 30);
+  doc.text(`Referencia: ${referencia}`, 10, 40);
+  // Agregar más campos según sea necesario...
+
+  // Descargar el PDF automáticamente
+  doc.save("formulario.pdf");
+
+  // Abrir el cliente de correo con 'mailto'
+  window.location.href = `mailto:${email}?subject=Formulario PDF&body=Adjunta el PDF descargado.`;
+}
+
+
+function enviarCorreoConPDF() {
+  const pdfBlob = generarPDF();
+
+  // Guardar el archivo temporalmente y pedir al usuario que lo adjunte manualmente
+  const enlace = document.createElement('a');
+  enlace.href = URL.createObjectURL(pdfBlob);
+  enlace.download = 'formulario.pdf';
+  enlace.click();
+
+  // Enviar correo con el enlace
+  window.location.href = 'mailto:correo@ejemplo.com?subject=Envío de Formulario';
+}
