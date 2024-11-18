@@ -1,0 +1,146 @@
+/* General */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  padding: 20px;
+}
+
+form {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  color: #333;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin-top: 20px;
+  color: #555;
+}
+
+/* Inputs y Labels */
+input[type="text"], input[type="email"], input[type="number"], textarea, select {
+  width: 100%;
+  padding: 8px; /* Reducido el padding para que no sea tan grande */
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+textarea {
+  height: 120px; /* Reducido el tamaño de los campos de texto */
+  resize: none;
+}
+
+/* Botones */
+button[type="submit"], button[type="button"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover, button[type="button"]:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo de Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #28a745;
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background-color: #218838;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content label {
+  display: block;
+  padding: 5px;
+}
+
+hr {
+  border: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+/* Estilo de los campos de opción (radio, checkbox) */
+label {
+  margin-bottom: 10px; /* Aumenta el espacio debajo de las etiquetas */
+}
+
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label {
+  color: #007bff;
+}
+
+/* Espaciado entre bloques */
+div {
+  margin-bottom: 20px; /* Espacio entre los bloques */
+}
+
+.campotextocorto {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  max-width: 300px; /* Ajusta el tamaño del campo si es necesario */
+}
+
+.input-20chars::placeholder {
+  color: #aaa; /* Color de texto del placeholder */
+}
+
+.campotextomuycorto {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  max-width: 100px; /* Ajusta el tamaño del campo si es necesario */
+}

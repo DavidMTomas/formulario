@@ -1,65 +1,99 @@
 /* General */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f7fa;
-  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7f9fc;
+  padding: 30px;
+  color: #333;
 }
 
 form {
   max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 h3 {
-  color: #333;
-  font-size: 1.5em;
-  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 1.8em;
+  font-weight: 500;
+  margin-bottom: 25px;
 }
 
 h4 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   margin-top: 20px;
-  color: #555;
+  color: #2c3e50;
+  font-weight: 400;
+}
+
+/* Layout para Inputs en Línea con Flexbox */
+.form-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten a la siguiente línea si no caben */
+  gap: 15px; /* Espacio entre los elementos */
+  margin-bottom: 15px;
+}
+
+.form-group .input-item {
+  flex: 1; /* Hace que los inputs ocupen el mismo ancho */
+  min-width: 200px; /* Asegura que no se vuelvan demasiado pequeños */
+}
+
+.form-group .input-item-2 {
+  flex: 1 1 48%; /* Esto permitirá que ocupe hasta el 48% del espacio */
 }
 
 /* Inputs y Labels */
 input[type="text"], input[type="email"], input[type="number"], textarea, select {
   width: 100%;
-  padding: 8px; /* Reducido el padding para que no sea tan grande */
-  margin: 10px 0;
+  padding: 12px;
+  margin: 0;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 1em;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
 }
 
 input[type="radio"], input[type="checkbox"] {
-  margin-right: 10px;
+  margin-right: 12px;
 }
 
 textarea {
-  height: 120px; /* Reducido el tamaño de los campos de texto */
-  resize: none;
+  height: 150px;
+  resize: vertical;
+}
+
+label {
+  font-size: 1em;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+  display: block;
 }
 
 /* Botones */
 button[type="submit"], button[type="button"] {
-  background-color: #007bff;
+  background-color: #3498db;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  margin: 10px 0;
+  padding: 12px 25px;
+  margin: 15px 0;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 1em;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button[type="submit"]:hover, button[type="button"]:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+button[type="submit"]:active, button[type="button"]:active {
+  transform: translateY(1px);
 }
 
 /* Estilo de Dropdown */
@@ -69,27 +103,29 @@ button[type="submit"]:hover, button[type="button"]:hover {
 }
 
 .dropdown button {
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 1em;
-  background-color: #28a745;
+  background-color: #27ae60;
   color: white;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .dropdown button:hover {
-  background-color: #218838;
+  background-color: #2ecc71;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #fff;
   min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  padding: 10px;
+  padding: 10px 0;
+  border-radius: 5px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -98,49 +134,74 @@ button[type="submit"]:hover, button[type="button"]:hover {
 
 .dropdown-content label {
   display: block;
-  padding: 5px;
+  padding: 10px;
+  color: #7f8c8d;
+  font-size: 1em;
+  transition: background-color 0.2s ease;
 }
 
-hr {
-  border: 1px solid #ddd;
-  margin: 20px 0;
+.dropdown-content label:hover {
+  background-color: #f1f1f1;
 }
 
 /* Estilo de los campos de opción (radio, checkbox) */
-label {
-  margin-bottom: 10px; /* Aumenta el espacio debajo de las etiquetas */
-}
-
 input[type="radio"]:checked + label,
 input[type="checkbox"]:checked + label {
-  color: #007bff;
+  color: #3498db;
 }
 
 /* Espaciado entre bloques */
 div {
-  margin-bottom: 20px; /* Espacio entre los bloques */
+  margin-bottom: 30px;
 }
 
 .campotextocorto {
   width: 100%;
-  padding: 8px;
-  margin: 10px 0;
+  padding: 10px;
+  margin: 12px 0;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 1em;
-  max-width: 300px; /* Ajusta el tamaño del campo si es necesario */
-}
-
-.input-20chars::placeholder {
-  color: #aaa; /* Color de texto del placeholder */
+  max-width: 300px;
 }
 
 .campotextomuycorto {
   width: 100%;
-  padding: 8px;
-  margin: 10px 0;
+  padding: 10px;
+  margin: 12px 0;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 1em;
-  max-width: 100px; /* Ajusta el tamaño del campo si es necesario */
+  max-width: 150px;
+}
+
+.input-20chars::placeholder {
+  color: #bdc3c7;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+  margin: 30px 0;
+}
+
+/* Diseño Responsivo */
+@media screen and (max-width: 768px) {
+  .form-group .input-item,
+  .form-group .input-item-2 {
+    flex: 1 1 100%; /* En pantallas pequeñas, los inputs ocuparán toda la línea */
+  }
+
+  button[type="submit"], button[type="button"] {
+    width: 100%;
+  }
+
+  .dropdown button {
+    width: 100%;
+  }
+
+  textarea {
+    height: 120px; /* Reducimos el tamaño del textarea en pantallas más pequeñas */
+  }
 }

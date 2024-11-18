@@ -1,5 +1,20 @@
 // Obtenemos el formulario
 
+///INICIO /////
+
+
+// Obtener la fecha y hora actual
+const ahora = new Date();
+
+// Sumar 1 hora
+ahora.setHours(ahora.getHours() + 1);
+
+// Formatear la fecha y hora en YYYY-MM-DDTHH:MM para el campo datetime-local
+const fechaHoraActual = ahora.toISOString().slice(0, 16);
+
+// Asignar la fecha y hora actual (con 1 hora añadida) al campo datetime-local
+document.getElementById('fechaHora').value = fechaHoraActual;
+
 
 ///////      DATOS CLIENTE     //////
 document.getElementById('petcicionComercial').addEventListener('submit', function (event) {
@@ -27,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const checkboxNuevoCliente = document.getElementById('nuevoCliente');
   const numeroClienteInput = document.getElementById('numeroCliente');
   const labelNumero = document.querySelector('label[for="numeroCliente"]');
+
 
   // Función que oculta o muestra el campo número y su etiqueta según el estado del checkbox
   function toggleNumeroCliente() {
@@ -168,6 +184,20 @@ toggleCampoTexto(radioSiAnulaFicha, campoFicha);
 handleAnulaTroquel();
 
 
+/////   REQUERIMIENTOS  //////
+// Evento para mostrar el campo de texto si se selecciona "Otras"
+document.getElementById('rejillas').addEventListener('change', function () {
+  const otrasOpcion = document.getElementById('otras-opcion');
+  if (this.value === 'otras') {
+    // Mostrar el campo de texto
+    otrasOpcion.style.display = 'block';
+  } else {
+    // Ocultar el campo de texto
+    otrasOpcion.style.display = 'none';
+  }
+});
+
+
 /////// ACABADOS    /////
 
 
@@ -189,16 +219,23 @@ function toggleNumTipos() {
     }
   });
 
+
+  // Variable global para el contador de bloques
+  contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
   // Mostrar u ocultar el contenedor según si la opción "multipieza" está seleccionada
   if (isMultipiezaSelected) {
     numTiposContainer.style.display = 'block';
     const idPieza = document.getElementById('idPieza');
     idPieza.style.display = "block"
+    generarBloques()
 
   } else {
     numTiposContainer.style.display = 'none';
     const idPieza = document.getElementById('idPieza');
     idPieza.style.display = "none"
+    const container = document.getElementById('tiposGenerados');
+    container.innerHTML = "";
+    contadorTipos = 1
   }
 }
 
@@ -254,15 +291,10 @@ document.querySelectorAll('input[name="estructuralOpciones"]').forEach(radioButt
 document.addEventListener('DOMContentLoaded', toggleNumTipos);
 
 
-
-
-
-
 /////////////////////////////////////////////////////
 // Función para generar los bloques dinámicamente según el número de tipos seleccionado
 /////////////////////////////////////////////////////
-// Variable global para el contador de bloques
-let contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
+
 
 // Función para generar bloques dinámicamente
 function generarBloques() {
@@ -346,8 +378,18 @@ function generarBloques() {
       </label>
     </div>
 
+       <br>
+    <label for="calidad${contadorTipos}">Calidad</label>
+    <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad"/>
+
+    <label for="canal${contadorTipos}">Canal</label>
+    <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal"/>
+
+    <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
+    <label for="cllo${contadorTipos}">Cllo</label>
+    <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo"/>
+    </div>
     <hr>
-      </class>
   `;
 
   // Añadir el bloque al contenedor
@@ -358,28 +400,32 @@ function generarBloques() {
 }
 
 
-
-
-
-/////////////////////////////////////////////////////
 // Función para mostrar u ocultar los listados según el tipo de producto seleccionado
 function mostrarListado(tipoIndex) {
   // Ocultar todos los listados del tipo seleccionado
   document.getElementById(`cartoncilloListado${tipoIndex}`).style.display = 'none';
   document.getElementById(`contraencoladoListado${tipoIndex}`).style.display = 'none';
   document.getElementById(`onduladoListado${tipoIndex}`).style.display = 'none';
+  document.getElementById(`mostrarcalidadcartoncillo${tipoIndex}`).style.display = 'none';
 
   // Obtener el radio button seleccionado
   const seleccionado = document.querySelector(`input[name="familiaProductos${tipoIndex}"]:checked`);
 
   // Mostrar el listado correspondiente
   if (seleccionado) {
-    const valorSeleccionado = seleccionado.value;
-    document.getElementById(`${valorSeleccionado.toLowerCase()}Listado${tipoIndex}`).style.display = 'block';
+    const valorSeleccionado = seleccionado.value.toLowerCase();
+
+    // Mostrar el listado correspondiente al valor seleccionado
+    document.getElementById(`${valorSeleccionado}Listado${tipoIndex}`).style.display = 'block';
+
+    // Mostrar "mostrar-calidad-cartoncillo" si el valor es "Cartoncillo" o "Contraencolado"
+    if (valorSeleccionado == 'cartoncillo' || valorSeleccionado == 'contraencolado') {
+      document.getElementById(`mostrarcalidadcartoncillo${tipoIndex}`).style.display = 'block';
+    }
+  } else {
+    document.getElementById(`mostrarcalidadcartoncillo${tipoIndex}`).style.display = 'none';
   }
 }
-
-
 
 
 // Función para eliminar bloques
@@ -387,7 +433,7 @@ function eliminarBloques() {
   const container = document.getElementById('tiposGenerados');
 
   // Verificar si hay bloques en el contenedor
-  if (container.children.length > 0) {
+  if (container.children.length > 1) {
     // Eliminar el último bloque
     container.removeChild(container.lastElementChild);
 
@@ -397,9 +443,6 @@ function eliminarBloques() {
     }
   }
 }
-
-
-
 
 
 /////////////////////////////////////////////////////
@@ -422,17 +465,37 @@ function mostrarListado() {
       const index = radioButton.name.replace('familiaProductos', '');
       if (radioButton.value === 'Cartoncillo') {
         document.getElementById('cartoncilloListado' + index).style.display = 'block';
+        document.getElementById('mostrarcalidadcartoncillo' + index).style.display = 'block'
       } else if (radioButton.value === 'Contraencolado') {
         document.getElementById('contraencoladoListado' + index).style.display = 'block';
+        document.getElementById('mostrarcalidadcartoncillo' + index).style.display = 'block'
       } else if (radioButton.value === 'Ondulado') {
         document.getElementById('onduladoListado' + index).style.display = 'block';
+        document.getElementById('mostrarcalidadcartoncillo' + index).style.display = 'none'
       }
     }
   });
 }
 
 
+/// motrar calidadcartoncillo
+function mostrarTextoCalidadCartoncillo() {
+  let cartoncillo = document.getElementById("cartoncillo")
+  let contraencolado = document.getElementById("contraencolado")
+  let mostrarTexto = document.getElementById("mostrarcalidadcartoncillo")
 
+  if (cartoncillo.checked || contraencolado.checked) {
+    mostrarTexto.style.display = "block"
+  } else {
+    mostrarTexto.style.display = "none"
+  }
+
+}
+
+// Agregar eventos a los checkboxes
+document.getElementById("cartoncillo").addEventListener("change", mostrarTextoCalidadCartoncillo);
+document.getElementById("contraencolado").addEventListener("change", mostrarTextoCalidadCartoncillo);
+document.getElementById("ondulado").addEventListener("change", mostrarTextoCalidadCartoncillo);
 
 
 /////////////////////////////////////////////////////
@@ -446,9 +509,6 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   const contenedorTiposGenerados = document.getElementById('tiposGenerados');
   const radioDiseñoEstructuralMultipieza = document.getElementById('diseñoEstructuralMultipieza');
-
-
-
 
 
   /// OK   ///
@@ -474,7 +534,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 ////////    final  //
-document.getElementById("enviarTerminar").addEventListener("click", function(event) {
+document.getElementById("enviarTerminar").addEventListener("click", function (event) {
   event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
 
   // Crear el objeto FormData con los datos del formulario
@@ -497,7 +557,7 @@ document.getElementById("enviarTerminar").addEventListener("click", function(eve
     });
 });
 
-document.getElementById("enviarSobreescribir").addEventListener("click", function(event) {
+document.getElementById("enviarSobreescribir").addEventListener("click", function (event) {
   event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
 
   // Crear el objeto FormData con los datos del formulario
@@ -521,11 +581,10 @@ document.getElementById("enviarSobreescribir").addEventListener("click", functio
 });
 
 
-
 //////  envio    ///
 
 function generarPDF() {
-  const { jsPDF } = window.jspdf;
+  const {jsPDF} = window.jspdf;
   const doc = new jsPDF();
 
   // Capturar los datos del formulario
