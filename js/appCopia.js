@@ -121,13 +121,11 @@ function handleAnulaTroquel() {
 
     // Ocultar las opciones de "¿Existe el troquel?" si "Sí" en "Anula troquel" está seleccionado
     opcionesTroquel.style.display = 'none'; // Ocultar las opciones "Sí / No"
-    botonesTroquel.style.display="none"
   } else {
     radioNoAnulaFicha.disabled = false; // Reactiva "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar u ocultar el campo de número de ficha según la selección
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
     opcionesTroquel.style.display = 'block'; // Mostrar las opciones de si existe o no el troquel
-    //botonesTroquel.style.display="block"
     document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
   }
 }
@@ -149,7 +147,6 @@ function handleExisteTroquel() {
     // Si selecciona "Sí" en "¿Existe el troquel?", reactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.disabled = false;
     document.getElementById("acabadosEstructural").style.display="none"
-    botonesTroquel.style.display="block"
   }
 }
 
@@ -164,9 +161,7 @@ const radioNoAnulaTroquel = document.getElementById('noAnulaTroquel');
 const campoTroquel = document.getElementById('contenedorNumeroTroquel');
 
 // Obtener los elementos de "¿Existe el troquel?"
-
 const opcionesTroquel = document.getElementById('opcionesTroquel');
-const botonesTroquel = document.getElementById('botonesTroquel');
 const existeTroquelSi = document.getElementById('existeTroquelSi');
 const existeTroquelNo = document.getElementById('existeTroquelNo');
 const campoNumeroTroquelExistente = document.getElementById('campoNumeroTroquelExistente');
@@ -205,33 +200,18 @@ function generarBloquesTroquel(){
 
   // Crear el contenido HTML para el nuevo bloque
   nuevoBloque.innerHTML = `
-      <label for="numeroTroquelExistente${contadorTroqueles}">Número de troquel:</label>
+      <label for="numeroTroquelExistente">Número de troquel:</label>
       <input class="campotextocorto" type="text" name="numeroTroquelExistente">
 
-      <label for="calidad${contadorTroqueles}">Calidad</label>
-      <input class="campotextomuycorto" type="text" name="calidad${contadorTroqueles}" placeholder="Calidad">
+      <label for="calidad">Calidad</label>
+      <input class="campotextomuycorto" type="text" name="calidad" placeholder="Calidad">
 
-      <label for="canal${contadorTroqueles}">Canal</label>
-      <input class="campotextomuycorto" type="text" name="canal${contadorTroqueles}" placeholder="Canal">
+      <label for="canal">Canal</label>
+      <input class="campotextomuycorto" type="text" name="canal" placeholder="Canal">
 
       <label for="cllo">Cllo</label>
-      <input class="campotextomuycorto" type="text" name="cllo${contadorTroqueles}" placeholder="Cllo">
+      <input class="campotextomuycorto" type="text" name="cllo" placeholder="Cllo">
       <br>
-  <!-- Anula Ficha -->
-  <label for="sianulaFicha${contadorTroqueles}">Anula FF anterior?:</label>
-  <input type="radio" id="siAnulaFicha${contadorTroqueles}" name="anulaFicha" value="Si"> Si
-  </label>
-
-  <label for="noAnulaFicha${contadorTroqueles}">
-    <input type="radio" id="noAnulaFicha${contadorTroqueles}" name="anulaFicha" value="No"> No
-  </label>
-
-  <!-- Campo de texto que se mostrará si "Si" es seleccionado -->
-  <div id="contenedorFicha${contadorTroqueles}" style="display:none;">
-    <label for="numeroficha${contadorTroqueles}">Número de ficha:</label>
-    <input class="campotextocorto" type="text" id="numeroficha${contadorTroqueles}" name="numeroficha">
-  </div>
-  <hr>
     `;
 
   if(contadorTroqueles<20){
@@ -699,6 +679,5 @@ function enviarCorreoConPDF() {
 
 // Llamado inicial para establecer el estado al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById("opcionesTroquel").style.display="none"
+document.getElementById("opcionesTroquel").style.display="none"
 });
-

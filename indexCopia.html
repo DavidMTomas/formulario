@@ -156,7 +156,7 @@
     <input type="radio" id="existeTroquelNo" name="existeTroquel" value="No"> No
 
 
-    <!-- Campo de texto que se mostrará si "Sí" es seleccionado en "¿Existe el troquel?" -->
+  <!-- Campo de texto que se mostrará si "Sí" es seleccionado en "¿Existe el troquel?" -->
     <div id="campoNumeroTroquelExistente" style="display:none;">
       <div class="opcionesNumeroTroquel">
         <label for="numeroTroquelExistente">Número de troquel:</label>
@@ -170,12 +170,12 @@
         <br>
       </div>
 
+      <div id="opcionesNumeroTroquel"></div>
+
+      <button type="button" id="incrementarTroqueles" onclick="generarBloquesTroquel()">Agregar Troquel</button>
+      <button type="button" id="decrementarTroquels" onclick="eliminarBloquesTroquel()">Eliminar Troquel</button>
     </div>
   </div>
-
-<!--// NECESITE CONTADOR PER ALS BOTONEStROQUEL-->
-
-
 
 
   <!-- Anula Ficha -->
@@ -192,15 +192,6 @@
     <label for="numeroficha">Número de ficha:</label>
     <input class="campotextocorto" type="text" id="numeroficha" name="numeroficha">
   </div>
-  <hr>
-
-  <div id="opcionesNumeroTroquel"></div>
-
-  <div id="botonesTroquel" style="display:none;">
-    <button type="button" id="incrementarTroqueles" onclick="generarBloquesTroquel()">Agregar Troquel</button>
-    <button type="button" id="decrementarTroquels" onclick="eliminarBloquesTroquel()">Eliminar Troquel</button>
-  </div>
-
   <hr>
   <h3>Requerimientos:</h3>
   <label for="llevafsc">FSC:</label>

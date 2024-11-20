@@ -205,3 +205,13 @@ hr {
     height: 120px; /* Reducimos el tamaño del textarea en pantallas más pequeñas */
   }
 }
+
+.bloque {
+  display: flex;
+  flex-direction: column;
+}
+.formulario {
+  display: flex;
+  justify-content: space-between; /* Espacio entre los bloques */
+  gap: 20px; /* Distancia entre los bloques */
+}
