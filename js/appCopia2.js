@@ -116,7 +116,7 @@ function handleAnulaTroquel() {
     radioNoAnulaFicha.disabled = true;
     radioNoAnulaFicha.checked = false; // Desmarcar "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar campo de número de ficha
-    document.getElementById("acabadosEstructural").style.display = "block" // nuevo estructural
+   // document.getElementById("acabadosEstructural").style.display="block" // nuevo estructural
 
 
     // Ocultar las opciones de "¿Existe el troquel?" si "Sí" en "Anula troquel" está seleccionado
@@ -128,7 +128,7 @@ function handleAnulaTroquel() {
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
     opcionesTroquel.style.display = 'block'; // Mostrar las opciones de si existe o no el troquel
     //botonesTroquel.style.display="block"
-    document.getElementById("acabadosEstructural").style.display = "none" // no hay nuevo estrurtral
+   // document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
   }
 }
 
@@ -144,11 +144,11 @@ function handleExisteTroquel() {
     radioSiAnulaFicha.disabled = true; // Desactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.checked = false; // Desmarcar "Sí"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Ocultar el campo de número de ficha
-    document.getElementById("acabadosEstructural").style.display = "block"
+    //document.getElementById("acabadosEstructural").style.display="block"
   } else {
     // Si selecciona "Sí" en "¿Existe el troquel?", reactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.disabled = false;
-    document.getElementById("acabadosEstructural").style.display = "none"
+   // document.getElementById("acabadosEstructural").style.display="none"
     //botonesTroquel.style.display="block"
   }
 }
@@ -193,75 +193,105 @@ toggleCampoTexto(radioSiAnulaFicha, campoFicha);
 handleAnulaTroquel();
 
 
-var contadorTroqueles = 1
+ // mostrar dimensiones si anula troquel, si no existe troqueñ
+document.addEventListener('DOMContentLoaded', () => {
+  const anulaTroquelRadios = document.getElementsByName('anulaTroquel');
+  const existeTroquelRadios = document.getElementsByName('existeTroquel');
+  const medidasEstructuralDiv = document.getElementById('medidasEstructural');
 
-// GESTION MOSTRAR TROQUELES ////
-function generarBloquesTroquel() {
+  function verificarCombinacion() {
+    const anulaTroquel = [...anulaTroquelRadios].find(radio => radio.checked)?.value;
+    const existeTroquel = [...existeTroquelRadios].find(radio => radio.checked)?.value;
 
-
-// Contenedor donde se agregarán los bloques dinámicamente
-  const contenedor = document.getElementById('opcionesNumeroTroquel');
-
-  // Crear un nuevo div con la clase 'opcionesNumeroTroquel'
-  const nuevoBloque = document.createElement('div');
-  nuevoBloque.className = `opcionesNumeroTroquel${contadorTroqueles}`;
-
-  // Crear el contenido HTML para el nuevo bloque
-  nuevoBloque.innerHTML = `
-      <label for="numeroTroquelExistente${contadorTroqueles}">Número de troquel:</label>
-      <input class="campotextocorto" type="text" name="numeroTroquelExistente">
-
-      <label for="calidad${contadorTroqueles}">Calidad</label>
-      <input class="campotextomuycorto" type="text" name="calidad${contadorTroqueles}" placeholder="Calidad">
-
-      <label for="canal${contadorTroqueles}">Canal</label>
-      <input class="campotextomuycorto" type="text" name="canal${contadorTroqueles}" placeholder="Canal">
-
-      <label for="cllo">Cllo</label>
-      <input class="campotextomuycorto" type="text" name="cllo${contadorTroqueles}" placeholder="Cllo">
-      <br>
-  <!-- Anula Ficha -->
-  <label for="sianulaFicha${contadorTroqueles}">Anula FF anterior?:</label>
-  <input type="radio" id="siAnulaFicha${contadorTroqueles}" name="anulaFicha" value="Si"> Si
-  </label>
-
-  <label for="noAnulaFicha${contadorTroqueles}">
-    <input type="radio" id="noAnulaFicha${contadorTroqueles}" name="anulaFicha" value="No"> No
-  </label>
-
-  <!-- Campo de texto que se mostrará si "Si" es seleccionado -->
-  <div id="contenedorFicha${contadorTroqueles}" style="display:none;">
-    <label for="numeroficha${contadorTroqueles}">Número de ficha:</label>
-    <input class="campotextocorto" type="text" id="numeroficha${contadorTroqueles}" name="numeroficha">
-  </div>
-  <hr>
-    `;
-
-  if (contadorTroqueles < 20) {
-    // Agregar el nuevo bloque al contenedor
-    contenedor.appendChild(nuevoBloque);
-    contadorTroqueles++;
-  } else {
-    alert("Alcanzado limite, si necesita añadir mas troqueles consulte a su gestor")
+    // Mostrar el div si la combinación es la requerida
+    if (anulaTroquel === 'Si' || existeTroquel === 'No') {
+      medidasEstructuralDiv.style.display = 'block';
+    } else {
+      medidasEstructuralDiv.style.display = 'none';
+    }
   }
 
-}
+  // Añadir eventos a los botones de radio
+  [...anulaTroquelRadios, ...existeTroquelRadios].forEach(radio => {
+    radio.addEventListener('change', verificarCombinacion);
+  });
+});
 
 
-// Función para eliminar el último bloque
-function eliminarBloquesTroquel() {
-  // Contenedor donde se agregarán los bloques dinámicamente
-  const contenedor = document.getElementById(`opcionesNumeroTroquel`);
-  // Verificar si hay bloques para eliminar
-  if (contenedor.lastChild) {
-    contenedor.removeChild(contenedor.lastChild);
-    contadorTroqueles--;
-  }
-}
+//evento mostrar numero de mumesstras
+document.getElementById('checkDiseñoEstructural').addEventListener('change', function () {
+  const campoNumeroMuestras = document.getElementById('mostrarDesplegableMuestras');
+  campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
+});
+
+// var contadorTroqueles=1
+// // GESTION MOSTRAR TROQUELES ////
+// function generarBloquesTroquel(){
+//
+//
+//
+// // Contenedor donde se agregarán los bloques dinámicamente
+//   const contenedor = document.getElementById('opcionesNumeroTroquel');
+//
+//   // Crear un nuevo div con la clase 'opcionesNumeroTroquel'
+//   const nuevoBloque = document.createElement('div');
+//   nuevoBloque.className = `opcionesNumeroTroquel${contadorTroqueles}`;
+//
+//   // Crear el contenido HTML para el nuevo bloque
+//   nuevoBloque.innerHTML = `
+//       <label for="numeroTroquelExistente${contadorTroqueles}">Número de troquel:</label>
+//       <input class="campotextocorto" type="text" name="numeroTroquelExistente">
+// <!--
+//       <label for="calidad${contadorTroqueles}">Calidad</label>
+//       <input class="campotextomuycorto" type="text" name="calidad${contadorTroqueles}" placeholder="Calidad">
+//
+//       <label for="canal${contadorTroqueles}">Canal</label>
+//       <input class="campotextomuycorto" type="text" name="canal${contadorTroqueles}" placeholder="Canal">
+//
+//       <label for="cllo">Cllo</label>
+//       <input class="campotextomuycorto" type="text" name="cllo${contadorTroqueles}" placeholder="Cllo">
+//     -->
+//       <br>
+//   <!-- Anula Ficha -->
+//   <label for="sianulaFicha${contadorTroqueles}">Anula FF anterior?:</label>
+//   <input type="radio" id="siAnulaFicha${contadorTroqueles}" name="anulaFicha" value="Si"> Si
+//   </label>
+//
+//   <label for="noAnulaFicha${contadorTroqueles}">
+//     <input type="radio" id="noAnulaFicha${contadorTroqueles}" name="anulaFicha" value="No"> No
+//   </label>
+//
+//   <!-- Campo de texto que se mostrará si "Si" es seleccionado -->
+//   <div id="contenedorFicha${contadorTroqueles}" style="display:none;">
+//     <label for="numeroficha${contadorTroqueles}">Número de ficha:</label>
+//     <input class="campotextocorto" type="text" id="numeroficha${contadorTroqueles}" name="numeroficha">
+//   </div>
+//   <hr>
+//     `;
+//
+//   if(contadorTroqueles<20){
+//     // Agregar el nuevo bloque al contenedor
+//     contenedor.appendChild(nuevoBloque);
+//     contadorTroqueles++;
+//   }else{
+//     alert("Alcanzado limite, si necesita añadir mas troqueles consulte a su gestor")
+//   }
+//
+// }
+
+// // Función para eliminar el último bloque
+// function eliminarBloquesTroquel() {
+//   // Contenedor donde se agregarán los bloques dinámicamente
+//   const contenedor = document.getElementById(`opcionesNumeroTroquel`);
+//   // Verificar si hay bloques para eliminar
+//   if (contenedor.lastChild) {
+//     contenedor.removeChild(contenedor.lastChild);
+//     contadorTroqueles--;
+//   }
+// }
 
 
-const siAnulaTroquel = document.getElementById('siAnulaTroquel');
-const noAnulaTroquel = document.getElementById('noAnulaTroquel');
+
 
 
 /////   REQUERIMIENTOS  //////
@@ -278,6 +308,18 @@ document.getElementById('rejillas').addEventListener('change', function () {
 });
 
 
+
+
+document.getElementById("paletizado").addEventListener("change", function(){
+  const paletizado = document.getElementById("paletizado");
+  const mostrarPaletizado = document.getElementById("mostrarPaletizado");
+  if(paletizado.value === "especificar"){
+    mostrarPaletizado.style.display = "block";
+  } else {
+    mostrarPaletizado.style.display = "none";
+  }
+});
+
 /////// ACABADOS    /////
 
 
@@ -285,6 +327,11 @@ document.getElementById('rejillas').addEventListener('change', function () {
 // Obtener los radio buttons y el contenedor del número de tipos
 const opcionesDiseño = document.getElementsByName('tipoDiseño');
 const numTiposContainer = document.getElementById('numTiposContainer');
+
+
+
+
+
 
 
 // Función para mostrar u ocultar el contenedor de número de tipos
@@ -412,6 +459,18 @@ function generarBloques() {
     <label for="ondulado${contadorTipos}">
       <input type="radio" id="ondulado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Ondulado" onchange="mostrarListado(${contadorTipos})"> Ondulado
     </label>
+    <br>
+     <label for="calidad${contadorTipos}">Calidad</label>
+    <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad"/>
+
+    <label for="canal${contadorTipos}">Canal</label>
+    <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal"/>
+
+    <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
+    <label for="cllo${contadorTipos}">Cllo</label>
+    <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo"/>
+    </div>
+
 
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
@@ -459,16 +518,7 @@ function generarBloques() {
     </div>
 
        <br>
-    <label for="calidad${contadorTipos}">Calidad</label>
-    <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad"/>
 
-    <label for="canal${contadorTipos}">Canal</label>
-    <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal"/>
-
-    <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
-    <label for="cllo${contadorTipos}">Cllo</label>
-    <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo"/>
-    </div>
     <hr>
   `;
 
@@ -701,8 +751,9 @@ function enviarCorreoConPDF() {
 }
 
 
+
 // Llamado inicial para establecer el estado al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById("opcionesTroquel").style.display = "none"
+  document.getElementById("opcionesTroquel").style.display="none"
 });
 
