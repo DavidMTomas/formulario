@@ -77,7 +77,7 @@
   <hr>
   <h3>Informacion adicional</h3>
   <!-- Desplegable con checkbox -->
-  <label for="productosBtn">Tipo de documentación aportada:</label>
+  <label for="productosBtn">Tipo de documentación aportada:
   <div class="dropdown">
     <button type="button" id="productosBtn">Seleccionar</button>
     <div class="dropdown-content">
@@ -105,6 +105,7 @@
       </label>
     </div>
   </div>
+  </label>
 
   <!-- Espacio para mostrar los productos seleccionados automáticamente -->
   <div id="resultados"></div>
@@ -112,7 +113,7 @@
 
   <!-- Anula Troquel -->
   <label for="siAnulaTroquel">Anula troquel?:</label>
-  <input type="radio" id="siAnulaTroquel" name="anulaTroquel" value="Si"> Sí
+  <input type="radio" id="siAnulaTroquel" name="anulaTroquel" value="Si" required> Sí
   </label>
   <label for="noAnulaTroquel">
     <input type="radio" id="noAnulaTroquel" name="anulaTroquel" value="No"> No
@@ -133,13 +134,13 @@
   <div id="opcionesTroquel" style="display:none;">
     <br>
     <label for="existeTroquelSi">¿Existe el troquel? </label>
-    <input type="radio" id="existeTroquelSi" name="existeTroquel" value="Si"> Sí
+    <input type="radio" id="existeTroquelSi" name="existeTroquel" value="Si" required checked> Sí
     <label for="existeTroquelNo"></label>
-    <input type="radio" id="existeTroquelNo" name="existeTroquel" value="No" checked> No
+    <input type="radio" id="existeTroquelNo" name="existeTroquel" value="No"> No
 
 
     <!-- Campo de texto que se mostrará si "Sí" es seleccionado en "¿Existe el troquel?" -->
-    <div id="campoNumeroTroquelExistente" style="display:none;">
+    <div id="campoNumeroTroquelExistente" style="display:block;">
       <div class="opcionesNumeroTroquel">
         <label for="numeroTroquelExistente">Número de troquel:</label>
         <input class="campotextocorto" type="text" id="numeroTroquelExistente" name="numeroTroquelExistente">
@@ -183,6 +184,8 @@
 
   <hr>
   <h3>Requerimientos:</h3>
+
+  <h4>ESTRUCTURAL</h4>
   <label for="llevafsc">FSC:</label>
   <input type="checkbox" id="llevafsc" name="llevafsc">
 
@@ -213,6 +216,11 @@
   </th>
   </tr>
 </table>
+
+
+    <label for="archivoAdjunto">Archivo adjunto con medidas:
+    <input type="checkbox" id="archivoAdjunto" name="archivoAdjunto">
+    </label>
   </div>
 
   <br>
@@ -270,13 +278,13 @@
     <option value="twinpack">twin pack</option>
   </select>
 
-  <label for=checkFichaTecnica>Ficha tecnica laboratotio</label>
-  <input type="checkbox" name="checkFichaTecnica" id="checkFichaTecnica">
+
 
   <!-- Opciones comunes para todos los tipos de acabado -->
   <div id="opcionesComunesSimple">
-    <label for="checkDiseñoEstructural">Diseño estructural</label>
+    <label for="checkDiseñoEstructural">Diseño estructural
     <input type="checkbox" name="checkDiseñoEstrutural" id="checkDiseñoEstructural">
+    </label>
 
     <div id="mostrarDesplegableMuestras" style="display: none">
     <label for="muestraExtra">Numero de muestras</label>
@@ -295,7 +303,150 @@
     </div>
   </div>
 
+  <h4>IMPRESION</h4>
 
+  <table class="estiloImpresion">
+    <thead>
+    <tr>
+      <th>Boceto</th>
+      <th>Plotter</th>
+      <th>Muestra Forrada</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><input type="checkbox" name="boceto" id="boceto" onclick="toggleDropdown('mostrarDesplegableboceto')"></td>
+      <td><input type="checkbox" name="plotter" id="plotter" onclick="toggleDropdown('mostrarDesplegableplotter')"></td>
+      <td><input type="checkbox" name="muestraforrada" id="muestraforrada" onclick="toggleDropdown('mostrarDesplegableforrada')"></td>
+    </tr>
+    <tr>
+      <td>
+        <div id="mostrarDesplegableboceto" class="dropdown">
+          <label for="bocetoExtra">Número de bocetos:</label>
+          <input type="number" id="bocetoExtra" name="bocetoExtra" min="0" value="0" onchange="updateMuestra('boceto')">
+        </div>
+      </td>
+      <td>
+        <div id="mostrarDesplegableplotter" class="dropdown">
+          <label for="plotterExtra">Número de plotters:</label>
+          <input type="number" id="plotterExtra" name="plotterExtra" min="0" value="0" onchange="updateMuestra('plotter')">
+        </div>
+      </td>
+      <td>
+        <div id="mostrarDesplegableforrada" class="dropdown">
+          <label for="forradaExtra">Número de muestras forradas:</label>
+          <input type="number" id="forradaExtra" name="forradaExtra" min="0" value="0" onchange="updateMuestra('forrada')">
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h4>ENVIO</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div id="seccionEnvios">
+    <div class="envio">
+      <h4>Dirección 1</h4>
+      <label>
+        Persona de contacto:
+        <input type="text" name="personaContacto[]" required>
+      </label>
+      <label>
+        Teléfono:
+        <input type="text" name="telefono[]" required>
+      </label>
+      <label>
+        Dirección:
+        <input type="text" name="direccion[]" required>
+      </label>
+      <label>
+        Código Postal:
+        <input type="text" name="codigoPostal[]" required>
+      </label>
+      <label>
+        Ciudad:
+        <input type="text" name="ciudad[]" required>
+      </label>
+      <label>
+        País:
+        <input type="text" name="pais[]" required>
+      </label>
+      <label>
+        Bocetos a enviar:
+        <input type="number" name="bocetos[]" min="0" value="0">
+      </label>
+      <label>
+        Plotters a enviar:
+        <input type="number" name="plotters[]" min="0" value="0">
+      </label>
+      <label>
+        Muestras forradas a enviar:
+        <input type="number" name="muestrasForradas[]" min="0" value="0">
+      </label>
+    </div>
+  </div>
+
+  <!-- Botón para añadir más direcciones -->
+  <button type="button" id="agregarDireccion">Añadir dirección</button>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--prova
+ &ndash;&gt;-->
+<!--  <div class="envio">-->
+<!--    <label for="nombrePersonaContactoEnvio">Persona de contacto:-->
+<!--    <input type="text" id="nombrePersonaContactoEnvio">-->
+<!--    </label>-->
+<!--    <label for="telefonoPersonaContactoEnvio">Telefono:-->
+<!--      <input type="text" id="telefonoPersonaContactoEnvio">-->
+<!--    </label>-->
+<!--    <label for="direccionPersonaContactoEnvio">Direccion:-->
+<!--      <input type="text" id="direccionPersonaContactoEnvio">-->
+<!--    </label>-->
+<!--    <label for="codigoPostalPersonaContactoEnvio">Codigo Postal:-->
+<!--      <input type="text" id="codigoPostalPersonaContactoEnvio">-->
+<!--    </label>-->
+<!--    <label for="ciudadPersonaContactoEnvio">Ciudad:-->
+<!--      <input type="text" id="ciudadPersonaContactoEnvio">-->
+<!--    </label>-->
+<!--    <label for="paisPersonaContactoEnvio">Pais:-->
+<!--      <input type="text" id="paisPersonaContactoEnvio">-->
+<!--    </label>-->
+<!--  </div>-->
+
+
+
+  <h4>OTROS</h4>
+
+  <label for=checkFichaTecnica>Ficha tecnica laboratotio
+  <input type="checkbox" name="checkFichaTecnica" id="checkFichaTecnica">
+  </label>
+
+
+
+  <h4>CAPE</h4>
   <label for="paletizado">Paletizado:</label>
   <select id="paletizado" name="paletizado">
     <option value="aConvenir">A convenir</option>

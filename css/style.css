@@ -215,3 +215,28 @@ hr {
   justify-content: space-between; /* Espacio entre los bloques */
   gap: 20px; /* Distancia entre los bloques */
 }
+
+
+.estiloImpresion {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.estiloImpresion th, .estiloImpresion td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.estiloImpresion th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+

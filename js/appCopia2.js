@@ -218,11 +218,172 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//evento mostrar numero de mumesstras
+//evento mostrar numero de mumestras
 document.getElementById('checkDiseñoEstructural').addEventListener('change', function () {
   const campoNumeroMuestras = document.getElementById('mostrarDesplegableMuestras');
   campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
 });
+
+
+// document.getElementById('boceto').addEventListener('change', function () {
+//   const campoNumeroMuestras = document.getElementById('mostrarDesplegableboceto');
+//   campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
+// });
+//
+// document.getElementById('plotter').addEventListener('change', function () {
+//   const campoNumeroMuestras = document.getElementById('mostrarDesplegableplotter');
+//   campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
+// });
+//
+// document.getElementById('muestraforrada').addEventListener('change', function () {
+//   const campoNumeroMuestras = document.getElementById('mostrarDesplegableforrada');
+//   campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
+// });
+
+
+
+
+
+document.getElementById("agregarDireccion").addEventListener("click", function () {
+  const seccionEnvios = document.getElementById("seccionEnvios");
+
+  // Crear un nuevo contenedor para otra dirección
+  const nuevaDireccion = document.createElement("div");
+  nuevaDireccion.className = "envio";
+
+  nuevaDireccion.innerHTML = `
+    <h4>Dirección ${seccionEnvios.children.length + 1}</h4>
+    <label>
+      Persona de contacto:
+      <input type="text" name="personaContacto[]" required>
+    </label>
+    <label>
+      Teléfono:
+      <input type="text" name="telefono[]" required>
+    </label>
+    <label>
+      Dirección:
+      <input type="text" name="direccion[]" required>
+    </label>
+    <label>
+      Código Postal:
+      <input type="text" name="codigoPostal[]" required>
+    </label>
+    <label>
+      Ciudad:
+      <input type="text" name="ciudad[]" required>
+    </label>
+    <label>
+      País:
+      <input type="text" name="pais[]" required>
+    </label>
+    <label>
+      Bocetos a enviar:
+      <input type="number" name="bocetos[]" min="0" value="0">
+    </label>
+    <label>
+      Plotters a enviar:
+      <input type="number" name="plotters[]" min="0" value="0">
+    </label>
+    <label>
+      Muestras forradas a enviar:
+      <input type="number" name="muestrasForradas[]" min="0" value="0">
+    </label>
+  `;
+
+  // Agregar el nuevo contenedor al formulario
+  seccionEnvios.appendChild(nuevaDireccion);
+});
+
+document.getElementById("formEnvio").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const formData = new FormData(this);
+
+  // Recolectar datos para cada dirección
+  const direcciones = [];
+  const cantidadDirecciones = document.querySelectorAll(".envio").length;
+
+  for (let i = 0; i < cantidadDirecciones; i++) {
+    direcciones.push({
+      personaContacto: formData.getAll("personaContacto[]")[i],
+      telefono: formData.getAll("telefono[]")[i],
+      direccion: formData.getAll("direccion[]")[i],
+      codigoPostal: formData.getAll("codigoPostal[]")[i],
+      ciudad: formData.getAll("ciudad[]")[i],
+      pais: formData.getAll("pais[]")[i],
+      bocetos: parseInt(formData.getAll("bocetos[]")[i], 10),
+      plotters: parseInt(formData.getAll("plotters[]")[i], 10),
+      muestrasForradas: parseInt(formData.getAll("muestrasForradas[]")[i], 10),
+    });
+  }
+
+  console.log("Detalles de Envíos:", direcciones);
+
+  // Aquí puedes generar el PDF o enviar los datos al servidor
+});
+
+
+//prova 1 inici
+
+//
+// // Almacenar datos globales
+// let muestras = {
+//   boceto: 0,
+//   plotter: 0,
+//   forrada: 0,
+// };
+//
+// function toggleDropdown(id) {
+//   const element = document.getElementById(id);
+//   element.style.display = element.style.display === "none" || element.style.display === "" ? "block" : "none";
+// }
+//
+// function updateMuestra(tipo) {
+//   const cantidad = document.getElementById(tipo + "Extra").value;
+//   muestras[tipo] = parseInt(cantidad) || 0;
+// }
+//
+// function addEnvio() {
+//   const enviosContainer = document.getElementById('enviosContainer');
+//
+//   // Crear contenedor de envío
+//   const envioCard = document.createElement('div');
+//   envioCard.classList.add('envio-card');
+//
+//   envioCard.innerHTML = `
+//     <h5>Detalles de Envío</h5>
+//     <label>Persona de contacto:
+//       <input type="text" name="nombreContacto" placeholder="Nombre">
+//     </label>
+//     <label>Teléfono:
+//       <input type="text" name="telefonoContacto" placeholder="Teléfono">
+//     </label>
+//     <label>Dirección:
+//       <input type="text" name="direccionContacto" placeholder="Dirección">
+//     </label>
+//     <label>Código Postal:
+//       <input type="text" name="codigoPostal" placeholder="Código Postal">
+//     </label>
+//     <label>Ciudad:
+//       <input type="text" name="ciudadContacto" placeholder="Ciudad">
+//     </label>
+//     <label>País:
+//       <input type="text" name="paisContacto" placeholder="País">
+//     </label>
+//     <label>Bocetos a enviar: <strong>${muestras.boceto}</strong></label>
+//     <label>Plotters a enviar: <strong>${muestras.plotter}</strong></label>
+//     <label>Muestras forradas a enviar: <strong>${muestras.forrada}</strong></label>
+//   `;
+//
+//   // Agregar tarjeta de envío
+//   enviosContainer.appendChild(envioCard);
+// }
+
+
+//  prova 1 final
+
+
 
 // var contadorTroqueles=1
 // // GESTION MOSTRAR TROQUELES ////
