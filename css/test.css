@@ -1,0 +1,184 @@
+/* General */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f6f9;
+  padding: 20px;
+  color: #333;
+  line-height: 1.6;
+}
+
+
+form {
+  max-width: 1200px; /* Ampliamos el ancho para usar mejor la pantalla */
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h3, h4 {
+  color: #1a202c;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h4 {
+  font-size: 1.4rem;
+  margin-top: 20px;
+}
+
+/* Formularios */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+
+
+/* Inputs con tamaño específico */
+.input-corto {
+  flex: 1 1 30%; /* Ocupa el 30% del ancho */
+}
+
+.input-intermedio {
+  flex: 1 1 30%; /* Ocupa el 50% del ancho */
+}
+
+/* Ajusta los anchos relativos considerando el gap */
+.input-medio {
+  flex: 1 1 calc(50% - 10px);
+}
+
+.input-largo {
+  flex: 1 1 100%; /* Ocupa toda la fila */
+}
+
+.input-checkbox {
+  display: flex;
+  flex-direction: column; /* Apilar los elementos en una columna (vertical) */
+  gap: 10px; /* Espacio entre los elementos */
+}
+
+.input-checkbox label {
+  font-size: 16px; /* Tamaño de fuente */
+  color: #333; /* Color del texto */
+  font-weight: 500; /* Peso de fuente */
+  display: block; /* Asegura que los labels se muestren en su propia línea */
+}
+
+.input-checkbox input[type="radio"] {
+  margin-right: 5px; /* Espacio entre el radio button y el texto */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+label {
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Botones */
+button[type="submit"], button[type="button"] {
+  background-color: #0056b3;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #003d80;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Tablas */
+.estiloTabla {
+  border-collapse: collapse;
+  width: 100%; /* Ahora ocupa todo el ancho */
+  margin: 20px 0;
+}
+
+.estiloTabla th, .estiloTabla td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.estiloTabla th {
+  background-color: #1a202c;
+  color: white;
+  font-size: 1rem;
+}
+
+.estiloTabla td {
+  font-size: 0.9rem;
+}
+
+/* Diseño Responsivo */
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+
+  .input-corto, .input-medio {
+    flex: 1 1 100%; /* Inputs ocupan toda la fila en pantallas pequeñas */
+  }
+
+  button {
+    width: 100%;
+  }
+
+  textarea {
+    height: 80px;
+  }
+}
+
+/* Asegura que el padding y el borde no afecten el ancho */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+

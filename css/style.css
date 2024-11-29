@@ -7,7 +7,6 @@ body {
 }
 
 form {
-  max-width: 900px;
   margin: 0 auto;
   padding: 30px;
   background-color: #fff;
@@ -53,47 +52,33 @@ input[type="text"], input[type="email"], input[type="number"], textarea, select 
   margin: 0;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 1em;
+  font-size: 1.2em;
   box-sizing: border-box;
   background-color: #f9f9f9;
 }
 
 input[type="radio"], input[type="checkbox"] {
   margin-right: 12px;
+  transform: scale(1.2); /* Aumenta el tamaño del checkbox */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
 }
 
-textarea {
-  height: 150px;
-  resize: vertical;
+/* Estilo para los checkboxes */
+input[type="checkbox"] {
+  margin-right: 10px; /* Añade espacio a la derecha del checkbox */
+  transform: scale(1.2); /* Aumenta ligeramente el tamaño del checkbox */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
 }
 
-label {
-  font-size: 1em;
-  color: #7f8c8d;
-  margin-bottom: 8px;
-  display: block;
+/* Estilo cuando el checkbox está seleccionado */
+input[type="checkbox"]:checked + label {
+  color: #3498db; /* Cambia el color de la etiqueta cuando el checkbox está seleccionado */
 }
 
-/* Botones */
-button[type="submit"], button[type="button"] {
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  padding: 12px 25px;
-  margin: 15px 0;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1em;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button[type="submit"]:hover, button[type="button"]:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
-}
-
-button[type="submit"]:active, button[type="button"]:active {
-  transform: translateY(1px);
+/* Opcional: Estilo de los checkbox cuando están seleccionados */
+input[type="checkbox"]:checked {
+  background-color: #3498db; /* Cambia el color de fondo cuando está marcado */
+  border-color: #3498db; /* Cambia el borde cuando está marcado */
 }
 
 /* Estilo de Dropdown */
@@ -105,7 +90,7 @@ button[type="submit"]:active, button[type="button"]:active {
 .dropdown button {
   padding: 12px 25px;
   font-size: 1em;
-  background-color: #27ae60;
+  background-color: #27ae60; /* Color verde para el dropdown */
   color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -144,6 +129,28 @@ button[type="submit"]:active, button[type="button"]:active {
   background-color: #f1f1f1;
 }
 
+/* Botones en azul (cambio global) */
+button {
+  padding: 12px 25px;
+  font-size: 1em;
+  background-color: #3498db; /* Cambié a azul */
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-right: 10px; /* Añadí un margen para separar los botones */
+}
+
+button:hover {
+  background-color: #2980b9; /* Cambié el color de hover a un azul más oscuro */
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Añadí una sombra al hacer hover */
+}
+
+button:active {
+  transform: translateY(2px); /* Efecto visual al hacer click */
+}
+
 /* Estilo de los campos de opción (radio, checkbox) */
 input[type="radio"]:checked + label,
 input[type="checkbox"]:checked + label {
@@ -155,24 +162,45 @@ div {
   margin-bottom: 30px;
 }
 
-.campotextocorto {
-  width: 100%;
-  padding: 10px;
-  margin: 12px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1em;
-  max-width: 300px;
+/* Inputs con tamaño específico */
+.input-corto {
+  flex: 1 1 10%; /* Ocupa el 30% del ancho */
+  max-width: 120px;
+  min-width: 50px;
+}
+.input-intermedio {
+  flex: 1 1 18%; /* Ocupa el 50% del ancho */
+  max-width: 200px;
+  min-width: 50px;
 }
 
-.campotextomuycorto {
-  width: 100%;
-  padding: 10px;
-  margin: 12px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1em;
-  max-width: 150px;
+.input-medio {
+  flex: 1 1 25%; /* Ocupa el 50% del ancho */
+  max-width: 500px;
+  min-width: 200px;
+}
+
+.input-largo {
+  flex: 1 1 50%; /* Ocupa toda la fila */
+  max-width: 300px;
+  min-width: 100px;
+}
+
+.input-checkbox {
+  display: flex;
+  flex-direction: column; /* Apilar los elementos en una columna (vertical) */
+  gap: 10px; /* Espacio entre los elementos */
+}
+
+.input-checkbox label {
+  font-size: 16px; /* Tamaño de fuente */
+  color: #333; /* Color del texto */
+  font-weight: 500; /* Peso de fuente */
+  display: block; /* Asegura que los labels se muestren en su propia línea */
+}
+
+.input-checkbox input[type="radio"] {
+  margin-right: 5px; /* Espacio entre el radio button y el texto */
 }
 
 .input-20chars::placeholder {
@@ -197,6 +225,16 @@ hr {
     width: 100%;
   }
 
+  button[type="button"]:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+
+  button[type="button"]:active {
+    background-color: #003d80;
+    transform: translateY(2px);
+  }
+
   .dropdown button {
     width: 100%;
   }
@@ -210,26 +248,29 @@ hr {
   display: flex;
   flex-direction: column;
 }
+
 .formulario {
   display: flex;
   justify-content: space-between; /* Espacio entre los bloques */
   gap: 20px; /* Distancia entre los bloques */
 }
 
-
-.estiloImpresion {
+/* Estilo para las tablas */
+.estiloTabla {
   border-collapse: collapse;
   width: 100%;
-  text-align: center;
+  text-align: center; /* Centra horizontalmente el texto */
   margin-top: 20px;
 }
 
-.estiloImpresion th, .estiloImpresion td {
+.estiloTabla th, .estiloTabla td {
   border: 1px solid #ddd;
   padding: 10px;
+  vertical-align: middle; /* Centra verticalmente el contenido */
+  text-align: center; /* Centra horizontalmente el contenido */
 }
 
-.estiloImpresion th {
+.estiloTabla th {
   background-color: #f2f2f2;
   color: #333;
 }
@@ -239,4 +280,84 @@ label {
   font-weight: bold;
 }
 
+.custom-spinner {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos */
+  justify-content: center; /* Alinea horizontalmente los elementos */
+}
 
+.custom-spinner button {
+  font-size: 1.5rem;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.custom-spinner input[type="number"] {
+  font-size: 2rem; /* Aumenta el tamaño de la fuente */
+  text-align: center;
+  width: 100px; /* Aumenta el ancho del input para que se vea mejor */
+  padding: 0.5em; /* Añade un poco de relleno interno para mayor espacio */
+  margin: 0 5px; /* Añade margen para separar el input de los botones */
+}
+
+#onduladoListado label {
+  display: inline-flex; /* Alinea el botón de radio y la etiqueta en línea */
+  align-items: center; /* Centra verticalmente el texto con el radio button */
+  margin-right: 15px; /* Espacio entre los radio buttons */
+}
+
+#onduladoListado input[type="radio"] {
+  margin-right: 5px; /* Espacio entre el botón de radio y el texto */
+}
+
+/* Estilo básico para el fieldset */
+fieldset {
+  border: 2px solid #3498db; /* Borde azul */
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Color de fondo */
+  margin: 20px 0; /* Espacio entre fieldsets */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilo del legend (el texto dentro del fieldset) */
+fieldset legend {
+  font-size: 1.4em;
+  color: #2c3e50; /* Color del texto */
+  font-weight: bold;
+  padding: 0 10px; /* Espacio alrededor del texto */
+  background-color: #3498db; /* Fondo del legend */
+  color: white;
+  border-radius: 5px;
+}
+
+/* Estilo para el contenido dentro del fieldset */
+fieldset > div {
+  margin-bottom: 15px;
+}
+
+/* Opcional: Hacer que los inputs dentro del fieldset ocupen todo el ancho */
+fieldset input, fieldset textarea, fieldset select {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1.1em;
+  box-sizing: border-box; /* Ajuste de padding y border */
+}
+
+/* Opcional: Estilo cuando el campo está enfocado */
+fieldset input:focus, fieldset textarea:focus, fieldset select:focus {
+  border-color: #3498db;
+  outline: none; /* Elimina el contorno predeterminado */
+}
+
+#nombreCliente {
+  flex: 1 1 auto; /* Ocupará el espacio disponible */
+  transition: flex 0.3s ease; /* Animación suave */
+}
+
+#campoNumeroCliente {
+  display: flex; /* Mantiene el flujo de flexbox */
+  flex: 1 1 auto; /* Tamaño normal */
+  transition: all 0.3s ease; /* Animación para mostrar/ocultar */
+}

@@ -2,7 +2,6 @@
 
 ///INICIO /////
 
-
 // Obtener la fecha y hora actual
 const ahora = new Date();
 
@@ -34,6 +33,7 @@ document.getElementById('petcicionComercial').addEventListener('submit', functio
   // Enviar datos o realizar otra acción
   alert('Formulario enviado correctamente');
 });
+
 
 /////////////////////////////////////////////////////
 // Obtenemos el checkbox, el campo numeroCliente y la etiqueta del número
@@ -89,7 +89,7 @@ function mostrarSeleccion() {
   });
 
   // Mostrar los valores seleccionados en el contenedor de resultados
-  document.getElementById('resultados').innerHTML =
+  document.getElementById('totalDocAportada').innerHTML =
     ' ·' + selectedValues.join('<br> ·');
 }
 
@@ -102,6 +102,7 @@ document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(fu
 // Función general para mostrar/ocultar el campo de texto
 function toggleCampoTexto(radioSi, campoTexto) {
   campoTexto.style.display = radioSi.checked ? 'block' : 'none';
+  campoTexto.required = !!radioSi.checked;
 }
 
 // Función para gestionar el caso especial de "Anula troquel"
@@ -116,7 +117,7 @@ function handleAnulaTroquel() {
     radioNoAnulaFicha.disabled = true;
     radioNoAnulaFicha.checked = false; // Desmarcar "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar campo de número de ficha
-   // document.getElementById("acabadosEstructural").style.display="block" // nuevo estructural
+    // document.getElementById("acabadosEstructural").style.display="block" // nuevo estructural
 
 
     // Ocultar las opciones de "¿Existe el troquel?" si "Sí" en "Anula troquel" está seleccionado
@@ -128,7 +129,7 @@ function handleAnulaTroquel() {
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
     opcionesTroquel.style.display = 'block'; // Mostrar las opciones de si existe o no el troquel
     //botonesTroquel.style.display="block"
-   // document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
+    // document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
   }
 }
 
@@ -148,7 +149,7 @@ function handleExisteTroquel() {
   } else {
     // Si selecciona "Sí" en "¿Existe el troquel?", reactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.disabled = false;
-   // document.getElementById("acabadosEstructural").style.display="none"
+    // document.getElementById("acabadosEstructural").style.display="none"
     //botonesTroquel.style.display="block"
   }
 }
@@ -193,7 +194,7 @@ toggleCampoTexto(radioSiAnulaFicha, campoFicha);
 handleAnulaTroquel();
 
 
- // mostrar dimensiones si anula troquel, si no existe troqueñ
+// mostrar dimensiones si anula troquel, si no existe troqueñ
 document.addEventListener('DOMContentLoaded', () => {
   const anulaTroquelRadios = document.getElementsByName('anulaTroquel');
   const existeTroquelRadios = document.getElementsByName('existeTroquel');
@@ -218,34 +219,72 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//evento mostrar numero de mumestras
-document.getElementById('checkDiseñoEstructural').addEventListener('change', function () {
-  const campoNumeroMuestras = document.getElementById('mostrarDesplegableMuestras');
-  campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
+//MAQUETA -- IMPRESIONES
+// Función para mostrar/ocultar el div de los botones de incremento/decremento
+function toggleDropdown(divId) {
+  const dropdown = document.getElementById(divId);
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+
+// Función para incrementar el valor del input numérico
+function increment(inputId) {
+  const input = document.getElementById(inputId);
+  input.stepUp();
+}
+
+
+// Función para decrementar el valor del input numérico
+function decrement(inputId) {
+  const input = document.getElementById(inputId);
+  input.stepDown();
+}
+
+// FIN MAQUETA -- IMPRESIONES
+
+
+// DIRECCIONES DE ENVIO
+
+window.addEventListener('DOMContentLoaded', function () {
+  // Obtener los valores seleccionados de las tablas Maqueta e Impresión
+  const maxMaquetas = parseInt(document.getElementById("muestraExtra").value, 10) || 0;
+  const maxBocetos = parseInt(document.getElementById("bocetoExtra").value, 10) || 0;
+  const maxPlotters = parseInt(document.getElementById("plotterExtra").value, 10) || 0;
+  const maxMuestrasForradas = parseInt(document.getElementById("forradaExtra").value, 10) || 0;
+
+  // Iniciar los valores máximos en los inputs de envío
+  const inputsMaquetas = document.querySelectorAll('input[name="maquetass[]"]');
+  const inputsBocetos = document.querySelectorAll('input[name="bocetos[]"]');
+  const inputsPlotters = document.querySelectorAll('input[name="plotters[]"]');
+  const inputsMuestrasForradas = document.querySelectorAll('input[name="muestrasForradas[]"]');
+
+  // Establecer los valores iniciales de max y value en los campos de entrada
+  inputsMaquetas.forEach(input => {
+    input.max = maxMaquetas; // modificar logica
+    input.value = maxMaquetas; // Establecer el valor inicial
+  });
+  inputsBocetos.forEach(input => {
+    input.max = maxBocetos;
+    input.value = maxBocetos; // Establecer el valor inicial
+  });
+  inputsPlotters.forEach(input => {
+    input.max = maxPlotters;
+    input.value = maxPlotters; // Establecer el valor inicial
+  });
+  inputsMuestrasForradas.forEach(input => {
+    input.max = maxMuestrasForradas;
+    input.value = maxMuestrasForradas; // Establecer el valor inicial
+  });
 });
-
-
-// document.getElementById('boceto').addEventListener('change', function () {
-//   const campoNumeroMuestras = document.getElementById('mostrarDesplegableboceto');
-//   campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
-// });
-//
-// document.getElementById('plotter').addEventListener('change', function () {
-//   const campoNumeroMuestras = document.getElementById('mostrarDesplegableplotter');
-//   campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
-// });
-//
-// document.getElementById('muestraforrada').addEventListener('change', function () {
-//   const campoNumeroMuestras = document.getElementById('mostrarDesplegableforrada');
-//   campoNumeroMuestras.style.display = this.checked ? 'block' : 'none';
-// });
-
-
-
-
 
 document.getElementById("agregarDireccion").addEventListener("click", function () {
   const seccionEnvios = document.getElementById("seccionEnvios");
+
+  // Obtener los valores máximos de la tabla anterior
+  const maxMaquetas = parseInt(document.getElementById("muestraExtra").value, 10) || 0;
+  const maxBocetos = parseInt(document.getElementById("bocetoExtra").value, 10) || 0;
+  const maxPlotters = parseInt(document.getElementById("plotterExtra").value, 10) || 0;
+  const maxMuestrasForradas = parseInt(document.getElementById("forradaExtra").value, 10) || 0;
 
   // Crear un nuevo contenedor para otra dirección
   const nuevaDireccion = document.createElement("div");
@@ -278,16 +317,20 @@ document.getElementById("agregarDireccion").addEventListener("click", function (
       <input type="text" name="pais[]" required>
     </label>
     <label>
+      Maquetas a enviar:
+      <input type="number" name="maquetass[]" min="0" max="${maxMaquetas}" value="${maxMaquetas}">
+    </label>
+    <label>
       Bocetos a enviar:
-      <input type="number" name="bocetos[]" min="0" value="0">
+      <input type="number" name="bocetos[]" min="0" max="${maxBocetos}" value="${maxBocetos}">
     </label>
     <label>
       Plotters a enviar:
-      <input type="number" name="plotters[]" min="0" value="0">
+      <input type="number" name="plotters[]" min="0" max="${maxPlotters}" value="${maxPlotters}">
     </label>
     <label>
       Muestras forradas a enviar:
-      <input type="number" name="muestrasForradas[]" min="0" value="0">
+      <input type="number" name="muestrasForradas[]" min="0" max="${maxMuestrasForradas}" value="${maxMuestrasForradas}">
     </label>
   `;
 
@@ -295,34 +338,17 @@ document.getElementById("agregarDireccion").addEventListener("click", function (
   seccionEnvios.appendChild(nuevaDireccion);
 });
 
-document.getElementById("formEnvio").addEventListener("submit", function (event) {
-  event.preventDefault();
+document.getElementById("eliminarDireccion").addEventListener("click", function () {
+  const seccionEnvios = document.getElementById("seccionEnvios");
 
-  const formData = new FormData(this);
-
-  // Recolectar datos para cada dirección
-  const direcciones = [];
-  const cantidadDirecciones = document.querySelectorAll(".envio").length;
-
-  for (let i = 0; i < cantidadDirecciones; i++) {
-    direcciones.push({
-      personaContacto: formData.getAll("personaContacto[]")[i],
-      telefono: formData.getAll("telefono[]")[i],
-      direccion: formData.getAll("direccion[]")[i],
-      codigoPostal: formData.getAll("codigoPostal[]")[i],
-      ciudad: formData.getAll("ciudad[]")[i],
-      pais: formData.getAll("pais[]")[i],
-      bocetos: parseInt(formData.getAll("bocetos[]")[i], 10),
-      plotters: parseInt(formData.getAll("plotters[]")[i], 10),
-      muestrasForradas: parseInt(formData.getAll("muestrasForradas[]")[i], 10),
-    });
+  // Verificar si hay direcciones para eliminar
+  if (seccionEnvios.children.length > 0) {
+    // Eliminar la última dirección
+    seccionEnvios.removeChild(seccionEnvios.lastElementChild);
   }
-
-  console.log("Detalles de Envíos:", direcciones);
-
-  // Aquí puedes generar el PDF o enviar los datos al servidor
 });
 
+//FIN DIRECCION ENVIO
 
 //prova 1 inici
 
@@ -382,7 +408,6 @@ document.getElementById("formEnvio").addEventListener("submit", function (event)
 
 
 //  prova 1 final
-
 
 
 // var contadorTroqueles=1
@@ -452,9 +477,6 @@ document.getElementById("formEnvio").addEventListener("submit", function (event)
 // }
 
 
-
-
-
 /////   REQUERIMIENTOS  //////
 // Evento para mostrar el campo de texto si se selecciona "Otras"
 document.getElementById('rejillas').addEventListener('change', function () {
@@ -469,12 +491,10 @@ document.getElementById('rejillas').addEventListener('change', function () {
 });
 
 
-
-
-document.getElementById("paletizado").addEventListener("change", function(){
+document.getElementById("paletizado").addEventListener("change", function () {
   const paletizado = document.getElementById("paletizado");
   const mostrarPaletizado = document.getElementById("mostrarPaletizado");
-  if(paletizado.value === "especificar"){
+  if (paletizado.value === "especificar") {
     mostrarPaletizado.style.display = "block";
   } else {
     mostrarPaletizado.style.display = "none";
@@ -488,11 +508,6 @@ document.getElementById("paletizado").addEventListener("change", function(){
 // Obtener los radio buttons y el contenedor del número de tipos
 const opcionesDiseño = document.getElementsByName('tipoDiseño');
 const numTiposContainer = document.getElementById('numTiposContainer');
-
-
-
-
-
 
 
 // Función para mostrar u ocultar el contenedor de número de tipos
@@ -589,10 +604,10 @@ function generarBloques() {
   const container = document.getElementById('tiposGenerados');
 
   // Verificamos si la opción de "Diseño estructural Multipieza" está seleccionada
-  const diseñoMultipieza = document.getElementById('diseñoEstructuralMultipieza');
+  const disenyoMultipieza = document.getElementById('diseñoEstructuralMultipieza');
 
   // Si "Estructural Multipieza" está seleccionado, inicializamos el contador a 2 y generamos dos bloques
-  if (diseñoMultipieza.checked && contadorTipos === 1) {
+  if (disenyoMultipieza.checked && contadorTipos === 1) {
     contadorTipos = 2; // Generar 2 bloques cuando la opción de "Estructural Multipieza" se selecciona
   }
 
@@ -606,9 +621,13 @@ function generarBloques() {
 </class id="tipos">
     <h4>Tipo ${contadorTipos}</h4>
     <!-- Radio buttons para seleccionar la familia de productos -->
-     <label for="idPieza${contadorTipos}">
-    <input type="text" id="idPieza${contadorTipos}" name="familiaProductos${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
-  </label>
+     <div class="input-medio">
+        <label for="idPieza${contadorTipos}">
+        <input type="text" id="idPieza${contadorTipos}" name="familiaProductos${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
+        </label>
+    </div>
+
+     <div class="form-group">
     <label for="cartoncillo${contadorTipos}">
       <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" onchange="mostrarListado(${contadorTipos})"> Cartoncillo
     </label>
@@ -620,18 +639,23 @@ function generarBloques() {
     <label for="ondulado${contadorTipos}">
       <input type="radio" id="ondulado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Ondulado" onchange="mostrarListado(${contadorTipos})"> Ondulado
     </label>
-    <br>
-     <label for="calidad${contadorTipos}">Calidad</label>
-    <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad"/>
 
-    <label for="canal${contadorTipos}">Canal</label>
-    <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal"/>
+     <div class="input-corto">
+        <label for="calidad${contadorTipos}">Calidad</label>
+        <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad"/>
+     </div>
 
-    <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
-    <label for="cllo${contadorTipos}">Cllo</label>
-    <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo"/>
+    <div class="input-corto">
+        <label for="canal${contadorTipos}">Canal</label>
+        <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal"/>
     </div>
-
+      <div class="input-corto">
+          <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
+            <label for="cllo${contadorTipos}">Cllo</label>
+            <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo"/>
+            </div>
+      </div>
+    </div>
 
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
@@ -677,9 +701,7 @@ function generarBloques() {
         <input type="radio" id="flexoHDOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo HD"> Flexo HD
       </label>
     </div>
-
        <br>
-
     <hr>
   `;
 
@@ -912,9 +934,13 @@ function enviarCorreoConPDF() {
 }
 
 
-
 // Llamado inicial para establecer el estado al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById("opcionesTroquel").style.display="none"
+  document.getElementById("opcionesTroquel").style.display = "none"
 });
 
+document.querySelector('form').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+  }
+});
