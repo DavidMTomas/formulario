@@ -22,7 +22,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1.4em;
+  font-size: 1.2em;
   margin-top: 20px;
   color: #2c3e50;
   font-weight: 400;
@@ -164,9 +164,9 @@ div {
 
 /* Inputs con tamaño específico */
 .input-corto {
-  flex: 1 1 10%; /* Ocupa el 30% del ancho */
+  flex: 1 1 12%;
   max-width: 120px;
-  min-width: 50px;
+  min-width: 58px;
 }
 .input-intermedio {
   flex: 1 1 18%; /* Ocupa el 50% del ancho */
@@ -184,6 +184,11 @@ div {
   flex: 1 1 50%; /* Ocupa toda la fila */
   max-width: 300px;
   min-width: 100px;
+}
+
+.full-width {
+  flex: 0 0 100%; /* Asegura que ocupe el 100% del ancho */
+  margin-bottom: 10px; /* Espaciado opcional para separar del siguiente contenido */
 }
 
 .input-checkbox {
@@ -336,19 +341,64 @@ fieldset > div {
   margin-bottom: 15px;
 }
 
-/* Opcional: Hacer que los inputs dentro del fieldset ocupen todo el ancho */
-fieldset input, fieldset textarea, fieldset select {
-  padding: 12px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 1.1em;
-  box-sizing: border-box; /* Ajuste de padding y border */
-}
-
 /* Opcional: Estilo cuando el campo está enfocado */
 fieldset input:focus, fieldset textarea:focus, fieldset select:focus {
   border-color: #3498db;
   outline: none; /* Elimina el contorno predeterminado */
+}
+
+/* Contenedor para los radios y etiquetas */
+fieldset .radio-group {
+  display: flex; /* Diseño en línea */
+  flex-wrap: wrap; /* Permite saltar a la siguiente línea si no hay espacio */
+  gap: 10px; /* Espacio entre cada grupo */
+  margin-bottom: 15px;
+}
+
+
+/* Mantén los radios y etiquetas juntos */
+fieldset .radio-group label {
+  display: flex;
+  align-items: center; /* Alinea verticalmente el radio y el texto */
+  gap: 5px; /* Espacio entre el radio y el texto */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+
+/* Tabla responsiva */
+fieldset table {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  border-collapse: collapse; /* Elimina espacios entre celdas */
+  margin-top: 15px;
+}
+
+fieldset table th {
+  text-align: left; /* Alineación izquierda del contenido */
+  padding: 5px;
+}
+
+fieldset table th label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+fieldset table th input {
+  width: 100%; /* Hacer que el input ocupe todo el espacio disponible */
+  padding: 8px;
+  box-sizing: border-box; /* Incluye el padding dentro del ancho */
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 600px) {
+  fieldset .radio-group {
+    flex-direction: column; /* Cambia a diseño vertical */
+    gap: 15px;
+  }
+
+  fieldset table th {
+    display: block; /* Coloca cada celda en una línea separada */
+    margin-bottom: 10px;
+  }
 }
 
 #nombreCliente {
@@ -360,4 +410,75 @@ fieldset input:focus, fieldset textarea:focus, fieldset select:focus {
   display: flex; /* Mantiene el flujo de flexbox */
   flex: 1 1 auto; /* Tamaño normal */
   transition: all 0.3s ease; /* Animación para mostrar/ocultar */
+}
+
+
+/* Contenedor para tablas responsivas */
+.table-responsive {
+  overflow-x: auto; /* Permite el desplazamiento horizontal */
+  -webkit-overflow-scrolling: touch; /* Mejora la experiencia en dispositivos táctiles */
+}
+
+/* Asegurar que la tabla ocupe todo el ancho disponible */
+.estiloTabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.estiloTabla th, .estiloTabla td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  white-space: nowrap; /* Evita que el contenido se rompa en varias líneas */
+}
+
+.estiloTabla th {
+  background-color: #f2f2f2;
+}
+
+.custom-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Botones e inputs en custom-spinner */
+.custom-spinner button {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.custom-spinner input[type="number"] {
+  font-size: 1rem;
+  width: 60px; /* Ajusta el ancho del input */
+  text-align: center;
+  margin: 0 5px;
+}
+
+/* Estilo responsivo para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .estiloTabla th, .estiloTabla td {
+    font-size: 0.9rem;
+    padding: 5px;
+  }
+
+  .custom-spinner input[type="number"] {
+    width: 50px; /* Reduce el ancho del input en pantallas pequeñas */
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form .error {
+  border: 2px solid red; /* Borde rojo */
+  background-color: #f8d7da; /* Fondo rojo claro */
+  color: #721c24; /* Texto rojo oscuro */
+}
+
+/* Clase para resaltar la tabla */
+.estiloTabla.error {
+  border: 2px solid red;
+  background-color: #ffe6e6; /* Un color suave para llamar la atención */
 }

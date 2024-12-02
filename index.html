@@ -27,7 +27,7 @@
 <body>
 <form id="petcicionComercial" method="POST">
 
-  <h3>Datos cliente</h3>
+  <h3>Datos cliente:</h3>
   <div class="input-check">
     <label for="nuevoCliente">Nuevo Cliente:</label>
     <input type="checkbox" name="nuevoCliente" id="nuevoCliente" value="nuevo">
@@ -36,8 +36,8 @@
 
 
     <div class="input-corto">
-      <label for="numeroCliente">Codigo:</label>
-      <input type="text" id="numeroCliente" name="numeroCliente">
+      <label for="numeroCliente">Código:</label>
+      <input type="text" id="numeroCliente" name="numeroCliente" required>
     </div>
     <br>
 
@@ -64,13 +64,14 @@
 
   <hr>
 
-  <h3>Nueva petición</h3>
+  <h3>Nueva petición:</h3>
   <div class="form-group">
     <div class="input-medio">
       <label for="mercado">Tipo de mercado:</label>
       <select id="mercado" name="mercado" required>
+        <option value="">Selecciona una opción</option>
         <option value="agricultura">Agricultura</option>
-        <option value="ceramica">Ceramica</option>
+        <option value="ceramica">Cerámica</option>
         <option value="conservasypescados">Conservas y pescados</option>
         <option value="pesca">Pesca</option>
         <option value="industria">Industria</option>
@@ -85,7 +86,7 @@
 
     <div class="input-medio">
       <label for="indicacionesCliente">Indicaciones del cliente / Observaciones:</label>
-      <textarea id="indicacionesCliente" name="indicacionesCliente"></textarea>
+      <textarea id="indicacionesCliente" name="indicacionesCliente" required></textarea>
     </div>
   </div>
 
@@ -93,17 +94,17 @@
   <div class="form-group">
     <div class="input-intermedio">
       <label for="cantidadlote">Cantidad lote:</label>
-      <input type="number" id="cantidadlote" name="cantidadlote" min="0" required>
+      <input type="number" id="cantidadLote" name="cantidadLote" min="0" required>
     </div>
     <div class="input-intermedio">
-      <label for="consumoanual">Consumo anual estimado:</label>
-      <input type="number" id="consumoanual" name="consumoanual" min="0" required>
+      <label for="consumoAnual">Consumo anual estimado:</label>
+      <input type="number" id="consumoAnual" name="consumoAnual" min="0" required>
     </div>
   </div>
 
   <hr>
 
-  <h3>Información adicional</h3>
+  <h3>Información adicional:</h3>
 
   <div class="form-group">
     <label for="productosBtn">Tipo de documentación aportada:</label>
@@ -111,7 +112,7 @@
       <button type="button" id="productosBtn">Seleccionar</button>
       <div class="dropdown-content">
         <label>
-          <input type="checkbox" name="documento" value="Muestra fisica para estructural"> Muestra fisica para
+          <input type="checkbox" name="documento" value="Muestra fisica para estructural"> Muestra física para
           estructural
         </label>
         <label>
@@ -160,9 +161,8 @@
     <!-- Campo de texto que se mostrará si "Sí" es seleccionado -->
     <div class="input-intermedio">
       <div id="contenedorNumeroTroquel" style="display:none;">
-        <label for="numeroTroquel">Número de troquel:</label>
-        <input type="text" id="numeroTroquel" name="numeroTroquel">
-        <!--        <br>-->
+        <label for="numeroTroquelAnular">Número de troquel:</label>
+        <input type="text" id="numeroTroquelAnular" name="numeroTroquelAnular" required>
       </div>
     </div>
   </div>
@@ -185,7 +185,7 @@
         <div id="campoNumeroTroquelExistente" style="display:block;">
           <!--      <div class="opcionesNumeroTroquel">-->
           <label for="numeroTroquelExistente">Número de troquel:</label>
-          <input type="text" id="numeroTroquelExistente" name="numeroTroquelExistente">
+          <input type="text" id="numeroTroquelExistente" name="numeroTroquelExistente" required>
           <!--      opciones carton   se pueden añadir aqui-->
         </div>
       </div>
@@ -210,8 +210,8 @@
     <!-- Campo de texto que se mostrará si "Si" es seleccionado -->
     <div class="input-intermedio">
       <div id="contenedorFicha" style="display:none;">
-        <label for="numeroficha">Número de ficha:</label>
-        <input class="campotextocorto" type="text" id="numeroficha" name="numeroficha">
+        <label for="numeroFicha">Número de ficha:</label>
+        <input type="text" id="numeroFicha" name="numeroFicha" required>
       </div>
     </div>
   </div>
@@ -224,52 +224,55 @@
 
 
   <hr>
-  <h3>Requerimientos:</h3>
+  <h3>Requerimientos: //227</h3>
 
   <h4>ESTRUCTURAL</h4>
 
   <div class="form-group">
-    <label for="llevafsc">FSC:
-      <input type="checkbox" id="llevafsc" name="llevafsc">
-    </label>
-
-
+    <div class="input-corto">
+      <label for="llevaFsc">FSC:
+        <input type="checkbox" id="llevaFsc" name="llevaFsc">
+      </label>
+    </div>
     <div class="input-corto">
       <label for="fefco">Modelo fefco:</label>
       <input type="text" name="fefco" id="fefco" required>
     </div>
 
-
     <!-- Muestra las medidas si no no hay troquel y se necesitan medidas-->
     <div class="form-group">
-
       <div id="medidasEstructural" style="display: none">
         <fieldset>
-          <label name="dimensiones">Tipo de dimensiones:
-            <input type="radio" name="dimensiones" value="dimensionesInteriores">Dimensiones interiores
-            <input type="radio" name="dimensiones" value="dimensionesHendidos">Dimensiones entre Hendidos
-            <input type="radio" name="dimensiones" value="dimensionesExteriores">Dimensiones Exteriores
-          </label>
-
+          <legend>Tipo de dimensiones:</legend>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="dimensiones" value="dimensionesInteriores"> Dimensiones interiores
+            </label>
+            <label>
+              <input type="radio" name="dimensiones" value="dimensionesHendidos" checked> Dimensiones entre Hendidos
+            </label>
+            <label>
+              <input type="radio" name="dimensiones" value="dimensionesExteriores"> Dimensiones Exteriores
+            </label>
+          </div>
           <table>
             <tr>
               <th>
                 <label for="ancho">Ancho:</label>
-                <input class="campotextocorto" type="text" id="ancho" name="ancho" required>
+                <input  type="text" id="ancho" name="ancho" required>
               </th>
               <th>
                 <label for="alto">Alto:</label>
-                <input class="campotextocorto" type="text" id="alto" name="alto" required>
+                <input  type="text" id="alto" name="alto" required>
               </th>
-
               <th>
                 <label for="largo">Largo:</label>
-                <input class="campotextocorto" type="text" id="largo" name="largo" required>
+                <input  type="text" id="largo" name="largo" required>
               </th>
             </tr>
           </table>
-          <label for="archivoAdjunto">Archivo adjunto con medidas:
-            <input type="checkbox" id="archivoAdjunto" name="archivoAdjunto">
+          <label for="archivoAdjunto">
+            <input type="checkbox" id="archivoAdjunto" name="archivoAdjunto"> Archivo adjunto con medidas
           </label>
         </fieldset>
       </div>
@@ -287,7 +290,7 @@
         <option value="asagrande">Asa grande</option>
         <option value="asarefuerzo">Asa refuerzo</option>
         <option value="asaspapel">Asas papel</option>
-        <option value="asaplasticodesplegable">Asa plastico desplegable</option>
+        <option value="asaplasticodesplegable">Asa plástico desplegable</option>
       </select>
     </div>
 
@@ -295,15 +298,15 @@
     <div class="input-medio">
       <label for="rejillas">Rejillas:</label>
       <select id="rejillas" name="rejillas">
-        <option value="">Selecciona una opcion</option>
+        <option value="">Selecciona una opción</option>
         <option value="montadas">montadas</option>
         <option value="aparte">aparte</option>
         <option value="otras">Otras</option>
       </select>
       <!-- Campo de texto oculto inicialmente -->
-      <div id="otras-opcion" style="display: none">
-        <label for="otras-texto">Especifique:</label>
-        <input type="text" id="otras-texto" name="otras-texto" placeholder="Tipo de rejillas otras">
+      <div id="otrasOpcion" style="display: none">
+        <label for="otras-texto">Especifique tipo de rejillas:</label>
+        <input type="text" id="otras-texto" name="otras-texto" placeholder="Tipo de rejillas otras" required>
       </div>
     </div>
 
@@ -311,31 +314,31 @@
     <div class="input-medio">
       <label for="pegado">Pegado:</label>
       <select id="pegado" name="pegado">
-        <option value="">Selecciona una opcion</option>
+        <option value="">Selecciona una opción</option>
         <option value="4Puntos">4 puntos</option>
         <option value="6Puntos">6 puntos</option>
         <option value="especial">especial</option>
-        <option value="fa">Fondo Automatico</option>
+        <option value="fa">Fondo Automático</option>
         <option value="pestaña">pestaña</option>
         <option value="pestañaFuera">pestaña por fuera</option>
         <option value="plotter">plotter</option>
         <option value="rejilla">rejilla</option>
         <option value="twinBox">twin box</option>
-        <option value="twinpack">twin pack</option>
+        <option value="twinPack">twin pack</option>
       </select>
     </div>
   </div>
   <!--ESTRUCTURAL-->
   <hr>
   <div id="acabadosEstructural" style="display:block;">
-    <h3>Tipo Estructural</h3>
+    <h4>TIPO ESTRUCTURAL</h4>
 
     <!-- Selección entre simple y multipieza -->
     <label>
       <input type="radio" name="tipoDiseño" value="simple" checked> Estructural simple
     </label>
     <label>
-      <input type="radio" name="tipoDiseño" value="multipieza" id="diseñoEstructuralMultipieza"> Estructural
+      <input type="radio" name="tipoDiseño" value="multiPieza" id="diseñoEstructuralMultiPieza"> Estructural
       multipieza
     </label>
 
@@ -355,7 +358,7 @@
     <div class="form-group">
       <!-- Radio buttons para seleccionar la familia de productos -->
       <label for="cartoncillo">
-        <input type="radio" id="cartoncillo" name="familiaProductos" value="Cartoncillo"> Cartoncillo
+        <input type="radio" id="cartoncillo" name="familiaProductos" value="Cartoncillo" checked> Cartoncillo
       </label>
 
       <label for="contraencolado">
@@ -368,54 +371,54 @@
 
       <div class="input-corto">
         <label for="calidad">Calidad</label>
-        <input type="text" id="calidad" name="calidad" placeholder="Calidad"/>
+        <input type="text" id="calidad" name="calidad" placeholder="Calidad" required/>
       </div>
 
       <div class="input-corto">
         <label for="canal">Canal</label>
-        <input type="text" id="canal" name="canal" placeholder="Canal"/>
+        <input type="text" id="canal" name="canal" placeholder="Canal" required/>
       </div>
       <div class="input-corto">
         <div id="mostrarcalidadcartoncillo" style="display:none;">
           <label for="cllo">Cllo</label>
-          <input type="text" id="cllo" name="cllo" placeholder="Cllo"/>
+          <input type="text" id="cllo" name="cllo" placeholder="Cllo" required/>
         </div>
       </div>
     </div>
 
     <!-- Cartoncillo -->
     <div id="cartoncilloListado" style="display:none;">
-      <h4>Tipos de impresion para Cartoncillo</h4>
+      <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresion">
-        <input type="radio" id="sinImpresion_cartoncillo" name="productoCartoncillo" value="sin impresion"> Sin
-        impresion
+        <input type="radio" id="sinImpresion_cartoncillo" name="productoCartoncillo" value="sinImpresion"> Sin
+        impresión
       </label>
       <label for="offset">
-        <input type="radio" id="offset_cartoncillo" name="productoCartoncillo" value="offset"> Offset
+        <input type="radio" id="offset_cartoncillo" name="productoCartoncillo" value="offset" checked> Offset
       </label>
     </div>
 
     <!-- Contraencolado -->
     <div id="contraencoladoListado" style="display:none;">
-      <h4>Tipos de impresion para Contraencolado</h4>
+      <h4>Tipos de impresión para Contraencolado</h4>
       <label for="sinImpresion">
-        <input type="radio" id="sinImpresion_contraencolado" name="productoContraencolado" value="sin impresion"> Sin
-        impresion
+        <input type="radio" id="sinImpresion_contraencolado" name="productoContraencolado" value="sinImpresion"> Sin
+        impresión
       </label>
       <label for="offset">
-        <input type="radio" id="offset_contraencolado" name="productoContraencolado" value="offset"> Offset
+        <input type="radio" id="offset_contraencolado" name="productoContraencolado" value="offset" checked> Offset
       </label>
     </div>
 
 
     <!-- Ondulado -->
     <div id="onduladoListado" style="display:none;">
-      <h4>Tipos de impresion para Ondulado</h4>
+      <h4>Tipos de impresión para Ondulado</h4>
       <label for="sinImpresion">
-        <input type="radio" id="sinImpresion" name="productoOndulado" value="sin impresion"> Sin impresion
+        <input type="radio" id="sinImpresion" name="productoOndulado" value="sinImpresion"> Sin impresión
       </label>
       <label for="offset">
-        <input type="radio" id="offset" name="productoOndulado" value="offset"> Offset
+        <input type="radio" id="offset" name="productoOndulado" value="offset" checked> Offset
       </label>
       <label for="digital">
         <input type="radio" id="digital" name="productoOndulado" value="digital"> Digital
@@ -431,6 +434,8 @@
       </label>
     </div>
     <br>
+    <!--    <hr>-->
+
     <!--      <div id="opcionesComunesMulti">-->
     <!--      </div>-->
 
@@ -438,6 +443,7 @@
 
     <div id="numTiposContainer" style="display:none;">
       <div id="tiposGenerados"></div>
+
       <div class="addEstructural">
         <button type="button" id="numTiposInc" onclick="generarBloques()">Agregar Tipo</button>
         <button type="button" id="numTiposDec" onclick="eliminarBloques()">Eliminar Tipo</button>
@@ -450,7 +456,7 @@
 
   <!-- Opciones comunes para todos los tipos de acabado -->
   <h4>MAQUETA</h4>
-  <table class="estiloTabla">
+  <table class="estiloTabla controlPeticion">
     <thead>
     <tr>
       <th>Muestras</th>
@@ -466,7 +472,7 @@
         <div id="mostrarDesplegableMuestras" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('muestraExtra')">-</button>
-            <input type="number" id="muestraExtra" name="muestraExtra" min="0" value="0">
+            <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="1">
             <button type="button" onclick="increment('muestraExtra')">+</button>
           </div>
         </div>
@@ -474,10 +480,10 @@
     </tr>
     </tbody>
   </table>
-  <hr>
+  <!--  <hr>-->
 
   <h4>IMPRESION</h4>
-  <table class="estiloTabla">
+  <table class="estiloTabla controlPeticion">
     <thead>
     <tr>
       <th>Boceto</th>
@@ -500,7 +506,7 @@
         <div id="mostrarDesplegableBoceto" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('bocetoExtra')">-</button>
-            <input type="number" id="bocetoExtra" name="bocetoExtra" min="0" value="0">
+            <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="1">
             <button type="button" onclick="increment('bocetoExtra')">+</button>
           </div>
         </div>
@@ -509,7 +515,7 @@
         <div id="mostrarDesplegablePlotter" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('plotterExtra')">-</button>
-            <input type="number" id="plotterExtra" name="plotterExtra" min="0" value="0">
+            <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="1">
             <button type="button" onclick="increment('plotterExtra')">+</button>
           </div>
         </div>
@@ -518,7 +524,7 @@
         <div id="mostrarDesplegableForrada" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('forradaExtra')">-</button>
-            <input type="number" id="forradaExtra" name="forradaExtra" min="0" value="0">
+            <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="1">
             <button type="button" onclick="increment('forradaExtra')">+</button>
           </div>
         </div>
@@ -526,19 +532,21 @@
     </tr>
     </tbody>
   </table>
+
   <hr>
   <h4>ENVIO</h4>
+
 
   <div id="seccionEnvios">
   </div>
 
-  <hr>
+  <!--  <hr>-->
   <!-- Botón para añadir más direcciones -->
   <button type="button" id="agregarDireccion">Añadir dirección</button>
   <!-- Botón para eliminar la última dirección -->
   <button type="button" id="eliminarDireccion">Eliminar última dirección</button>
 
-
+  <hr>
   <h4>OTROS</h4>
 
   <label for=checkFichaTecnica>Ficha tecnica laboratotio
@@ -547,197 +555,216 @@
 
   <hr>
 
-  <h4>CAPE</h4>
-  <label for="paletizado">Paletizado:</label>
-  <select id="paletizado" name="paletizado">
-    <option value="aConvenir">A convenir</option>
-    <option value="especificar">Especificar</option>
-  </select>
+
+  <h4>CAPE // 558</h4>
+  <div class="form-group">
+    <div class="input-intermedio">
+      <label for="paletizado">Paletizado:</label>
+      <select id="paletizado" name="paletizado">
+        <option value="aConvenir">A convenir</option>
+        <option value="especificar">Especificar</option>
+      </select>
+    </div>
 
 
-  <div id="mostrarPaletizado" style="display: none">
-    <table id="tablaPaletizado" style="display:block;">
-      <tr>
-        <th>Paletizado</th>
-        <th>Altura maxima (incluido palet)</th>
-        <th>Cajas por palet</th>
-      </tr>
-      <tr>
-        <td><select id="palet-select" name="palet">
-          <option value="" disabled selected>Elige una opción</option>
-          <option value="2_pales_normal_80x120">2 PALES NORMAL 80X120 EN LINEA</option>
-          <option value="2_pales_normal_80x180">2 PALES NORMAL 80X180 EN LINEA</option>
-          <option value="2_palets_100x140">2 PALETS 100X140 EN LINEA</option>
-          <option value="2_palets_normal_100x120">2 PALETS NORMAL 100X120 EN LINEA</option>
-          <option value="4_maderas_100x120">4 MADERAS 100X120</option>
-          <option value="80x120_eur_nuevo">80X120 EUR NUEVO HOMOLOGADO</option>
-          <option value="agricola">AGRICOLA</option>
-          <option value="anife_100x120">ANIFE 100 X 120</option>
-          <option value="chep_azul_100x120_3_traviesas">CHEP AZUL 100X120 3 TRAVIESAS</option>
-          <option value="chep_azul_made_100x120_espiga">CHEP AZUL MADE 100X120 ESPIGA</option>
-          <option value="chep_azul_made_80x120_espiga">CHEP AZUL MADE 80X120 ESPIGA</option>
-          <option value="chep_azul_madera_80x120">CHEP AZUL MADERA 80X120</option>
-          <option value="chep_azul_madera_100x120">CHEP AZUL MADERA 100X120</option>
-          <option value="chep_azul_plastico_80x120">CHEP AZUL PLASTICO 80X120</option>
-          <option value="chep_azul_plastico_100x120">CHEP AZUL PLASTICO 100X120</option>
-          <option value="controload_100x120_plastico">CONTROLOAD 100X120 PLASTICO</option>
-          <option value="especial_100x100">ESPECIAL 100 X 100</option>
-          <option value="especial_100x230">ESPECIAL 100 X 230</option>
-          <option value="especial_640x1120">ESPECIAL 640 X 1120</option>
-          <option value="eur_80x120">EUR 80 X 120 (EUROPALET)</option>
-          <option value="g14_termotratado_espiga">G14 TERMOTRATADO ESPIGA</option>
-          <option value="lpr_rojo_100x120">LPR ROJO 100 X 120</option>
-          <option value="lpr_rojo_80x120">LPR ROJO 80 X 120</option>
-          <option value="normal_80x140">NORMAL 80 X 140</option>
-          <option value="normal_100x120">NORMAL 100 X 120</option>
-          <option value="normal_100x140">NORMAL 100 X 140</option>
-          <option value="normal_80x120">NORMAL 80 X 120</option>
-          <option value="normal_90x120">NORMAL 90 X 120</option>
-          <option value="normal_90x140">NORMAL 90 X 140</option>
-          <option value="normal_100x180">NORMAL 100 X 180</option>
-          <option value="normal_120x160">NORMAL 120 X 160</option>
-          <option value="normal_80x180">NORMAL 80 X 180</option>
-          <option value="normal_hablar">NORMAL (HABLAR CON ENCARGADO)</option>
-          <option value="normal_100x120_taco_rojo">NORMAL 100 X 120 TACO ROJO</option>
-          <option value="normal_100x200_primicias">NORMAL 100 X 200 PRIMICIAS</option>
-          <option value="normal_120x120">NORMAL 120 X 120</option>
-          <option value="normal_140x140">NORMAL 140 X 140</option>
-          <option value="normal_80x140_reves">NORMAL 80X140 REVES</option>
-          <option value="normal_bueno_80x120">NORMAL BUENO 80 X 120</option>
-          <option value="palet_plastico_cliente">PALET DE PLASTICO DEL CLIENTE</option>
-          <option value="palet_cliente">PALET DEL CLIENTE</option>
-          <option value="palet_cliente_100">PALET DEL CLIENTE DE 100</option>
-          <option value="palet_cliente_80">PALET DEL CLIENTE DE 80</option>
-          <option value="plastico_blanco">PLASTICO BLANCO</option>
-          <option value="plastico_compac_glass">PLASTICO COMPAC GLASS</option>
-          <option value="plastico_casa_80x120">PLASTICO DE CASA 80X120</option>
-          <option value="plastico_mercadona_logifruit">PLASTICO MERCADONA LOGIFRUIT</option>
-          <option value="reforzado_100x140">REFORZADO 100 X 140</option>
-          <option value="taco_gordo_80x120">TACO GORDO 80 X 120</option>
-          <option value="termotratado_con_espiga">TERMOTRATADO CON ESPIGA</option>
-          <option value="tratado_100x140_ippc">TRATADO 100 X 140 IPPC</option>
-        </select>
-        </td>
+    <div id="mostrarPaletizado" style="display: none">
+      <table class="estiloTabla" id="tablaPaletizado" style="display:block;">
+        <tr>
+          <th colspan="3">Paletizado</th>
+        </tr>
+        <tr>
+          <td colspan="3"><select id="palet-select" name="palet">
+            <option value="" disabled selected>Elige una opción</option>
+            <option value="2_pales_normal_80x120">2 PALES NORMAL 80X120 EN LINEA</option>
+            <option value="2_pales_normal_80x180">2 PALES NORMAL 80X180 EN LINEA</option>
+            <option value="2_palets_100x140">2 PALETS 100X140 EN LINEA</option>
+            <option value="2_palets_normal_100x120">2 PALETS NORMAL 100X120 EN LINEA</option>
+            <option value="4_maderas_100x120">4 MADERAS 100X120</option>
+            <option value="80x120_eur_nuevo">80X120 EUR NUEVO HOMOLOGADO</option>
+            <option value="agricola">AGRICOLA</option>
+            <option value="anife_100x120">ANIFE 100 X 120</option>
+            <option value="chep_azul_100x120_3_traviesas">CHEP AZUL 100X120 3 TRAVIESAS</option>
+            <option value="chep_azul_made_100x120_espiga">CHEP AZUL MADE 100X120 ESPIGA</option>
+            <option value="chep_azul_made_80x120_espiga">CHEP AZUL MADE 80X120 ESPIGA</option>
+            <option value="chep_azul_madera_80x120">CHEP AZUL MADERA 80X120</option>
+            <option value="chep_azul_madera_100x120">CHEP AZUL MADERA 100X120</option>
+            <option value="chep_azul_plastico_80x120">CHEP AZUL PLASTICO 80X120</option>
+            <option value="chep_azul_plastico_100x120">CHEP AZUL PLASTICO 100X120</option>
+            <option value="controload_100x120_plastico">CONTROLOAD 100X120 PLASTICO</option>
+            <option value="especial_100x100">ESPECIAL 100 X 100</option>
+            <option value="especial_100x230">ESPECIAL 100 X 230</option>
+            <option value="especial_640x1120">ESPECIAL 640 X 1120</option>
+            <option value="eur_80x120">EUR 80 X 120 (EUROPALET)</option>
+            <option value="g14_termotratado_espiga">G14 TERMOTRATADO ESPIGA</option>
+            <option value="lpr_rojo_100x120">LPR ROJO 100 X 120</option>
+            <option value="lpr_rojo_80x120">LPR ROJO 80 X 120</option>
+            <option value="normal_80x140">NORMAL 80 X 140</option>
+            <option value="normal_100x120">NORMAL 100 X 120</option>
+            <option value="normal_100x140">NORMAL 100 X 140</option>
+            <option value="normal_80x120">NORMAL 80 X 120</option>
+            <option value="normal_90x120">NORMAL 90 X 120</option>
+            <option value="normal_90x140">NORMAL 90 X 140</option>
+            <option value="normal_100x180">NORMAL 100 X 180</option>
+            <option value="normal_120x160">NORMAL 120 X 160</option>
+            <option value="normal_80x180">NORMAL 80 X 180</option>
+            <option value="normal_hablar">NORMAL (HABLAR CON ENCARGADO)</option>
+            <option value="normal_100x120_taco_rojo">NORMAL 100 X 120 TACO ROJO</option>
+            <option value="normal_100x200_primicias">NORMAL 100 X 200 PRIMICIAS</option>
+            <option value="normal_120x120">NORMAL 120 X 120</option>
+            <option value="normal_140x140">NORMAL 140 X 140</option>
+            <option value="normal_80x140_reves">NORMAL 80X140 REVES</option>
+            <option value="normal_bueno_80x120">NORMAL BUENO 80 X 120</option>
+            <option value="palet_plastico_cliente">PALET DE PLASTICO DEL CLIENTE</option>
+            <option value="palet_cliente">PALET DEL CLIENTE</option>
+            <option value="palet_cliente_100">PALET DEL CLIENTE DE 100</option>
+            <option value="palet_cliente_80">PALET DEL CLIENTE DE 80</option>
+            <option value="plastico_blanco">PLASTICO BLANCO</option>
+            <option value="plastico_compac_glass">PLASTICO COMPAC GLASS</option>
+            <option value="plastico_casa_80x120">PLASTICO DE CASA 80X120</option>
+            <option value="plastico_mercadona_logifruit">PLASTICO MERCADONA LOGIFRUIT</option>
+            <option value="reforzado_100x140">REFORZADO 100 X 140</option>
+            <option value="taco_gordo_80x120">TACO GORDO 80 X 120</option>
+            <option value="termotratado_con_espiga">TERMOTRATADO CON ESPIGA</option>
+            <option value="tratado_100x140_ippc">TRATADO 100 X 140 IPPC</option>
+          </select>
+          </td>
+        </tr>
+        <tr>
+          <th>Altura maxima (incluido palet)</th>
+          <th>Cajas por palet</th>
+          <th>Caja agrupadora</th>
+
+        </tr>
+        <tr>
+          <td><input type="text" id="alturaPalet" name="alturaPalet"
+                     placeholder="En centimetros"></td>
+          <td><input type="text" id="cajasPalet" name="cajasPalet"></td>
+          <td>
+            <input type="radio" name="pCajaAgrupadora" value="si">Si
+            <input type="radio" name="pCajaAgrupadora" value="no">No
+          </td>
+
+        </tr>
+        <tr>
+          <th>Unidades por paquete</th>
+          <th>Unidades de base</th>
+          <th>Unidades de altura</th>
+        </tr>
+        <tr>
+          <td><input class="campotextocorto" type="text" id="unidadesPaquete" name="unidadesPaquete"></td>
+          <td><input class="campotextocorto" type="text" id="unidadesBase" name="unidadesBase"></td>
+          <td><input class="campotextocorto" type="text" id="unidadesAltura" name="unidadesAltura"></td>
+        </tr>
+        <tr>
+          <th>Palet tablero</th>
+          <th>Puede sobresalir</th>
+          <th>Paquetes volteados</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="radio" name="pTablero" value="si">Si
+            <input type="radio" name="pTablero" value="no">No
+          </td>
+          <td>
+            <input type="radio" name="sobresalir" value="si">Si
+            <input type="radio" name="sobresalir" value="no">No
+          </td>
+          <td>
+            <input type="radio" name="volteados" value="si">Si
+            <input type="radio" name="volteados" value="no">No
+          </td>
+        </tr>
+        <tr>
+          <th>Flejado</th>
+          <th>Retractilado</th>
+          <th>Cantoneras</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="radio" name="pFlejado" value="si">Si
+            <input type="radio" name="pFlejado" value="no">No
+          </td>
+          <td>
+            <input type="radio" name="pRetractilado" value="si">Si
+            <input type="radio" name="pRetractilado" value="no">No
+          </td>
+          <td>
+            <input type="radio" name="pCantoneras" value="si">Si
+            <input type="radio" name="pCantoneras" value="no">No
+          </td>
+        </tr>
+      </table>
+
+    </div>
+    <div class="input-medio">
+      <label for="observacionesPaletizado">Observaciones paletizado:</label>
+      <input type="text" id="observacionesPaletizado" name="observacionesPaletizado">
+    </div>
+    <div class="input-medio">
+      <label for="horarioDescarga">Horario de descarga:</label>
+      <input type="text" id="horarioDescarga" name="horarioDescarga">
+    </div>
+    <div class="custom-spinner">
+      <label for="etiquetasPaletizado">Etiquetas paletizado:</label>
+      <button type="button" onclick="decrement('etiquetasPaletizado')">-</button>
+      <input type="number" id="etiquetasPaletizado" name="forradaExtra" min="0" value="1">
+      <button type="button" onclick="increment('etiquetasPaletizado')">+</button>
+      <div id="textoExtra" style="display: none;">Para más de 1 etiqueta se requiere autorización</div>
+    </div>
 
 
-        <td><input class="campotextocorto" type="text" id="unidadesCapa" name="unidadesCapa"
-                   placeholder="En centimetros"></td>
-        <td><input class="campotextocorto" type="text" id="alturaPalet" name="alturaPalet"></td>
-      </tr>
-      <tr>
-        <th>Unidades por paquete</th>
-        <th>Unidades de base</th>
-        <th>Unidades de altura</th>
-      </tr>
-      <tr>
-        <td><input class="campotextocorto" type="text" id="unidadesPaquete" name="unidadesPaquete"></td>
-        <td><input class="campotextocorto" type="text" id="unidadesBase" name="unidadesBase"></td>
-        <td><input class="campotextocorto" type="text" id="unidadesAltura" name="unidadesAltura"></td>
-      </tr>
-      <tr>
-        <th>Palet tablero</th>
-        <th>Puede sobresalir</th>
-        <th>Paquetes volteados</th>
-      </tr>
-      <tr>
-        <td>
-          <input type="radio" name="pTablero" value="si">Si
-          <input type="radio" name="pTablero" value="no">No
-        </td>
-        <td>
-          <input type="radio" name="sobresalir" value="si">Si
-          <input type="radio" name="sobresalir" value="no">No
-        </td>
-        <td>
-          <input type="radio" name="volteados" value="si">Si
-          <input type="radio" name="volteados" value="no">No
-        </td>
-      </tr>
-      <tr>
-        <th>Flejado</th>
-        <th>Retractilado</th>
-        <th>Cantoneras</th>
-      </tr>
-      <tr>
-        <td>
-          <input type="radio" name="pFlejado" value="si">Si
-          <input type="radio" name="pFlejado" value="no">No
-        </td>
-        <td>
-          <input type="radio" name="pRetractilado" value="si">Si
-          <input type="radio" name="pRetractilado" value="no">No
-        </td>
-        <td>
-          <input type="radio" name="pCantoneras" value="si">Si
-          <input type="radio" name="pCantoneras" value="no">No
-        </td>
-      </tr>
-      <tr>
-        <th>Caja agrupadora</th>
-
-      </tr>
-      <td>
-        <input type="radio" name="pCajaAgrupadora" value="si">Si
-        <input type="radio" name="pCajaAgrupadora" value="no">No
-      </td>
-
-    </table>
-
+    <fieldset>
+      <legend>Caja muestra por etiqueta:</legend>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="ninguna" checked> Ninguna
+        </label>
+        <label>
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="largo"> Largo
+        </label>
+        <label>
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="Ancho"> Ancho
+        </label>
+        <label>
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="largoAncho"> Largo y ancho
+        </label>
+        <label>
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="4lados"> 4 lados
+        </label>
+      </div>
+    </fieldset>
   </div>
-  <label for="observacionesPaletizado">Observaciones paletizado:</label>
-  <input class="campotextocorto" type="text" id="observacionesPaletizado" name="observacionesPaletizado">
-  <label for="horarioDescarga">Horario de descarga:</label>
-  <input class="campotextocorto" type="text" id="horarioDescarga" name="horarioDescarga">
-
-  <label for="etiquetasPaletizado">Etiquetas paletizado:</label>
-  <input class="campotextocorto" type="text" id="etiquetasPaletizado" name="etiquetasPaletizado"
-         placeholder="Mas de 1, requiere autorización">
-
-  <fieldset>
-    <legend>Caja muestra por etiqueta:</legend>
-    <label>
-      <input type="radio" name="CajaMuestraPorEtiqueta" value="ninguna"> Ninguna
-    </label>
-    <label>
-      <input type="radio" name="CajaMuestraPorEtiqueta" value="largo"> Largo
-    </label>
-    <label>
-      <input type="radio" name="CajaMuestraPorEtiqueta" value="Ancho"> Ancho
-    </label>
-    <label>
-      <input type="radio" name="CajaMuestraPorEtiqueta" value="largoAncho"> Largo y ancho
-    </label>
-    <label>
-      <input type="radio" name="CajaMuestraPorEtiqueta" value="4lados"> 4 lados
-    </label>
-  </fieldset>
-
-
   <hr>
 
-  <label for="fechaHora">Fecha:</label>
-  <input class="campotextomuycorto" type="datetime-local" id="fechaHora" name="fechaHora" required readonly>
-  <br>
+  <h3>Gestionado por:</h3>
 
-  <label for="nombreComercial">Comercial:</label>
-  <input class="campotextocorto" type="text" id="nombreComercial" name="nombreComercial" required>
-  <br>
+  <div class="form-group">
+    <div class="input-intermedio">
+      <label for="fechaHora">Fecha:</label>
+      <input type="datetime-local" id="fechaHora" name="fechaHora" required readonly>
+    </div>
 
+    <div class="input-medio">
+      <label for="nombreComercial">Comercial:</label>
+      <input class="campotextocorto" type="text" id="nombreComercial" name="nombreComercial" required>
+    </div>
 
-  <label for="nombreGestor">Gestor de proyecto:</label>
-  <select class="campotextocorto" id="nombreGestor" name="nombreGestor" required>
-    <option value="">Seleccione un gestor</option>
-    <option value="caldes">Abi Caldes</option>
-    <option value="herrero">Gabriel Herrero</option>
-    <option value="mico">Gloria Mico</option>
-    <option value="pardo">Jordi Pardo</option>
-    <option value="calatayud">Maite Calatayud</option>
-    <option value="requena">Paco Requena</option>
-  </select>
-  <br>
+    <div class="input-medio">
+      <label for="nombreGestor">Gestor de proyecto:</label>
+      <select class="campotextocorto" id="nombreGestor" name="nombreGestor" required>
+        <option value="">Seleccione un gestor</option>
+        <option value="caldes">Abi Caldes</option>
+        <option value="herrero">Gabriel Herrero</option>
+        <option value="mico">Gloria Mico</option>
+        <option value="pardo">Jordi Pardo</option>
+        <option value="calatayud">Maite Calatayud</option>
+        <option value="requena">Paco Requena</option>
+      </select>
+    </div>
+  </div>
 
-  <button type="submit" id="enviarTerminar" onclick="generarPDF()">Enviar y terminar</button>
-  <button type="submit" id="enviarSobreescribir" onclick="generarPDF()">Enviar y sobreescribir</button>
+  <button type="submit" id="enviarTerminar">Enviar y terminar</button>
+  <button type="submit" id="enviarSobreescribir">Enviar y sobreescribir</button>
 
 </form>
 
