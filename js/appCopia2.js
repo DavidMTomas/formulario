@@ -153,7 +153,7 @@ const existeTroquelSi = document.getElementById('existeTroquelSi');
 const existeTroquelNo = document.getElementById('existeTroquelNo');
 const campoNumeroTroquelExistente = document.getElementById('campoNumeroTroquelExistente');
 
-;
+
 // Eventos para "Anula FF anterior"
 radioSiAnulaFicha.addEventListener('change', function () {
   toggleCampoTexto(radioSiAnulaFicha, campoFicha);
@@ -202,9 +202,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //MAQUETA -- IMPRESIONES
 // Función para mostrar/ocultar el div de los botones de incremento/decremento
-function toggleDropdown(divId) {
+function toggleDropdown(divId,inputId) {
   const dropdown = document.getElementById(divId);
+  const checkbox = this.event.target; // Obtener el checkbox que disparó el evento
+  const inputValue = document.getElementById(inputId); // Obtener el input asociado
+
   dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  // Cambiar el valor del input a 1 si el checkbox está activado, o 0 si está desactivado
+  if (checkbox.checked) {
+    inputValue.value = 1;
+  } else {
+    inputValue.value = 0;
+  }
+
   validarCheckboxesMuestras()
 }
 
@@ -239,258 +249,192 @@ function checkValue() {
 }
 
 
+
+
+
 // DIRECCIONES DE ENVIO
 
 window.addEventListener('DOMContentLoaded', function () {
-  // Obtener los valores seleccionados de las tablas Maqueta e Impresión
-  const maxMaquetas = parseInt(document.getElementById("muestraExtra").value, 10) || 0;
-  const maxBocetos = parseInt(document.getElementById("bocetoExtra").value, 10) || 0;
-  const maxPlotters = parseInt(document.getElementById("plotterExtra").value, 10) || 0;
-  const maxMuestrasForradas = parseInt(document.getElementById("forradaExtra").value, 10) || 0;
-
-  // Iniciar los valores máximos en los inputs de envío
-  const inputsMaquetas = document.querySelectorAll('input[name="maquetass[]"]');
-  const inputsBocetos = document.querySelectorAll('input[name="bocetos[]"]');
-  const inputsPlotters = document.querySelectorAll('input[name="plotters[]"]');
-  const inputsMuestrasForradas = document.querySelectorAll('input[name="muestrasForradas[]"]');
-
-  // Establecer los valores iniciales de max y value en los campos de entrada
-  inputsMaquetas.forEach(input => {
-    input.max = maxMaquetas; // modificar logica
-    input.value = maxMaquetas; // Establecer el valor inicial
-  });
-  inputsBocetos.forEach(input => {
-    input.max = maxBocetos;
-    input.value = maxBocetos; // Establecer el valor inicial
-  });
-  inputsPlotters.forEach(input => {
-    input.max = maxPlotters;
-    input.value = maxPlotters; // Establecer el valor inicial
-  });
-  inputsMuestrasForradas.forEach(input => {
-    input.max = maxMuestrasForradas;
-    input.value = maxMuestrasForradas; // Establecer el valor inicial
-  });
-});
-
-document.getElementById("agregarDireccion").addEventListener("click", function () {
   const seccionEnvios = document.getElementById("seccionEnvios");
 
-  // Obtener los valores máximos de la tabla anterior
-  const maxMaquetas = parseInt(document.getElementById("muestraExtra").value, 10) || 0;
-  const maxBocetos = parseInt(document.getElementById("bocetoExtra").value, 10) || 0;
-  const maxPlotters = parseInt(document.getElementById("plotterExtra").value, 10) || 0;
-  const maxMuestrasForradas = parseInt(document.getElementById("forradaExtra").value, 10) || 0;
-
-  // Crear un nuevo contenedor para otra dirección
-  const nuevaDireccion = document.createElement("div");
-  nuevaDireccion.className = "envio";
-  nuevaDireccion.className="form-group"
-
-  nuevaDireccion.innerHTML = `
-   <h4 class="full-width">Dirección ${seccionEnvios.children.length + 1}</h4>
-
-  <div class="form-group">
-    <div class="input-medio">
-        <label>
-        Persona de contacto:
-        <input type="text" name="personaContacto[]" required>
-        </label>
-    </div>
-    <div class="input-corto">
-        <label>
-        Teléfono:
-        <input type="text" name="telefono[]" required>
-        </label>
-    </div>
-    <div class="input-medio">
-        <label>
-        Dirección:
-        <input type="text" name="direccion[]" required>
-         </label>
-    </div>
-    <div class="input-corto">
-        <label>
-        Código Postal:
-        <input type="text" name="codigoPostal[]" required>
-        </label>
-    </div>
-    <div class="input-medio">
-        <label>
-        Ciudad:
-        <input type="text" name="ciudad[]" required>
-        </label>
-    </div>
-    <div class="input-medio">
-        <label>
-        País:
-        <input type="text" name="pais[]" required>
-        </label>
-    </div>
-  </div>
-
-
-    <label>
-      Maquetas a enviar:
-      <input type="number" name="maquetass[]" min="0" max="${maxMaquetas}" value="${maxMaquetas}">
-    </label>
-    <label>
-      Bocetos a enviar:
-      <input type="number" name="bocetos[]" min="0" max="${maxBocetos}" value="${maxBocetos}">
-    </label>
-    <label>
-      Plotters a enviar:
-      <input type="number" name="plotters[]" min="0" max="${maxPlotters}" value="${maxPlotters}">
-    </label>
-    <label>
-      Muestras forradas a enviar:
-      <input type="number" name="muestrasForradas[]" min="0" max="${maxMuestrasForradas}" value="${maxMuestrasForradas}">
-    </label>
-      <hr>
-
-  `;
-
-  // Agregar el nuevo contenedor al formulario
-  seccionEnvios.appendChild(nuevaDireccion);
-});
-
-document.getElementById("eliminarDireccion").addEventListener("click", function () {
-  const seccionEnvios = document.getElementById("seccionEnvios");
-
-  // Verificar si hay direcciones para eliminar
-  if (seccionEnvios.children.length > 0) {
-    // Eliminar la última dirección
-    seccionEnvios.removeChild(seccionEnvios.lastElementChild);
+  // Obtener valores iniciales de los inputs
+  function obtenerTotalesIniciales() {
+    return {
+      maquetas: parseInt(document.getElementById("muestraExtra").value, 10) || 0,
+      bocetos: parseInt(document.getElementById("bocetoExtra").value, 10) || 0,
+      plotters: parseInt(document.getElementById("plotterExtra").value, 10) || 0,
+      muestrasForradas: parseInt(document.getElementById("forradaExtra").value, 10) || 0,
+    };
   }
+
+  // Calcular totales disponibles después de restar los seleccionados en las direcciones actuales
+  function calcularTotalesDisponibles() {
+    const totalesIniciales = obtenerTotalesIniciales();
+
+    let usadosMaquetas = 0;
+    let usadosBocetos = 0;
+    let usadosPlotters = 0;
+    let usadosMuestrasForradas = 0;
+
+    const direcciones = seccionEnvios.querySelectorAll('.envio');
+    direcciones.forEach(envio => {
+      usadosMaquetas += parseInt(envio.querySelector('input[name="maquetass[]"]').value, 10) || 0;
+      usadosBocetos += parseInt(envio.querySelector('input[name="bocetos[]"]').value, 10) || 0;
+      usadosPlotters += parseInt(envio.querySelector('input[name="plotters[]"]').value, 10) || 0;
+      usadosMuestrasForradas += parseInt(envio.querySelector('input[name="muestrasForradas[]"]').value, 10) || 0;
+    });
+
+    return {
+      maquetas: Math.max(0, totalesIniciales.maquetas - usadosMaquetas),
+      bocetos: Math.max(0, totalesIniciales.bocetos - usadosBocetos),
+      plotters: Math.max(0, totalesIniciales.plotters - usadosPlotters),
+      muestrasForradas: Math.max(0, totalesIniciales.muestrasForradas - usadosMuestrasForradas),
+    };
+  }
+
+  // Agregar una nueva dirección
+  document.getElementById("agregarDireccion").addEventListener("click", function () {
+    if(!validarCheckboxesMuestras()){
+      alert("Debe seleccionar al menos una muestra para poder añadir una dirección de envío");
+      return
+    }
+
+    const totalesDisponibles = calcularTotalesDisponibles();
+
+    // Validar que hay disponibles los recursos necesarios (maquetas, bocetos, plotters, muestrasForradas)
+    if (totalesDisponibles.maquetas === 0 && totalesDisponibles.bocetos === 0 && totalesDisponibles.plotters === 0 && totalesDisponibles.muestrasForradas === 0) {
+      alert("No hay recursos disponibles para añadir más direcciones.");
+      return;
+    }
+
+
+    const nuevaDireccion = document.createElement("div");
+    nuevaDireccion.className = "envio form-group";
+
+    nuevaDireccion.innerHTML = `
+      <h4 class="full-width">Dirección ${seccionEnvios.children.length + 1}</h4>
+      <div class="form-group">
+        <div class="input-medio">
+          <label>Persona de contacto:
+            <input type="text" name="personaContacto[]" required>
+          </label>
+        </div>
+        <div class="input-corto">
+          <label>Teléfono:
+            <input type="text" name="telefono[]" required>
+          </label>
+        </div>
+        <div class="input-medio">
+          <label>Dirección:
+            <input type="text" name="direccion[]" required>
+          </label>
+        </div>
+        <div class="input-corto">
+          <label>Código Postal:
+            <input type="text" name="codigoPostal[]" required>
+          </label>
+        </div>
+        <div class="input-medio">
+          <label>Ciudad:
+            <input type="text" name="ciudad[]" required>
+          </label>
+        </div>
+        <div class="input-medio">
+          <label>País:
+            <input type="text" name="pais[]" required>
+          </label>
+        </div>
+      </div>
+      <label>Maquetas a enviar:
+        <input type="number" name="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}">
+      </label>
+      <label>Bocetos a enviar:
+        <input type="number" name="bocetos[]" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}">
+      </label>
+      <label>Plotters a enviar:
+        <input type="number" name="plotters[]" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}">
+      </label>
+      <label>Muestras forradas a enviar:
+        <input type="number" name="muestrasForradas[]" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}">
+      </label>
+      <hr>
+    `;
+
+    seccionEnvios.appendChild(nuevaDireccion);
+
+    // Actualizar dinámicamente los totales cuando cambien los valores
+    const inputs = nuevaDireccion.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => input.addEventListener("input", actualizarTotales));
+  });
+
+  // Eliminar la última dirección
+  document.getElementById("eliminarDireccion").addEventListener("click", function () {
+    if (seccionEnvios.children.length > 0) {
+      seccionEnvios.removeChild(seccionEnvios.lastElementChild);
+      actualizarTotales(); // Actualizar totales después de eliminar
+    }
+  });
+
+  // Actualizar totales dinámicamente
+  function actualizarTotales() {
+  const totalesDisponibles = calcularTotalesDisponibles();
+
+  const direcciones = seccionEnvios.querySelectorAll('.envio');
+  direcciones.forEach(envio => {
+    const inputMaquetas = envio.querySelector('input[name="maquetass[]"]');
+    const inputBocetos = envio.querySelector('input[name="bocetos[]"]');
+    const inputPlotters = envio.querySelector('input[name="plotters[]"]');
+    const inputMuestrasForradas = envio.querySelector('input[name="muestrasForradas[]"]');
+
+    inputMaquetas.max = totalesDisponibles.maquetas + parseInt(inputMaquetas.value, 10);
+    inputBocetos.max = totalesDisponibles.bocetos + parseInt(inputBocetos.value, 10);
+    inputPlotters.max = totalesDisponibles.plotters + parseInt(inputPlotters.value, 10);
+    inputMuestrasForradas.max = totalesDisponibles.muestrasForradas + parseInt(inputMuestrasForradas.value, 10);
+  });
+}
 });
 
 //FIN DIRECCION ENVIO
 
-//prova 1 inici
-
-//
-// // Almacenar datos globales
-// let muestras = {
-//   boceto: 0,
-//   plotter: 0,
-//   forrada: 0,
-// };
-//
-// function toggleDropdown(id) {
-//   const element = document.getElementById(id);
-//   element.style.display = element.style.display === "none" || element.style.display === "" ? "block" : "none";
-// }
-//
-// function updateMuestra(tipo) {
-//   const cantidad = document.getElementById(tipo + "Extra").value;
-//   muestras[tipo] = parseInt(cantidad) || 0;
-// }
-//
-// function addEnvio() {
-//   const enviosContainer = document.getElementById('enviosContainer');
-//
-//   // Crear contenedor de envío
-//   const envioCard = document.createElement('div');
-//   envioCard.classList.add('envio-card');
-//
-//   envioCard.innerHTML = `
-//     <h5>Detalles de Envío</h5>
-//     <label>Persona de contacto:
-//       <input type="text" name="nombreContacto" placeholder="Nombre">
-//     </label>
-//     <label>Teléfono:
-//       <input type="text" name="telefonoContacto" placeholder="Teléfono">
-//     </label>
-//     <label>Dirección:
-//       <input type="text" name="direccionContacto" placeholder="Dirección">
-//     </label>
-//     <label>Código Postal:
-//       <input type="text" name="codigoPostal" placeholder="Código Postal">
-//     </label>
-//     <label>Ciudad:
-//       <input type="text" name="ciudadContacto" placeholder="Ciudad">
-//     </label>
-//     <label>País:
-//       <input type="text" name="paisContacto" placeholder="País">
-//     </label>
-//     <label>Bocetos a enviar: <strong>${muestras.boceto}</strong></label>
-//     <label>Plotters a enviar: <strong>${muestras.plotter}</strong></label>
-//     <label>Muestras forradas a enviar: <strong>${muestras.forrada}</strong></label>
-//   `;
-//
-//   // Agregar tarjeta de envío
-//   enviosContainer.appendChild(envioCard);
-// }
+// MOSTRAR DIV IMPRESION
 
 
-//  prova 1 final
+
+// Función para verificar "Sin impresión" y ocultar o mostrar el div de impresión
+function verificarSinImpresion() {
+  // Obtener el valor de la familia seleccionada
+  const cartoncilloSelected = document.getElementById('cartoncillo').checked;
+  const contraencoladoSelected = document.getElementById('contraencolado').checked;
+  const onduladoSelected = document.getElementById('ondulado').checked;
 
 
-// var contadorTroqueles=1
-// // GESTION MOSTRAR TROQUELES ////
-// function generarBloquesTroquel(){
-//
-//
-//
-// // Contenedor donde se agregarán los bloques dinámicamente
-//   const contenedor = document.getElementById('opcionesNumeroTroquel');
-//
-//   // Crear un nuevo div con la clase 'opcionesNumeroTroquel'
-//   const nuevoBloque = document.createElement('div');
-//   nuevoBloque.className = `opcionesNumeroTroquel${contadorTroqueles}`;
-//
-//   // Crear el contenido HTML para el nuevo bloque
-//   nuevoBloque.innerHTML = `
-//       <label for="numeroTroquelExistente${contadorTroqueles}">Número de troquel:</label>
-//       <input class="campotextocorto" type="text" name="numeroTroquelExistente">
-// <!--
-//       <label for="calidad${contadorTroqueles}">Calidad</label>
-//       <input class="campotextomuycorto" type="text" name="calidad${contadorTroqueles}" placeholder="Calidad">
-//
-//       <label for="canal${contadorTroqueles}">Canal</label>
-//       <input class="campotextomuycorto" type="text" name="canal${contadorTroqueles}" placeholder="Canal">
-//
-//       <label for="cllo">Cllo</label>
-//       <input class="campotextomuycorto" type="text" name="cllo${contadorTroqueles}" placeholder="Cllo">
-//     -->
-//       <br>
-//   <!-- Anula Ficha -->
-//   <label for="sianulaFicha${contadorTroqueles}">Anula FF anterior?:</label>
-//   <input type="radio" id="siAnulaFicha${contadorTroqueles}" name="anulaFicha" value="Si"> Si
-//   </label>
-//
-//   <label for="noAnulaFicha${contadorTroqueles}">
-//     <input type="radio" id="noAnulaFicha${contadorTroqueles}" name="anulaFicha" value="No"> No
-//   </label>
-//
-//   <!-- Campo de texto que se mostrará si "Si" es seleccionado -->
-//   <div id="contenedorFicha${contadorTroqueles}" style="display:none;">
-//     <label for="numeroficha${contadorTroqueles}">Número de ficha:</label>
-//     <input class="campotextocorto" type="text" id="numeroficha${contadorTroqueles}" name="numeroficha">
-//   </div>
-//   <hr>
-//     `;
-//
-//   if(contadorTroqueles<20){
-//     // Agregar el nuevo bloque al contenedor
-//     contenedor.appendChild(nuevoBloque);
-//     contadorTroqueles++;
-//   }else{
-//     alert("Alcanzado limite, si necesita añadir mas troqueles consulte a su gestor")
-//   }
-//
-// }
+  // Verificar si "Sin impresión" está seleccionado para cada tipo de producto
+  const sinImpresionCartoncillo = cartoncilloSelected && document.getElementById('sinImpresionCartoncillo').checked;
+  const sinImpresionContraencolado = contraencoladoSelected && document.getElementById('sinImpresionContraencolado').checked;
+  const sinImpresionOndulado = onduladoSelected && document.getElementById('sinImpresionOndulado').checked;
 
-// // Función para eliminar el último bloque
-// function eliminarBloquesTroquel() {
-//   // Contenedor donde se agregarán los bloques dinámicamente
-//   const contenedor = document.getElementById(`opcionesNumeroTroquel`);
-//   // Verificar si hay bloques para eliminar
-//   if (contenedor.lastChild) {
-//     contenedor.removeChild(contenedor.lastChild);
-//     contadorTroqueles--;
-//   }
-// }
+  // Si "Sin impresión" está seleccionado en alguna opción, ocultar el div de impresión
+  if (sinImpresionCartoncillo || sinImpresionContraencolado || sinImpresionOndulado) {
+    document.getElementById('mostrarTablaImpresion').style.display = 'none';
+  } else {
+    document.getElementById('mostrarTablaImpresion').style.display = 'block';
+  }
+}
+
+// Delegación de eventos: escuchamos el evento 'change' en el contenedor general (puede ser un <form>, <div>, etc.)
+document.getElementById('cartoncilloListado').addEventListener('change', verificarSinImpresion);
+document.getElementById('contraencoladoListado').addEventListener('change', verificarSinImpresion);
+document.getElementById('onduladoListado').addEventListener('change', verificarSinImpresion);
+
+// Evento para los radio buttons de "familiaProductos"
+document.querySelectorAll('input[name="familiaProductos"]').forEach(radio => {
+  radio.addEventListener('change', verificarSinImpresion);
+});
+
+
+
+// FINAL mostrar div IMPRESION
+
 
 
 /////   REQUERIMIENTOS  //////
@@ -582,6 +526,8 @@ function mostrarListado() {
   contraencoladoListado.style.display = 'none';
   onduladoListado.style.display = 'none';
 
+
+
   // Recorrer los radio buttons seleccionados
   for (const radioButton of radioButtons) {
     if (radioButton.checked) {
@@ -634,8 +580,8 @@ function generarBloques() {
 
   // El tipo será el valor del contador actual
   bloque.innerHTML = `
-</class id="tipos">
-  <hr>
+   </div id="tipos">
+         <hr>
     <h4>Tipo ${contadorTipos}</h4>
     <!-- Radio buttons para seleccionar la familia de productos -->
      <div class="input-medio">
@@ -678,7 +624,7 @@ function generarBloques() {
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo${contadorTipos}">
-        <input type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="sinImpresion"> Sin impresión
+        <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="sinImpresion"> Sin impresión
       </label>
       <label for="offsetCartoncillo${contadorTipos}">
         <input type="radio" id="offsetCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="offset" checked> Offset
@@ -688,8 +634,8 @@ function generarBloques() {
     <!-- Contraencolado -->
     <div id="contraencoladoListado${contadorTipos}" style="display:none;">
       <h4>Tipos de impresión para Contraencolado</h4>
-      <label for="sinImpresionContraencolado${contadorTipos}">
-        <input type="radio" id="sinImpresionContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="sinImpresion"> Sin impresión
+      <label  for="sinImpresionContraencolado${contadorTipos}">
+        <input class="trabajoImpresion" type="radio" id="sinImpresionContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="sinImpresion"> Sin impresión
       </label>
       <label for="offsetContraencolado${contadorTipos}">
         <input type="radio" id="offsetContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="offset" checked> Offset
@@ -697,26 +643,27 @@ function generarBloques() {
     </div>
 
     <!-- Ondulado -->
-    <div id="onduladoListado${contadorTipos}" style="display:none;">
-      <h4>Tipos de impresión para Ondulado</h4>
-      <label for="sinImpresionOndulado${contadorTipos}">
-        <input type="radio" id="sinImpresionOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="sinImpresion"> Sin impresión
-      </label>
-      <label for="offsetOndulado${contadorTipos}">
-        <input type="radio" id="offsetOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="offset" checked> Offset
-      </label>
-      <label for="digitalOndulado${contadorTipos}">
-        <input type="radio" id="digitalOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="digital"> Digital
-      </label>
-      <label for="flexoOndulado${contadorTipos}">
-        <input type="radio" id="flexoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo"> Flexo
-      </label>
-      <label for="flexoMejoradoOndulado${contadorTipos}">
-        <input type="radio" id="flexoMejoradoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo mejorado"> Flexo mejorado
-      </label>
-      <label for="flexoHDOndulado${contadorTipos}">
-        <input type="radio" id="flexoHDOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo HD"> Flexo HD
-      </label>
+      <div id="onduladoListado${contadorTipos}" style="display:none;">
+        <h4>Tipos de impresión para Ondulado</h4>
+        <label for="sinImpresionOndulado${contadorTipos}">
+          <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="sinImpresion"> Sin impresión
+        </label>
+        <label for="offsetOndulado${contadorTipos}">
+          <input type="radio" id="offsetOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="offset" checked> Offset
+        </label>
+        <label for="digitalOndulado${contadorTipos}">
+          <input type="radio" id="digitalOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="digital"> Digital
+        </label>
+        <label for="flexoOndulado${contadorTipos}">
+          <input type="radio" id="flexoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo"> Flexo
+        </label>
+        <label for="flexoMejoradoOndulado${contadorTipos}">
+          <input type="radio" id="flexoMejoradoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo mejorado"> Flexo mejorado
+        </label>
+        <label for="flexoHDOndulado${contadorTipos}">
+          <input type="radio" id="flexoHDOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo HD"> Flexo HD
+        </label>
+      </div>
     </div>
        <br>
 
@@ -905,7 +852,9 @@ function validarCheckboxesMuestras() {
   }
 
   return true; // Permitir el envío si al menos uno está marcado
+
 }
+
 
 // Función para validar el formulario
 function validarFormulario() {

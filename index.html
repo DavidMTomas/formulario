@@ -389,24 +389,24 @@
     <!-- Cartoncillo -->
     <div id="cartoncilloListado" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
-      <label for="sinImpresion">
-        <input type="radio" id="sinImpresion_cartoncillo" name="productoCartoncillo" value="sinImpresion"> Sin
+      <label for="sinImpresionCartoncillo">
+        <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo" name="productoCartoncillo" value="sinImpresion"> Sin
         impresión
       </label>
-      <label for="offset">
-        <input type="radio" id="offset_cartoncillo" name="productoCartoncillo" value="offset" checked> Offset
+      <label for="offsetCartoncillo">
+        <input type="radio" id="offsetCartoncillo" name="productoCartoncillo" value="offset" checked> Offset
       </label>
     </div>
 
     <!-- Contraencolado -->
     <div id="contraencoladoListado" style="display:none;">
       <h4>Tipos de impresión para Contraencolado</h4>
-      <label for="sinImpresion">
-        <input type="radio" id="sinImpresion_contraencolado" name="productoContraencolado" value="sinImpresion"> Sin
+      <label for="sinImpresionContraencolado">
+        <input class="trabajoImpresion" type="radio" id="sinImpresionContraencolado" name="productoContraencolado" value="sinImpresion"> Sin
         impresión
       </label>
-      <label for="offset">
-        <input type="radio" id="offset_contraencolado" name="productoContraencolado" value="offset" checked> Offset
+      <label for="offsetContraencolado">
+        <input  type="radio" id="offsetContraencolado" name="productoContraencolado" value="offset" checked> Offset
       </label>
     </div>
 
@@ -414,27 +414,27 @@
     <!-- Ondulado -->
     <div id="onduladoListado" style="display:none;">
       <h4>Tipos de impresión para Ondulado</h4>
-      <label for="sinImpresion">
-        <input type="radio" id="sinImpresion" name="productoOndulado" value="sinImpresion"> Sin impresión
+      <label for="sinImpresionOndulado">
+        <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="productoOndulado" value="sinImpresion"> Sin impresión
       </label>
-      <label for="offset">
-        <input type="radio" id="offset" name="productoOndulado" value="offset" checked> Offset
+      <label for="offsetOndulado">
+        <input type="radio" id="offsetOndulado" name="productoOndulado" value="offset" checked> Offset
       </label>
-      <label for="digital">
-        <input type="radio" id="digital" name="productoOndulado" value="digital"> Digital
+      <label for="digitalOndulado">
+        <input type="radio" id="digitalOndulado" name="productoOndulado" value="digital"> Digital
       </label>
-      <label for="flexo">
-        <input type="radio" id="flexo" name="productoOndulado" value="flexo"> Flexo
+      <label for="flexoOndulado">
+        <input type="radio" id="flexoOndulado" name="productoOndulado" value="flexo"> Flexo
       </label>
-      <label for="flexoMejorado">
-        <input type="radio" id="flexoMejorado" name="productoOndulado" value="flexo mejorado"> Flexo mejorado
+      <label for="flexoMejoradoOndulado">
+        <input type="radio" id="flexoMejoradoOndulado" name="productoOndulado" value="flexo mejorado"> Flexo mejorado
       </label>
-      <label for="flexoHD">
-        <input type="radio" id="flexoHd" name="productoOndulado" value="flexo HD"> Flexo HD
+      <label for="flexoHDOndulado">
+        <input type="radio" id="flexoHdOndulado" name="productoOndulado" value="flexo HD"> Flexo HD
       </label>
     </div>
     <br>
-    <!--    <hr>-->
+
 
     <!--      <div id="opcionesComunesMulti">-->
     <!--      </div>-->
@@ -465,14 +465,14 @@
     <tbody>
     <tr>
       <td><input type="checkbox" name="muestras" id="checkDiseñoEstructural"
-                 onclick="toggleDropdown('mostrarDesplegableMuestras')"></td>
+                 onclick="toggleDropdown('mostrarDesplegableMuestras','muestraExtra')"></td>
     </tr>
     <tr>
       <td>
         <div id="mostrarDesplegableMuestras" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('muestraExtra')">-</button>
-            <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="1">
+            <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="0">
             <button type="button" onclick="increment('muestraExtra')">+</button>
           </div>
         </div>
@@ -482,6 +482,7 @@
   </table>
   <!--  <hr>-->
 
+  <div id="mostrarTablaImpresion">
   <h4>IMPRESION</h4>
   <table class="estiloTabla controlPeticion">
     <thead>
@@ -493,20 +494,20 @@
     </thead>
     <tbody>
     <tr>
-      <td><input type="checkbox" name="boceto" id="checkBoceto" onclick="toggleDropdown('mostrarDesplegableBoceto')">
+      <td><input type="checkbox" name="boceto" id="checkBoceto" onclick="toggleDropdown('mostrarDesplegableBoceto', 'bocetoExtra')">
       </td>
       <td><input type="checkbox" name="plotter" id="checkPlotter"
-                 onclick="toggleDropdown('mostrarDesplegablePlotter')">
+                 onclick="toggleDropdown('mostrarDesplegablePlotter', 'plotterExtra')">
       </td>
       <td><input type="checkbox" name="muestraforrada" id="checkForrada"
-                 onclick="toggleDropdown('mostrarDesplegableForrada')"></td>
+                 onclick="toggleDropdown('mostrarDesplegableForrada','forradaExtra')"></td>
     </tr>
     <tr>
       <td>
         <div id="mostrarDesplegableBoceto" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('bocetoExtra')">-</button>
-            <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="1">
+            <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="0">
             <button type="button" onclick="increment('bocetoExtra')">+</button>
           </div>
         </div>
@@ -515,7 +516,7 @@
         <div id="mostrarDesplegablePlotter" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('plotterExtra')">-</button>
-            <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="1">
+            <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="0">
             <button type="button" onclick="increment('plotterExtra')">+</button>
           </div>
         </div>
@@ -524,7 +525,7 @@
         <div id="mostrarDesplegableForrada" class="dropdown" style="display: none;">
           <div class="custom-spinner">
             <button type="button" onclick="decrement('forradaExtra')">-</button>
-            <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="1">
+            <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="0">
             <button type="button" onclick="increment('forradaExtra')">+</button>
           </div>
         </div>
@@ -532,6 +533,8 @@
     </tr>
     </tbody>
   </table>
+  </div>
+
 
   <hr>
   <h4>ENVIO</h4>
@@ -540,7 +543,7 @@
   <div id="seccionEnvios">
   </div>
 
-  <!--  <hr>-->
+
   <!-- Botón para añadir más direcciones -->
   <button type="button" id="agregarDireccion">Añadir dirección</button>
   <!-- Botón para eliminar la última dirección -->
