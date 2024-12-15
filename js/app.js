@@ -855,15 +855,12 @@ function validarCheckboxesMuestras() {
 
 }
 
-
 // Función para validar el formulario
 function validarFormulario() {
   const formulario = document.getElementById("petcicionComercial");
   const camposRequeridos = formulario.querySelectorAll("[required]");
   let valido = true;
   let mensajeMostrado = false; // Controla si ya mostramos el mensaje de advertencia
-
-
 
   // Recorremos todos los campos requeridos
   camposRequeridos.forEach(function (campo) {
@@ -893,45 +890,8 @@ function validarFormulario() {
     return false; // Si no se seleccionó ningún checkbox, no permitir el envío
   }
 
-
   return valido;
 }
-
-// Función para enviar el formulario y limpiar los campos
-document.getElementById("enviarTerminar").addEventListener("click", function (event) {
-  event.preventDefault(); // Prevenir el envío inmediato del formulario
-
-  // Validar el formulario
-  if (validarFormulario()) {
-    // Aquí iría el código para generar el PDF y abrir el correo
-    // ... Tu lógica para generar el PDF y enviar el correo
-
-    // Mostrar mensaje de éxito
-    alert("Formulario enviado y limpiado");
-
-    // Limpiar el formulario, EXCLUYENDO el campo de fecha
-    const fechaHoraValue = document.getElementById("fechaHora").value; // Guardar el valor de la fecha
-    document.getElementById("petcicionComercial").reset(); // Limpiar el formulario
-    document.getElementById("fechaHora").value = fechaHoraValue; // Restaurar el valor de la fecha
-  }
-});
-
-// Función para enviar el formulario y sobrescribir (sin limpiar el formulario completo)
-document.getElementById("enviarSobreescribir").addEventListener("click", function (event) {
-  event.preventDefault(); // Prevenir el envío inmediato del formulario
-
-  // Validar el formulario
-  if (validarFormulario()) {
-    // Aquí iría el código para generar el PDF y abrir el correo
-    // ... Tu lógica para generar el PDF y enviar el correo
-
-    // Mostrar mensaje de éxito
-    alert("Formulario enviado sin limpiar");
-
-    // Borrar solo el campo "referencia cliente" (si existe)
-    document.getElementById("referencia").value = ""; // Sobreescribir con vacío el campo de referencia cliente
-  }
-});
 
 // Función para generar el PDF
 function generarPDF() {
@@ -940,7 +900,7 @@ function generarPDF() {
 
   // Capturar los datos del formulario
   const nombre = document.getElementById('nombre').value;
-  const email = "dmtomas@outlook.es";
+  const email = ""; // Correo predeterminado
   const referencia = document.getElementById('referencia').value;
 
   // Agregar contenido al PDF
@@ -984,27 +944,19 @@ document.getElementById("enviarSobreescribir").addEventListener("click", functio
     // Si la validación es exitosa, generar el PDF y abrir el correo
     generarPDF();
 
-    // Borrar solo los campos específicos sin limpiar todo el formulario
-    document.getElementById("referencia").value = ""; // Borrar campo referencia
-    document.getElementById("indicacionesCliente").value = "";
-    document.getElementById("cantidadLote").value = ""; // Borrar campo cantidad
-    document.getElementById("consumoAnual").value = ""; // Borrar campo cantidad
-    document.getElementById("numeroFicha").value = ""; // Borrar campo n ficha
+    // Limpiar solo los campos específicos, en este caso, el campo de "referencia"
+    document.getElementById("referencia").value = ""; // Sobreescribir con vacío el campo de referencia
+
+    // Limpiar otros campos que deseas, por ejemplo:
+    document.getElementById("indicacionesCliente").value = ""; // Limpiar campo "indicacionesCliente"
+    document.getElementById("cantidadLote").value = ""; // Limpiar campo "cantidadLote"
+    document.getElementById("consumoAnual").value = ""; // Limpiar campo "consumoAnual"
+    document.getElementById("numeroFicha").value = ""; // Limpiar campo "numeroFicha"
+
+    // Mostrar mensaje de éxito
+    alert("Formulario enviado y campos específicos limpiados.");
   } else {
     console.log("Formulario no válido. No se generará el PDF ni se enviará el correo.");
   }
 });
 
-
-
-
-// Llamado inicial para establecer el estado al cargar la página
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById("opcionesTroquel").style.display = "none"
-});
-
-document.querySelector('form').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-  }
-});
