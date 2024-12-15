@@ -2,7 +2,6 @@
 
 ///INICIO /////
 
-
 // Obtener la fecha y hora actual
 const ahora = new Date();
 
@@ -16,24 +15,6 @@ const fechaHoraActual = ahora.toISOString().slice(0, 16);
 document.getElementById('fechaHora').value = fechaHoraActual;
 
 
-///////      DATOS CLIENTE     //////
-document.getElementById('petcicionComercial').addEventListener('submit', function (event) {
-  event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
-  // Obtenemos los valores de los campos
-  const nombre = document.getElementById('nombre').value;
-  const email = document.getElementById('email').value;
-  const mensaje = document.getElementById('mensaje').value;
-
-  // Validaciones
-  if (nombre === '' || email === '' || mensaje === '') {
-    alert('Por favor, completa todos los campos');
-    return;
-  }
-
-  // Enviar datos o realizar otra acción
-  alert('Formulario enviado correctamente');
-});
 
 /////////////////////////////////////////////////////
 // Obtenemos el checkbox, el campo numeroCliente y la etiqueta del número
@@ -89,7 +70,7 @@ function mostrarSeleccion() {
   });
 
   // Mostrar los valores seleccionados en el contenedor de resultados
-  document.getElementById('resultados').innerHTML =
+  document.getElementById('totalDocAportada').innerHTML =
     ' ·' + selectedValues.join('<br> ·');
 }
 
@@ -102,6 +83,7 @@ document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(fu
 // Función general para mostrar/ocultar el campo de texto
 function toggleCampoTexto(radioSi, campoTexto) {
   campoTexto.style.display = radioSi.checked ? 'block' : 'none';
+  campoTexto.required = !!radioSi.checked;
 }
 
 // Función para gestionar el caso especial de "Anula troquel"
@@ -116,7 +98,7 @@ function handleAnulaTroquel() {
     radioNoAnulaFicha.disabled = true;
     radioNoAnulaFicha.checked = false; // Desmarcar "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar campo de número de ficha
-    document.getElementById("acabadosEstructural").style.display = "block" // nuevo estructural
+    // document.getElementById("acabadosEstructural").style.display="block" // nuevo estructural
 
 
     // Ocultar las opciones de "¿Existe el troquel?" si "Sí" en "Anula troquel" está seleccionado
@@ -128,7 +110,7 @@ function handleAnulaTroquel() {
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
     opcionesTroquel.style.display = 'block'; // Mostrar las opciones de si existe o no el troquel
     //botonesTroquel.style.display="block"
-    document.getElementById("acabadosEstructural").style.display = "none" // no hay nuevo estrurtral
+    // document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
   }
 }
 
@@ -144,11 +126,11 @@ function handleExisteTroquel() {
     radioSiAnulaFicha.disabled = true; // Desactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.checked = false; // Desmarcar "Sí"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Ocultar el campo de número de ficha
-    document.getElementById("acabadosEstructural").style.display = "block"
+    //document.getElementById("acabadosEstructural").style.display="block"
   } else {
     // Si selecciona "Sí" en "¿Existe el troquel?", reactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.disabled = false;
-    document.getElementById("acabadosEstructural").style.display = "none"
+    // document.getElementById("acabadosEstructural").style.display="none"
     //botonesTroquel.style.display="block"
   }
 }
@@ -171,7 +153,7 @@ const existeTroquelSi = document.getElementById('existeTroquelSi');
 const existeTroquelNo = document.getElementById('existeTroquelNo');
 const campoNumeroTroquelExistente = document.getElementById('campoNumeroTroquelExistente');
 
-;
+
 // Eventos para "Anula FF anterior"
 radioSiAnulaFicha.addEventListener('change', function () {
   toggleCampoTexto(radioSiAnulaFicha, campoFicha);
@@ -193,81 +175,272 @@ toggleCampoTexto(radioSiAnulaFicha, campoFicha);
 handleAnulaTroquel();
 
 
-var contadorTroqueles = 1
+// mostrar dimensiones si anula troquel, si no existe troqueñ
+document.addEventListener('DOMContentLoaded', () => {
+  const anulaTroquelRadios = document.getElementsByName('anulaTroquel');
+  const existeTroquelRadios = document.getElementsByName('existeTroquel');
+  const medidasEstructuralDiv = document.getElementById('medidasEstructural');
 
-// GESTION MOSTRAR TROQUELES ////
-function generarBloquesTroquel() {
+  function verificarCombinacion() {
+    const anulaTroquel = [...anulaTroquelRadios].find(radio => radio.checked)?.value;
+    const existeTroquel = [...existeTroquelRadios].find(radio => radio.checked)?.value;
+
+    // Mostrar el div si la combinación es la requerida
+    if (anulaTroquel === 'Si' || existeTroquel === 'No') {
+      medidasEstructuralDiv.style.display = 'block';
+    } else {
+      medidasEstructuralDiv.style.display = 'none';
+    }
+  }
+
+  // Añadir eventos a los botones de radio
+  [...anulaTroquelRadios, ...existeTroquelRadios].forEach(radio => {
+    radio.addEventListener('change', verificarCombinacion);
+  });
+});
 
 
-// Contenedor donde se agregarán los bloques dinámicamente
-  const contenedor = document.getElementById('opcionesNumeroTroquel');
+//MAQUETA -- IMPRESIONES
+// Función para mostrar/ocultar el div de los botones de incremento/decremento
+function toggleDropdown(divId,inputId) {
+  const dropdown = document.getElementById(divId);
+  const checkbox = this.event.target; // Obtener el checkbox que disparó el evento
+  const inputValue = document.getElementById(inputId); // Obtener el input asociado
 
-  // Crear un nuevo div con la clase 'opcionesNumeroTroquel'
-  const nuevoBloque = document.createElement('div');
-  nuevoBloque.className = `opcionesNumeroTroquel${contadorTroqueles}`;
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  // Cambiar el valor del input a 1 si el checkbox está activado, o 0 si está desactivado
+  if (checkbox.checked) {
+    inputValue.value = 1;
+  } else {
+    inputValue.value = 0;
+  }
 
-  // Crear el contenido HTML para el nuevo bloque
-  nuevoBloque.innerHTML = `
-      <label for="numeroTroquelExistente${contadorTroqueles}">Número de troquel:</label>
-      <input class="campotextocorto" type="text" name="numeroTroquelExistente">
+  validarCheckboxesMuestras()
+}
 
-      <label for="calidad${contadorTroqueles}">Calidad</label>
-      <input class="campotextomuycorto" type="text" name="calidad${contadorTroqueles}" placeholder="Calidad">
 
-      <label for="canal${contadorTroqueles}">Canal</label>
-      <input class="campotextomuycorto" type="text" name="canal${contadorTroqueles}" placeholder="Canal">
+// Función para incrementar el valor del input numérico
+function increment(inputId) {
+  const input = document.getElementById(inputId);
+  input.stepUp();
+  checkValue(); // Verifica si el valor es mayor que 1 y muestra el texto
+}
 
-      <label for="cllo">Cllo</label>
-      <input class="campotextomuycorto" type="text" name="cllo${contadorTroqueles}" placeholder="Cllo">
-      <br>
-  <!-- Anula Ficha -->
-  <label for="sianulaFicha${contadorTroqueles}">Anula FF anterior?:</label>
-  <input type="radio" id="siAnulaFicha${contadorTroqueles}" name="anulaFicha" value="Si"> Si
-  </label>
 
-  <label for="noAnulaFicha${contadorTroqueles}">
-    <input type="radio" id="noAnulaFicha${contadorTroqueles}" name="anulaFicha" value="No"> No
-  </label>
+// Función para decrementar el valor del input numérico
+function decrement(inputId) {
+  const input = document.getElementById(inputId);
+  input.stepDown();
+  checkValue(); // Verifica si el valor es mayor que 1 y muestra el texto
+}
 
-  <!-- Campo de texto que se mostrará si "Si" es seleccionado -->
-  <div id="contenedorFicha${contadorTroqueles}" style="display:none;">
-    <label for="numeroficha${contadorTroqueles}">Número de ficha:</label>
-    <input class="campotextocorto" type="text" id="numeroficha${contadorTroqueles}" name="numeroficha">
-  </div>
-  <hr>
+
+// FIN MAQUETA -- IMPRESIONES
+// Función para verificar el valor del input y mostrar/ocultar el texto
+function checkValue() {
+  const input = document.getElementById("etiquetasPaletizado");
+  const textoExtra = document.getElementById("textoExtra");
+
+  if (parseInt(input.value) > 1) {
+    textoExtra.style.display = "block"; // Muestra el texto
+  } else {
+    textoExtra.style.display = "none"; // Oculta el texto
+  }
+}
+
+
+
+
+
+// DIRECCIONES DE ENVIO
+
+window.addEventListener('DOMContentLoaded', function () {
+  const seccionEnvios = document.getElementById("seccionEnvios");
+
+  // Obtener valores iniciales de los inputs
+  function obtenerTotalesIniciales() {
+    return {
+      maquetas: parseInt(document.getElementById("muestraExtra").value, 10) || 0,
+      bocetos: parseInt(document.getElementById("bocetoExtra").value, 10) || 0,
+      plotters: parseInt(document.getElementById("plotterExtra").value, 10) || 0,
+      muestrasForradas: parseInt(document.getElementById("forradaExtra").value, 10) || 0,
+    };
+  }
+
+  // Calcular totales disponibles después de restar los seleccionados en las direcciones actuales
+  function calcularTotalesDisponibles() {
+    const totalesIniciales = obtenerTotalesIniciales();
+
+    let usadosMaquetas = 0;
+    let usadosBocetos = 0;
+    let usadosPlotters = 0;
+    let usadosMuestrasForradas = 0;
+
+    const direcciones = seccionEnvios.querySelectorAll('.envio');
+    direcciones.forEach(envio => {
+      usadosMaquetas += parseInt(envio.querySelector('input[name="maquetass[]"]').value, 10) || 0;
+      usadosBocetos += parseInt(envio.querySelector('input[name="bocetos[]"]').value, 10) || 0;
+      usadosPlotters += parseInt(envio.querySelector('input[name="plotters[]"]').value, 10) || 0;
+      usadosMuestrasForradas += parseInt(envio.querySelector('input[name="muestrasForradas[]"]').value, 10) || 0;
+    });
+
+    return {
+      maquetas: Math.max(0, totalesIniciales.maquetas - usadosMaquetas),
+      bocetos: Math.max(0, totalesIniciales.bocetos - usadosBocetos),
+      plotters: Math.max(0, totalesIniciales.plotters - usadosPlotters),
+      muestrasForradas: Math.max(0, totalesIniciales.muestrasForradas - usadosMuestrasForradas),
+    };
+  }
+
+  // Agregar una nueva dirección
+  document.getElementById("agregarDireccion").addEventListener("click", function () {
+    if(!validarCheckboxesMuestras()){
+      alert("Debe seleccionar al menos una muestra para poder añadir una dirección de envío");
+      return
+    }
+
+    const totalesDisponibles = calcularTotalesDisponibles();
+
+    // Validar que hay disponibles los recursos necesarios (maquetas, bocetos, plotters, muestrasForradas)
+    if (totalesDisponibles.maquetas === 0 && totalesDisponibles.bocetos === 0 && totalesDisponibles.plotters === 0 && totalesDisponibles.muestrasForradas === 0) {
+      alert("No hay recursos disponibles para añadir más direcciones.");
+      return;
+    }
+
+
+    const nuevaDireccion = document.createElement("div");
+    nuevaDireccion.className = "envio form-group";
+
+    nuevaDireccion.innerHTML = `
+      <h4 class="full-width">Dirección ${seccionEnvios.children.length + 1}</h4>
+      <div class="form-group">
+        <div class="input-medio">
+          <label>Persona de contacto:
+            <input type="text" name="personaContacto[]" required>
+          </label>
+        </div>
+        <div class="input-corto">
+          <label>Teléfono:
+            <input type="text" name="telefono[]" required>
+          </label>
+        </div>
+        <div class="input-medio">
+          <label>Dirección:
+            <input type="text" name="direccion[]" required>
+          </label>
+        </div>
+        <div class="input-corto">
+          <label>Código Postal:
+            <input type="text" name="codigoPostal[]" required>
+          </label>
+        </div>
+        <div class="input-medio">
+          <label>Ciudad:
+            <input type="text" name="ciudad[]" required>
+          </label>
+        </div>
+        <div class="input-medio">
+          <label>País:
+            <input type="text" name="pais[]" required>
+          </label>
+        </div>
+      </div>
+      <label>Maquetas a enviar:
+        <input type="number" name="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}">
+      </label>
+      <label>Bocetos a enviar:
+        <input type="number" name="bocetos[]" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}">
+      </label>
+      <label>Plotters a enviar:
+        <input type="number" name="plotters[]" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}">
+      </label>
+      <label>Muestras forradas a enviar:
+        <input type="number" name="muestrasForradas[]" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}">
+      </label>
+      <hr>
     `;
 
-  if (contadorTroqueles < 20) {
-    // Agregar el nuevo bloque al contenedor
-    contenedor.appendChild(nuevoBloque);
-    contadorTroqueles++;
+    seccionEnvios.appendChild(nuevaDireccion);
+
+    // Actualizar dinámicamente los totales cuando cambien los valores
+    const inputs = nuevaDireccion.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => input.addEventListener("input", actualizarTotales));
+  });
+
+  // Eliminar la última dirección
+  document.getElementById("eliminarDireccion").addEventListener("click", function () {
+    if (seccionEnvios.children.length > 0) {
+      seccionEnvios.removeChild(seccionEnvios.lastElementChild);
+      actualizarTotales(); // Actualizar totales después de eliminar
+    }
+  });
+
+  // Actualizar totales dinámicamente
+  function actualizarTotales() {
+    const totalesDisponibles = calcularTotalesDisponibles();
+
+    const direcciones = seccionEnvios.querySelectorAll('.envio');
+    direcciones.forEach(envio => {
+      const inputMaquetas = envio.querySelector('input[name="maquetass[]"]');
+      const inputBocetos = envio.querySelector('input[name="bocetos[]"]');
+      const inputPlotters = envio.querySelector('input[name="plotters[]"]');
+      const inputMuestrasForradas = envio.querySelector('input[name="muestrasForradas[]"]');
+
+      inputMaquetas.max = totalesDisponibles.maquetas + parseInt(inputMaquetas.value, 10);
+      inputBocetos.max = totalesDisponibles.bocetos + parseInt(inputBocetos.value, 10);
+      inputPlotters.max = totalesDisponibles.plotters + parseInt(inputPlotters.value, 10);
+      inputMuestrasForradas.max = totalesDisponibles.muestrasForradas + parseInt(inputMuestrasForradas.value, 10);
+    });
+  }
+});
+
+//FIN DIRECCION ENVIO
+
+// MOSTRAR DIV IMPRESION
+
+
+
+// Función para verificar "Sin impresión" y ocultar o mostrar el div de impresión
+function verificarSinImpresion() {
+  // Obtener el valor de la familia seleccionada
+  const cartoncilloSelected = document.getElementById('cartoncillo').checked;
+  const contraencoladoSelected = document.getElementById('contraencolado').checked;
+  const onduladoSelected = document.getElementById('ondulado').checked;
+
+
+  // Verificar si "Sin impresión" está seleccionado para cada tipo de producto
+  const sinImpresionCartoncillo = cartoncilloSelected && document.getElementById('sinImpresionCartoncillo').checked;
+  const sinImpresionContraencolado = contraencoladoSelected && document.getElementById('sinImpresionContraencolado').checked;
+  const sinImpresionOndulado = onduladoSelected && document.getElementById('sinImpresionOndulado').checked;
+
+  // Si "Sin impresión" está seleccionado en alguna opción, ocultar el div de impresión
+  if (sinImpresionCartoncillo || sinImpresionContraencolado || sinImpresionOndulado) {
+    document.getElementById('mostrarTablaImpresion').style.display = 'none';
   } else {
-    alert("Alcanzado limite, si necesita añadir mas troqueles consulte a su gestor")
-  }
-
-}
-
-
-// Función para eliminar el último bloque
-function eliminarBloquesTroquel() {
-  // Contenedor donde se agregarán los bloques dinámicamente
-  const contenedor = document.getElementById(`opcionesNumeroTroquel`);
-  // Verificar si hay bloques para eliminar
-  if (contenedor.lastChild) {
-    contenedor.removeChild(contenedor.lastChild);
-    contadorTroqueles--;
+    document.getElementById('mostrarTablaImpresion').style.display = 'block';
   }
 }
 
+// Delegación de eventos: escuchamos el evento 'change' en el contenedor general (puede ser un <form>, <div>, etc.)
+document.getElementById('cartoncilloListado').addEventListener('change', verificarSinImpresion);
+document.getElementById('contraencoladoListado').addEventListener('change', verificarSinImpresion);
+document.getElementById('onduladoListado').addEventListener('change', verificarSinImpresion);
 
-const siAnulaTroquel = document.getElementById('siAnulaTroquel');
-const noAnulaTroquel = document.getElementById('noAnulaTroquel');
+// Evento para los radio buttons de "familiaProductos"
+document.querySelectorAll('input[name="familiaProductos"]').forEach(radio => {
+  radio.addEventListener('change', verificarSinImpresion);
+});
+
+
+
+// FINAL mostrar div IMPRESION
+
 
 
 /////   REQUERIMIENTOS  //////
 // Evento para mostrar el campo de texto si se selecciona "Otras"
 document.getElementById('rejillas').addEventListener('change', function () {
-  const otrasOpcion = document.getElementById('otras-opcion');
+  const otrasOpcion = document.getElementById('otrasOpcion');
   if (this.value === 'otras') {
     // Mostrar el campo de texto
     otrasOpcion.style.display = 'block';
@@ -277,6 +450,16 @@ document.getElementById('rejillas').addEventListener('change', function () {
   }
 });
 
+
+document.getElementById("paletizado").addEventListener("change", function () {
+  const paletizado = document.getElementById("paletizado");
+  const mostrarPaletizado = document.getElementById("mostrarPaletizado");
+  if (paletizado.value === "especificar") {
+    mostrarPaletizado.style.display = "block";
+  } else {
+    mostrarPaletizado.style.display = "none";
+  }
+});
 
 /////// ACABADOS    /////
 
@@ -294,7 +477,7 @@ function toggleNumTipos() {
 
   // Recorrer los radio buttons
   opcionesDiseño.forEach(radio => {
-    if (radio.checked && radio.value === 'multipieza') {
+    if (radio.checked && radio.value === 'multiPieza') {
       isMultipiezaSelected = true;
     }
   });
@@ -343,6 +526,8 @@ function mostrarListado() {
   contraencoladoListado.style.display = 'none';
   onduladoListado.style.display = 'none';
 
+
+
   // Recorrer los radio buttons seleccionados
   for (const radioButton of radioButtons) {
     if (radioButton.checked) {
@@ -381,10 +566,10 @@ function generarBloques() {
   const container = document.getElementById('tiposGenerados');
 
   // Verificamos si la opción de "Diseño estructural Multipieza" está seleccionada
-  const diseñoMultipieza = document.getElementById('diseñoEstructuralMultipieza');
+  const disenyoMultipieza = document.getElementById('diseñoEstructuralMultiPieza');
 
   // Si "Estructural Multipieza" está seleccionado, inicializamos el contador a 2 y generamos dos bloques
-  if (diseñoMultipieza.checked && contadorTipos === 1) {
+  if (disenyoMultipieza.checked && contadorTipos === 1) {
     contadorTipos = 2; // Generar 2 bloques cuando la opción de "Estructural Multipieza" se selecciona
   }
 
@@ -395,14 +580,19 @@ function generarBloques() {
 
   // El tipo será el valor del contador actual
   bloque.innerHTML = `
-</class id="tipos">
+   </div id="tipos">
+         <hr>
     <h4>Tipo ${contadorTipos}</h4>
     <!-- Radio buttons para seleccionar la familia de productos -->
-     <label for="idPieza${contadorTipos}">
-    <input type="text" id="idPieza${contadorTipos}" name="familiaProductos${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
-  </label>
+     <div class="input-medio">
+        <label for="idPieza${contadorTipos}">
+        <input type="text" id="idPieza${contadorTipos}" name="familiaProductos${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
+        </label>
+    </div>
+
+     <div class="form-group">
     <label for="cartoncillo${contadorTipos}">
-      <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" onchange="mostrarListado(${contadorTipos})"> Cartoncillo
+      <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" checked onchange="mostrarListado(${contadorTipos})"> Cartoncillo
     </label>
 
     <label for="contraencolado${contadorTipos}">
@@ -413,63 +603,70 @@ function generarBloques() {
       <input type="radio" id="ondulado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Ondulado" onchange="mostrarListado(${contadorTipos})"> Ondulado
     </label>
 
+     <div class="input-corto">
+        <label for="calidad${contadorTipos}">Calidad</label>
+        <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad" required/>
+     </div>
+
+    <div class="input-corto">
+        <label for="canal${contadorTipos}">Canal</label>
+        <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal" required/>
+    </div>
+      <div class="input-corto">
+          <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
+            <label for="cllo${contadorTipos}">Cllo</label>
+            <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo" required/>
+            </div>
+      </div>
+    </div>
+
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
-      <h4>Tipos de impresion para Cartoncillo</h4>
+      <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo${contadorTipos}">
-        <input type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="sin impresion"> Sin impresion
+        <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="sinImpresion"> Sin impresión
       </label>
       <label for="offsetCartoncillo${contadorTipos}">
-        <input type="radio" id="offsetCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="offset"> Offset
+        <input type="radio" id="offsetCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="offset" checked> Offset
       </label>
     </div>
 
     <!-- Contraencolado -->
     <div id="contraencoladoListado${contadorTipos}" style="display:none;">
-      <h4>Tipos de impresion para Contraencolado</h4>
-      <label for="sinImpresionContraencolado${contadorTipos}">
-        <input type="radio" id="sinImpresionContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="sin impresion"> Sin impresion
+      <h4>Tipos de impresión para Contraencolado</h4>
+      <label  for="sinImpresionContraencolado${contadorTipos}">
+        <input class="trabajoImpresion" type="radio" id="sinImpresionContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="sinImpresion"> Sin impresión
       </label>
       <label for="offsetContraencolado${contadorTipos}">
-        <input type="radio" id="offsetContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="offset"> Offset
+        <input type="radio" id="offsetContraencolado${contadorTipos}" name="productoContraencolado${contadorTipos}" value="offset" checked> Offset
       </label>
     </div>
 
     <!-- Ondulado -->
-    <div id="onduladoListado${contadorTipos}" style="display:none;">
-      <h4>Tipos de impresion para Ondulado</h4>
-      <label for="sinImpresionOndulado${contadorTipos}">
-        <input type="radio" id="sinImpresionOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="sin impresion"> Sin impresion
-      </label>
-      <label for="offsetOndulado${contadorTipos}">
-        <input type="radio" id="offsetOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="offset"> Offset
-      </label>
-      <label for="digitalOndulado${contadorTipos}">
-        <input type="radio" id="digitalOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="digital"> Digital
-      </label>
-      <label for="flexoOndulado${contadorTipos}">
-        <input type="radio" id="flexoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo"> Flexo
-      </label>
-      <label for="flexoMejoradoOndulado${contadorTipos}">
-        <input type="radio" id="flexoMejoradoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo mejorado"> Flexo mejorado
-      </label>
-      <label for="flexoHDOndulado${contadorTipos}">
-        <input type="radio" id="flexoHDOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo HD"> Flexo HD
-      </label>
+      <div id="onduladoListado${contadorTipos}" style="display:none;">
+        <h4>Tipos de impresión para Ondulado</h4>
+        <label for="sinImpresionOndulado${contadorTipos}">
+          <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="sinImpresion"> Sin impresión
+        </label>
+        <label for="offsetOndulado${contadorTipos}">
+          <input type="radio" id="offsetOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="offset" checked> Offset
+        </label>
+        <label for="digitalOndulado${contadorTipos}">
+          <input type="radio" id="digitalOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="digital"> Digital
+        </label>
+        <label for="flexoOndulado${contadorTipos}">
+          <input type="radio" id="flexoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo"> Flexo
+        </label>
+        <label for="flexoMejoradoOndulado${contadorTipos}">
+          <input type="radio" id="flexoMejoradoOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo mejorado"> Flexo mejorado
+        </label>
+        <label for="flexoHDOndulado${contadorTipos}">
+          <input type="radio" id="flexoHDOndulado${contadorTipos}" name="productoOndulado${contadorTipos}" value="flexo HD"> Flexo HD
+        </label>
+      </div>
     </div>
-
        <br>
-    <label for="calidad${contadorTipos}">Calidad</label>
-    <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad"/>
 
-    <label for="canal${contadorTipos}">Canal</label>
-    <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal"/>
-
-    <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
-    <label for="cllo${contadorTipos}">Cllo</label>
-    <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo"/>
-    </div>
-    <hr>
   `;
 
   // Añadir el bloque al contenedor
@@ -588,7 +785,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', function () {
   const contenedorTiposGenerados = document.getElementById('tiposGenerados');
-  const radioDiseñoEstructuralMultipieza = document.getElementById('diseñoEstructuralMultipieza');
+  const radioDiseñoEstructuralMultipieza = document.getElementById('diseñoEstructuralMultiPieza');
 
 
   /// OK   ///
@@ -613,58 +810,132 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-////////    final  //
+function validarCheckboxesMuestras() {
+  const checkboxes = [
+    document.getElementById("checkDiseñoEstructural"),
+    document.getElementById("checkBoceto"),
+    document.getElementById("checkPlotter"),
+    document.getElementById("checkForrada")
+  ];
+  const tablasCheckboxes = document.querySelectorAll(".controlPeticion"); // Seleccionar todas las tablas con la clase "controlPeticion"
+
+  let algunoMarcado = false;
+
+  // Verificar si al menos uno está marcado
+  checkboxes.forEach(function (checkbox) {
+    if (checkbox.checked) {
+      algunoMarcado = true;
+    }
+  });
+
+  if (!algunoMarcado) {
+    // Agregar clase de error a cada tabla y a cada checkbox
+    tablasCheckboxes.forEach(function (tabla) {
+      tabla.classList.add("error"); // Resaltar la tabla
+    });
+
+    checkboxes.forEach(function (checkbox) {
+      checkbox.classList.add("error-checkbox"); // Resaltar cada checkbox
+    });
+
+    alert("Por favor, selecciona al menos uno de los tipos de impresión o muestras.");
+    return false; // No permitir el envío
+  } else {
+    // Quitar la clase de error de cada tabla y de cada checkbox si es válido
+    tablasCheckboxes.forEach(function (tabla) {
+      tabla.classList.remove("error"); // Quitar el resaltado de la tabla
+    });
+
+    checkboxes.forEach(function (checkbox) {
+      checkbox.classList.remove("error-checkbox"); // Quitar el resaltado de los checkboxes
+    });
+  }
+
+  return true; // Permitir el envío si al menos uno está marcado
+
+}
+
+
+// Función para validar el formulario
+function validarFormulario() {
+  const formulario = document.getElementById("petcicionComercial");
+  const camposRequeridos = formulario.querySelectorAll("[required]");
+  let valido = true;
+  let mensajeMostrado = false; // Controla si ya mostramos el mensaje de advertencia
+
+
+
+  // Recorremos todos los campos requeridos
+  camposRequeridos.forEach(function (campo) {
+    // Verificamos si el campo está visible (no oculto)
+    const estilo = window.getComputedStyle(campo);
+    const esVisible = (estilo.display !== 'none') && (estilo.visibility !== 'hidden') && (campo.offsetParent !== null);
+
+    // Solo validamos si el campo es visible
+    if (esVisible) {
+      if (campo.value.trim() === "") {
+        valido = false;
+        campo.classList.add("error"); // Agrega clase de error si el campo está vacío
+
+        // Mostrar el mensaje solo una vez
+        if (!mensajeMostrado) {
+          alert("Por favor, completa todos los campos requeridos.");
+          mensajeMostrado = true; // Marcar que el mensaje ya fue mostrado
+        }
+      } else {
+        campo.classList.remove("error"); // Remueve la clase de error si está completado
+      }
+    }
+  });
+
+  // Llamamos a la función que valida los checkboxes
+  if (!validarCheckboxesMuestras()) {
+    return false; // Si no se seleccionó ningún checkbox, no permitir el envío
+  }
+
+
+  return valido;
+}
+
+// Función para enviar el formulario y limpiar los campos
 document.getElementById("enviarTerminar").addEventListener("click", function (event) {
-  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
+  event.preventDefault(); // Prevenir el envío inmediato del formulario
 
-  // Crear el objeto FormData con los datos del formulario
-  var formData = new FormData(document.getElementById("petcicionComercial"));
+  // Validar el formulario
+  if (validarFormulario()) {
+    // Aquí iría el código para generar el PDF y abrir el correo
+    // ... Tu lógica para generar el PDF y enviar el correo
 
-  // Enviar el formulario usando fetch (AJAX)
-  fetch("ruta/a/tu/servidor", {
-    method: "POST",
-    body: formData
-  })
-    .then(response => response.text())
-    .then(data => {
-      // Mostrar ventana con mensaje
-      alert("Formulario enviado y limpiado");
-      // Limpiar el formulario
-      document.getElementById("petcicionComercial").reset();
-    })
-    .catch(error => {
-      console.error("Error al enviar el formulario:", error);
-    });
+    // Mostrar mensaje de éxito
+    alert("Formulario enviado y limpiado");
+
+    // Limpiar el formulario, EXCLUYENDO el campo de fecha
+    const fechaHoraValue = document.getElementById("fechaHora").value; // Guardar el valor de la fecha
+    document.getElementById("petcicionComercial").reset(); // Limpiar el formulario
+    document.getElementById("fechaHora").value = fechaHoraValue; // Restaurar el valor de la fecha
+  }
 });
 
+// Función para enviar el formulario y sobrescribir (sin limpiar el formulario completo)
 document.getElementById("enviarSobreescribir").addEventListener("click", function (event) {
-  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
+  event.preventDefault(); // Prevenir el envío inmediato del formulario
 
-  // Crear el objeto FormData con los datos del formulario
-  var formData = new FormData(document.getElementById("petcicionComercial"));
+  // Validar el formulario
+  if (validarFormulario()) {
+    // Aquí iría el código para generar el PDF y abrir el correo
+    // ... Tu lógica para generar el PDF y enviar el correo
 
-  // Enviar el formulario usando fetch (AJAX)
-  fetch("ruta/a/tu/servidor", {
-    method: "POST",
-    body: formData
-  })
-    .then(response => response.text())
-    .then(data => {
-      // Mostrar ventana con mensaje
-      alert("Formulario enviado sin limpiar");
-      // Limpiar solo el campo 'referencia'
-      document.getElementById("referencia").value = "";
-    })
-    .catch(error => {
-      console.error("Error al enviar el formulario:", error);
-    });
+    // Mostrar mensaje de éxito
+    alert("Formulario enviado sin limpiar");
+
+    // Borrar solo el campo "referencia cliente" (si existe)
+    document.getElementById("referencia").value = ""; // Sobreescribir con vacío el campo de referencia cliente
+  }
 });
 
-
-//////  envio    ///
-
+// Función para generar el PDF
 function generarPDF() {
-  const {jsPDF} = window.jspdf;
+  const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
   // Capturar los datos del formulario
@@ -686,19 +957,45 @@ function generarPDF() {
   window.location.href = `mailto:${email}?subject=Formulario PDF&body=Adjunta el PDF descargado.`;
 }
 
+// Función para manejar el evento de clic en el botón "Enviar y Terminar"
+document.getElementById("enviarTerminar").addEventListener("click", function (event) {
+  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
 
-function enviarCorreoConPDF() {
-  const pdfBlob = generarPDF();
+  // Validar el formulario
+  if (validarFormulario()) {
+    // Si la validación es exitosa, generar el PDF y abrir el correo
+    generarPDF();
 
-  // Guardar el archivo temporalmente y pedir al usuario que lo adjunte manualmente
-  const enlace = document.createElement('a');
-  enlace.href = URL.createObjectURL(pdfBlob);
-  enlace.download = 'formulario.pdf';
-  enlace.click();
+    // Limpiar el formulario completo, EXCLUYENDO el campo de fecha
+    const fechaHoraValue = document.getElementById("fechaHora").value; // Guardar el valor de la fecha
+    document.getElementById("petcicionComercial").reset(); // Limpiar el formulario
+    document.getElementById("fechaHora").value = fechaHoraValue; // Restaurar el valor de la fecha
+  } else {
+    console.log("Formulario no válido. No se generará el PDF ni se enviará el correo.");
+  }
+});
 
-  // Enviar correo con el enlace
-  window.location.href = 'mailto:correo@ejemplo.com?subject=Envío de Formulario';
-}
+// Función para manejar el evento de clic en el botón "Enviar y Sobreescribir"
+document.getElementById("enviarSobreescribir").addEventListener("click", function (event) {
+  event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
+
+  // Validar el formulario
+  if (validarFormulario()) {
+    // Si la validación es exitosa, generar el PDF y abrir el correo
+    generarPDF();
+
+    // Borrar solo los campos específicos sin limpiar todo el formulario
+    document.getElementById("referencia").value = ""; // Borrar campo referencia
+    document.getElementById("indicacionesCliente").value = "";
+    document.getElementById("cantidadLote").value = ""; // Borrar campo cantidad
+    document.getElementById("consumoAnual").value = ""; // Borrar campo cantidad
+    document.getElementById("numeroFicha").value = ""; // Borrar campo n ficha
+  } else {
+    console.log("Formulario no válido. No se generará el PDF ni se enviará el correo.");
+  }
+});
+
+
 
 
 // Llamado inicial para establecer el estado al cargar la página
@@ -706,3 +1003,8 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById("opcionesTroquel").style.display = "none"
 });
 
+document.querySelector('form').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+  }
+});
