@@ -53,12 +53,16 @@
 
     <div class="input-medio">
       <label for="email">Email de contacto:</label>
-      <input type="email" id="email" name="email" required>
+      <input type="email" id="email" name="email" required onblur="validarEmail()">
+      <!-- Mensaje de error para el email -->
+      <span id="mensajeEmail" style="color: red;"></span>
     </div>
 
     <div class="input-medio">
       <label for="telefonoPersonaContaco">Teléfono de contacto</label>
-      <input type="text" id="telefonoPersonaContaco" name="telefonoPersonaContaco" required>
+      <input type="text" id="telefonoPersonaContaco" name="telefonoPersonaContaco" required onblur="validarTelefono()">
+      <!-- Mensaje de error para el teléfono -->
+      <span id="mensajeTelefono" style="color: red;"></span>
     </div>
   </div>
 
@@ -752,6 +756,9 @@
       <input class="campotextocorto" type="text" id="nombreComercial" name="nombreComercial" required>
     </div>
 
+    <!-- Campo honeypot -->
+    <input type="text" name="apellidoH" style="display:none;" tabindex="-1" autocomplete="off">
+
     <div class="input-medio">
       <label for="nombreGestor">Gestor de proyecto:</label>
       <select class="campotextocorto" id="nombreGestor" name="nombreGestor" required>
@@ -765,6 +772,8 @@
       </select>
     </div>
   </div>
+
+
 
   <button type="submit" id="enviarTerminar">Enviar y terminar</button>
   <button type="submit" id="enviarSobreescribir">Enviar y sobreescribir</button>

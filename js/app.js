@@ -14,6 +14,48 @@ const fechaHoraActual = ahora.toISOString().slice(0, 16);
 // Asignar la fecha y hora actual (con 1 hora añadida) al campo datetime-local
 document.getElementById('fechaHora').value = fechaHoraActual;
 
+// VALIDACIONES
+
+// Función para validar el correo electrónico
+function validarEmail() {
+  const emailInput = document.getElementById('email');
+  const mensajeEmail = document.getElementById('mensajeEmail');
+  const email = emailInput.value;
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para correo electrónico
+
+  // Validamos el email
+  if (!regexEmail.test(email)) {
+    mensajeEmail.textContent = 'Por favor, introduce un correo electrónico válido.';
+    mensajeEmail.style.color = 'red'; // Aseguramos que el mensaje de error se vea en rojo
+    emailInput.classList.add('error'); // Añadimos la clase .error al input
+  } else {
+    mensajeEmail.textContent = ''; // Eliminar mensaje si es válido
+    emailInput.classList.remove('error'); // Eliminamos la clase .error si es válido
+  }
+}
+
+// Función para validar el teléfono
+function validarTelefono() {
+  const telefonoInput = document.getElementById('telefonoPersonaContaco');
+  const mensajeTelefono = document.getElementById('mensajeTelefono');
+  let telefono = telefonoInput.value.trim(); // Eliminamos los espacios al principio y al final
+
+  // Expresión regular para validar el teléfono con o sin + o 00
+  const regexTelefono = /^(?:\+?\d{2}|00\d{2})[\d\s]{9}$|^\d{9}$/;
+// Permite +34, 0034, o 9 dígitos más opcionales espacios
+  telefono = telefonoInput.value.replace(/\s+/g, '');
+
+  // Validamos el teléfono
+  if (!regexTelefono.test(telefono)) {
+    mensajeTelefono.textContent = 'El teléfono debe tener 9 digitos, puede empezar por +XX, o 00XX';
+    mensajeTelefono.style.color = 'red'; // Aseguramos que el mensaje de error se vea en rojo
+    telefonoInput.classList.add('error'); // Añadimos la clase .error al input
+  } else {
+    mensajeTelefono.textContent = ''; // Eliminar mensaje si es válido
+    telefonoInput.classList.remove('error'); // Eliminamos la clase .error si es válido
+  }
+}
+
 
 
 /////////////////////////////////////////////////////
@@ -895,6 +937,13 @@ function validarFormulario() {
 
 // Función para generar el PDF
 function generarPDF() {
+  // Verificar si el campo honeypot está lleno (probablemente un bot)
+  const honeypot = document.querySelector('input[name="apellidoH"]').value;
+  if (honeypot) {
+    alert('Acceso no autorizado.');
+    return; // Detener la ejecución si el bot ha llenado el campo
+  }
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
