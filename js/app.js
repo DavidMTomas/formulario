@@ -17,8 +17,7 @@ document.getElementById('fechaHora').value = fechaHoraActual;
 // VALIDACIONES
 
 // Función para validar el correo electrónico
-function validarEmail() {
-  const emailInput = document.getElementById('email');
+function validarEmail(emailInput) {
   const mensajeEmail = document.getElementById('mensajeEmail');
   const email = emailInput.value;
   const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para correo electrónico
@@ -28,6 +27,7 @@ function validarEmail() {
     mensajeEmail.textContent = 'Por favor, introduce un correo electrónico válido.';
     mensajeEmail.style.color = 'red'; // Aseguramos que el mensaje de error se vea en rojo
     emailInput.classList.add('error'); // Añadimos la clase .error al input
+    emailInput.value = ''; // Limpiamos el campo
   } else {
     mensajeEmail.textContent = ''; // Eliminar mensaje si es válido
     emailInput.classList.remove('error'); // Eliminamos la clase .error si es válido
@@ -35,21 +35,21 @@ function validarEmail() {
 }
 
 // Función para validar el teléfono
-function validarTelefono() {
-  const telefonoInput = document.getElementById('telefonoPersonaContaco');
-  const mensajeTelefono = document.getElementById('mensajeTelefono');
+function validarTelefono(telefonoInput) {
+  // Usar el `id` del campo para crear un mensaje único de error
+  const mensajeTelefono = telefonoInput.nextElementSibling; // El siguiente elemento es el span con el mensaje de error
   let telefono = telefonoInput.value.trim(); // Eliminamos los espacios al principio y al final
 
   // Expresión regular para validar el teléfono con o sin + o 00
-  const regexTelefono = /^(?:\+?\d{2}|00\d{2})[\d\s]{9}$|^\d{9}$/;
-// Permite +34, 0034, o 9 dígitos más opcionales espacios
-  telefono = telefonoInput.value.replace(/\s+/g, '');
+  const regexTelefono = /^(?:\+?\d{2}|00\d{2})[\d\s]{9}$|^\d{9}$/; // Permite +34, 0034, o 9 dígitos más opcionales espacios
+  telefono = telefono.replace(/\s+/g, ''); // Eliminamos los espacios en el teléfono
 
   // Validamos el teléfono
   if (!regexTelefono.test(telefono)) {
-    mensajeTelefono.textContent = 'El teléfono debe tener 9 digitos, puede empezar por +XX, o 00XX';
+    mensajeTelefono.textContent = 'El teléfono debe tener 9 dígitos, puede empezar por +XX, o 00XX';
     mensajeTelefono.style.color = 'red'; // Aseguramos que el mensaje de error se vea en rojo
     telefonoInput.classList.add('error'); // Añadimos la clase .error al input
+    telefonoInput.value = ''; // Limpiamos el campo
   } else {
     mensajeTelefono.textContent = ''; // Eliminar mensaje si es válido
     telefonoInput.classList.remove('error'); // Eliminamos la clase .error si es válido
@@ -292,8 +292,6 @@ function checkValue() {
 
 
 
-
-
 // DIRECCIONES DE ENVIO
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -361,9 +359,11 @@ window.addEventListener('DOMContentLoaded', function () {
             <input type="text" name="personaContacto[]" required>
           </label>
         </div>
-        <div class="input-corto">
+        <div class="input-intermedio">
           <label>Teléfono:
-            <input type="text" name="telefono[]" required>
+            <input type="text" name="telefono[]" required onblur="validarTelefono(this)">
+            <!-- Mensaje de error para el teléfono -->
+            <span class="mensajeTelefono" style="color: red;"></span>
           </label>
         </div>
         <div class="input-medio">
@@ -383,7 +383,7 @@ window.addEventListener('DOMContentLoaded', function () {
         </div>
         <div class="input-medio">
           <label>País:
-            <input type="text" name="pais[]" required>
+            <input type="text" name="pais[]" required value="España">
           </label>
         </div>
       </div>
@@ -403,6 +403,8 @@ window.addEventListener('DOMContentLoaded', function () {
     `;
 
     seccionEnvios.appendChild(nuevaDireccion);
+    // Después de agregar la nueva dirección, vuelve a vincular los eventos
+    agregarEventosCampos();
 
     // Actualizar dinámicamente los totales cuando cambien los valores
     const inputs = nuevaDireccion.querySelectorAll('input[type="number"]');
@@ -439,7 +441,6 @@ window.addEventListener('DOMContentLoaded', function () {
 //FIN DIRECCION ENVIO
 
 // MOSTRAR DIV IMPRESION
-
 
 
 // Función para verificar "Sin impresión" y ocultar o mostrar el div de impresión
@@ -507,6 +508,7 @@ document.getElementById("paletizado").addEventListener("change", function () {
 
 
 /////////////////////////////////////////////////////
+
 // Obtener los radio buttons y el contenedor del número de tipos
 const opcionesDiseño = document.getElementsByName('tipoDiseño');
 const numTiposContainer = document.getElementById('numTiposContainer');
@@ -852,6 +854,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
 function validarCheckboxesMuestras() {
   const checkboxes = [
     document.getElementById("checkDiseñoEstructural"),
@@ -860,6 +863,7 @@ function validarCheckboxesMuestras() {
     document.getElementById("checkForrada")
   ];
   const tablasCheckboxes = document.querySelectorAll(".controlPeticion"); // Seleccionar todas las tablas con la clase "controlPeticion"
+  const primerCheckbox = checkboxes[0]; // Obtener el primer checkbox
 
   let algunoMarcado = false;
 
@@ -881,6 +885,8 @@ function validarCheckboxesMuestras() {
     });
 
     alert("Por favor, selecciona al menos uno de los tipos de impresión o muestras.");
+    primerCheckbox.focus(); // Llevar el foco al primer checkbox
+    primerCheckbox.scrollIntoView({ behavior: "smooth", block: "center" }); // Desplazarse al primer checkbox
     return false; // No permitir el envío
   } else {
     // Quitar la clase de error de cada tabla y de cada checkbox si es válido
@@ -897,12 +903,20 @@ function validarCheckboxesMuestras() {
 
 }
 
+
+
+
+
+
 // Función para validar el formulario
 function validarFormulario() {
   const formulario = document.getElementById("petcicionComercial");
   const camposRequeridos = formulario.querySelectorAll("[required]");
   let valido = true;
   let mensajeMostrado = false; // Controla si ya mostramos el mensaje de advertencia
+  let primerCampoConError = null; // Variable para almacenar el primer campo con error
+
+
 
   // Recorremos todos los campos requeridos
   camposRequeridos.forEach(function (campo) {
@@ -921,11 +935,23 @@ function validarFormulario() {
           alert("Por favor, completa todos los campos requeridos.");
           mensajeMostrado = true; // Marcar que el mensaje ya fue mostrado
         }
+        // Guardamos el primer campo con error
+        if (primerCampoConError === null) {
+          primerCampoConError = campo;
+        }
+
       } else {
         campo.classList.remove("error"); // Remueve la clase de error si está completado
       }
     }
   });
+
+  // Si hay un campo con error, movemos el foco al primer campo con error
+  if (primerCampoConError !== null) {
+    primerCampoConError.scrollIntoView({ behavior: "smooth", block: "center" });
+    primerCampoConError.focus();
+    return false; // Evitar que el formulario se envíe
+  }
 
   // Llamamos a la función que valida los checkboxes
   if (!validarCheckboxesMuestras()) {
@@ -934,6 +960,44 @@ function validarFormulario() {
 
   return valido;
 }
+// validar formulario
+
+
+// Función para eliminar las clases "error" o "reenvio" cuando el usuario empieza a escribir
+function actualizarEstadoCampo(campo) {
+  if (campo.value.trim() !== "") {
+    campo.classList.remove("error", "reenvio"); // Elimina ambas clases si el campo tiene texto
+  }else{
+    campo.classList.add("error");
+  }
+}
+
+// Añadir el evento "input" a todos los campos requeridos
+const campos = document.querySelectorAll("[required]"); // Seleccionamos todos los campos requeridos
+campos.forEach(function (campo) {
+  campo.addEventListener("input", function() {
+    actualizarEstadoCampo(campo); // Llamamos a la función cuando el usuario escribe
+  });
+});
+
+
+// Función para agregar los eventos de los campos nuevos (dinámicos)
+function agregarEventosCampos() {
+  const campos = document.querySelectorAll("[required]"); // Seleccionamos todos los campos requeridos
+  campos.forEach(function (campo) {
+    // Nos aseguramos de que el evento no se agregue varias veces
+    if (!campo.hasAttribute('data-evento-agregado')) {
+      // Evento para detectar la entrada de datos
+      campo.addEventListener("input", function() {
+        actualizarEstadoCampo(campo); // Llamamos a la función cuando el usuario escribe
+      });
+      // Marcamos el campo como que ya tiene evento agregado
+      campo.setAttribute('data-evento-agregado', 'true');
+    }
+  });
+}
+
+
 
 // Función para generar el PDF
 function generarPDF() {
@@ -966,6 +1030,7 @@ function generarPDF() {
   window.location.href = `mailto:${email}?subject=Formulario PDF&body=Adjunta el PDF descargado.`;
 }
 
+
 // Función para manejar el evento de clic en el botón "Enviar y Terminar"
 document.getElementById("enviarTerminar").addEventListener("click", function (event) {
   event.preventDefault(); // Prevenir que el formulario se envíe inmediatamente
@@ -993,14 +1058,37 @@ document.getElementById("enviarSobreescribir").addEventListener("click", functio
     // Si la validación es exitosa, generar el PDF y abrir el correo
     generarPDF();
 
-    // Limpiar solo los campos específicos, en este caso, el campo de "referencia"
-    document.getElementById("referencia").value = ""; // Sobreescribir con vacío el campo de referencia
+    // Limpiar los campos específicos y aplicar estilos
+    const camposAlimpiar = [
+      "referencia",
+      "indicacionesCliente",
+      "cantidadLote",
+      "consumoAnual",
+      "numeroFicha"
+    ];
 
-    // Limpiar otros campos que deseas, por ejemplo:
-    document.getElementById("indicacionesCliente").value = ""; // Limpiar campo "indicacionesCliente"
-    document.getElementById("cantidadLote").value = ""; // Limpiar campo "cantidadLote"
-    document.getElementById("consumoAnual").value = ""; // Limpiar campo "consumoAnual"
-    document.getElementById("numeroFicha").value = ""; // Limpiar campo "numeroFicha"
+    let primerCampoVacio = null;
+
+    camposAlimpiar.forEach(function (campoId) {
+      const campo = document.getElementById(campoId);
+
+      // Limpiar el campo
+      campo.value = "";
+
+      // Añadir clases para modificar el estilo del campo (resaltar en verde)
+      campo.classList.add("reenvio");
+
+      // Guardamos el primer campo vacío para poner el foco en él después
+      if (!primerCampoVacio && campo.value.trim() === "") {
+        primerCampoVacio = campo;
+      }
+    });
+
+    // Si hay un campo vacío, mover el foco hacia él
+    if (primerCampoVacio) {
+      primerCampoVacio.focus();
+      primerCampoVacio.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
 
     // Mostrar mensaje de éxito
     alert("Formulario enviado y campos específicos limpiados.");
@@ -1008,4 +1096,3 @@ document.getElementById("enviarSobreescribir").addEventListener("click", functio
     console.log("Formulario no válido. No se generará el PDF ni se enviará el correo.");
   }
 });
-
