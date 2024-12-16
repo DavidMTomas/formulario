@@ -482,3 +482,17 @@ form .error {
   border: 2px solid red;
   background-color: #ffe6e6; /* Un color suave para llamar la atención */
 }
+
+
+/* Estilo para los campos correctamente llenados (reenviados) */
+form .reenvio {
+  border: 2px solid #00ff0d; /* Borde verde */
+  background-color: #bcecbb; /* Fondo verde claro */
+  color: #2f721c; /* Texto verde oscuro */
+}
+
+/* Clase para resaltar la tabla con un reenvío */
+.estiloTabla.reenvio {
+  border: 2px solid #00ff0d;
+  background-color: #bcecbb; /* Fondo verde claro para la tabla */
+}
