@@ -58,11 +58,11 @@
       <span id="mensajeEmail" style="color: red;"></span>
     </div>
 
-    <div class="input-medio">
+    <div class="input-intermedio">
       <label for="telefonoPersonaContaco">Teléfono de contacto</label>
-      <input type="text" id="telefonoPersonaContaco" name="telefonoPersonaContaco" required onblur="validarTelefono()">
+      <input type="text" id="telefonoPersonaContaco" name="telefonoPersonaContaco" required onblur="validarTelefono(this)">
       <!-- Mensaje de error para el teléfono -->
-      <span id="mensajeTelefono" style="color: red;"></span>
+      <span class="mensajeTelefono" style="color: red;"></span>
     </div>
   </div>
 
@@ -539,19 +539,19 @@
   </table>
   </div>
 
-
   <hr>
   <h4>ENVIO</h4>
-
 
   <div id="seccionEnvios">
   </div>
 
-
+  <div id="botonesEnvio">
   <!-- Botón para añadir más direcciones -->
-  <button type="button" id="agregarDireccion">Añadir dirección</button>
+  <button type="button" id="agregarDireccion">Añadir destinatario</button>
   <!-- Botón para eliminar la última dirección -->
-  <button type="button" id="eliminarDireccion">Eliminar última dirección</button>
+  <button type="button" id="eliminarDireccion">Eliminar última destinatario</button>
+  </div>
+
 
   <hr>
   <h4>OTROS</h4>
