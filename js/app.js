@@ -17,7 +17,8 @@ document.getElementById('fechaHora').value = fechaHoraActual;
 // VALIDACIONES
 
 // Función para validar el correo electrónico
-function validarEmail(emailInput) {
+function validarEmail() {
+  const emailInput = document.getElementById('email'); // Obtener el input de email
   const mensajeEmail = document.getElementById('mensajeEmail');
   const email = emailInput.value;
   const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para correo electrónico
@@ -324,12 +325,14 @@ window.addEventListener('DOMContentLoaded', function () {
       usadosMuestrasForradas += parseInt(envio.querySelector('input[name="muestrasForradas[]"]').value, 10) || 0;
     });
 
+
     return {
       maquetas: Math.max(0, totalesIniciales.maquetas - usadosMaquetas),
       bocetos: Math.max(0, totalesIniciales.bocetos - usadosBocetos),
       plotters: Math.max(0, totalesIniciales.plotters - usadosPlotters),
       muestrasForradas: Math.max(0, totalesIniciales.muestrasForradas - usadosMuestrasForradas),
     };
+
   }
 
   // Agregar una nueva dirección
@@ -346,6 +349,7 @@ window.addEventListener('DOMContentLoaded', function () {
       alert("No hay recursos disponibles para añadir más direcciones.");
       return;
     }
+
 
 
     const nuevaDireccion = document.createElement("div");
@@ -958,6 +962,8 @@ function validarFormulario() {
     return false; // Si no se seleccionó ningún checkbox, no permitir el envío
   }
 
+
+
   return valido;
 }
 // validar formulario
@@ -1015,16 +1021,25 @@ function generarPDF() {
   const nombre = document.getElementById('nombre').value;
   const email = ""; // Correo predeterminado
   const referencia = document.getElementById('referencia').value;
+  const nombreComercial = document.getElementById('nombreComercial').value;
+  const fechaHora = document.getElementById('fechaHora').value;
 
   // Agregar contenido al PDF
   doc.text(`Formulario de solicitud`, 10, 10);
   doc.text(`Nombre: ${nombre}`, 10, 20);
   doc.text(`Email: ${email}`, 10, 30);
   doc.text(`Referencia: ${referencia}`, 10, 40);
+  doc.text(`Comercial: ${nombreComercial}`, 10, 50); // Agregar nombre del comercial
+  doc.text(`Fecha y hora: ${fechaHora}`, 10, 60); // Agregar la fecha y hora
   // Agregar más campos según sea necesario...
 
+
+  const fechaFormateada = fechaHora.replace("T", "_").replace(":", "-").replace(":", "-");
+  const nombreArchivo = `peticion_${fechaFormateada}.pdf`;
+
+
   // Descargar el PDF automáticamente
-  doc.save("formulario.pdf");
+  doc.save(nombreArchivo);
 
   // Abrir el cliente de correo con 'mailto'
   window.location.href = `mailto:${email}?subject=Formulario PDF&body=Adjunta el PDF descargado.`;
@@ -1091,7 +1106,7 @@ document.getElementById("enviarSobreescribir").addEventListener("click", functio
     }
 
     // Mostrar mensaje de éxito
-    alert("Formulario enviado y campos específicos limpiados.");
+    alert("Formulario enviado y campos específicos limpiados.\nReferencia\nIndicaciones del cliente\nCantidad de lote\nConsumo anual\nNúmero de ficha");
   } else {
     console.log("Formulario no válido. No se generará el PDF ni se enviará el correo.");
   }

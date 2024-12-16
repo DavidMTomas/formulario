@@ -53,9 +53,9 @@
 
     <div class="input-medio">
       <label for="email">Email de contacto:</label>
-      <input type="email" id="email" name="email" required onblur="validarEmail(this)">
+      <input type="email" id="email" name="email" required onblur="validarEmail()">
       <!-- Mensaje de error para el email -->
-      <span class="mensajeEmail" style="color: red;"></span>
+      <span id="mensajeEmail" style="color: red;"></span>
     </div>
 
     <div class="input-intermedio">
@@ -542,13 +542,16 @@
   <hr>
   <h4>ENVIO</h4>
 
-
   <div id="seccionEnvios">
   </div>
+
+  <div id="botonesEnvio">
   <!-- Botón para añadir más direcciones -->
-  <button type="button" id="agregarDireccion">Añadir dirección</button>
+  <button type="button" id="agregarDireccion">Añadir destinatario</button>
   <!-- Botón para eliminar la última dirección -->
-  <button type="button" id="eliminarDireccion">Eliminar última dirección</button>
+  <button type="button" id="eliminarDireccion">Eliminar última destinatario</button>
+  </div>
+
 
   <hr>
   <h4>OTROS</h4>
