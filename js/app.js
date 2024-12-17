@@ -14,6 +14,9 @@ const fechaHoraActual = ahora.toISOString().slice(0, 16);
 // Asignar la fecha y hora actual (con 1 hora añadida) al campo datetime-local
 document.getElementById('fechaHora').value = fechaHoraActual;
 
+// Variable global para el contador de bloques
+let contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
+
 // VALIDACIONES
 
 // Función para validar el correo electrónico
@@ -143,11 +146,14 @@ function handleAnulaTroquel() {
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar campo de número de ficha
     // document.getElementById("acabadosEstructural").style.display="block" // nuevo estructural
 
+    // Forzar actualización del estilo visual
+    radioSiAnulaFicha.dispatchEvent(new Event('change')); // Disparar el evento de cambio para actualizar el estilo
 
     // Ocultar las opciones de "¿Existe el troquel?" si "Sí" en "Anula troquel" está seleccionado
     opcionesTroquel.style.display = 'none'; // Ocultar las opciones "Sí / No"
     //botonesTroquel.style.display="none"
   } else {
+
     radioNoAnulaFicha.disabled = false; // Reactiva "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar u ocultar el campo de número de ficha según la selección
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
@@ -341,7 +347,7 @@ window.addEventListener('DOMContentLoaded', function () {
       alert("Debe seleccionar al menos una muestra para poder añadir una dirección de envío");
       return
     }
-
+    document.getElementById("eliminarDireccion").style.display = "block";
     const totalesDisponibles = calcularTotalesDisponibles();
 
     // Validar que hay disponibles los recursos necesarios (maquetas, bocetos, plotters, muestrasForradas)
@@ -421,6 +427,9 @@ window.addEventListener('DOMContentLoaded', function () {
       seccionEnvios.removeChild(seccionEnvios.lastElementChild);
       actualizarTotales(); // Actualizar totales después de eliminar
     }
+    if(seccionEnvios.children.length === 0){
+      document.getElementById("eliminarDireccion").style.display = "none";
+    }
   });
 
   // Actualizar totales dinámicamente
@@ -461,7 +470,7 @@ function verificarSinImpresion() {
   const sinImpresionOndulado = onduladoSelected && document.getElementById('sinImpresionOndulado').checked;
 
   // Si "Sin impresión" está seleccionado en alguna opción, ocultar el div de impresión
-  if (sinImpresionCartoncillo || sinImpresionContraencolado || sinImpresionOndulado) {
+  if ((sinImpresionCartoncillo || sinImpresionContraencolado || sinImpresionOndulado) && contadorTipos === 1) {
     document.getElementById('mostrarTablaImpresion').style.display = 'none';
   } else {
     document.getElementById('mostrarTablaImpresion').style.display = 'block';
@@ -481,8 +490,6 @@ document.querySelectorAll('input[name="familiaProductos"]').forEach(radio => {
 
 
 // FINAL mostrar div IMPRESION
-
-
 
 /////   REQUERIMIENTOS  //////
 // Evento para mostrar el campo de texto si se selecciona "Otras"
@@ -510,7 +517,6 @@ document.getElementById("paletizado").addEventListener("change", function () {
 
 /////// ACABADOS    /////
 
-
 /////////////////////////////////////////////////////
 
 // Obtener los radio buttons y el contenedor del número de tipos
@@ -531,15 +537,17 @@ function toggleNumTipos() {
   });
 
 
-  // Variable global para el contador de bloques
-  contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
+
   // Mostrar u ocultar el contenedor según si la opción "multipieza" está seleccionada
   if (isMultipiezaSelected) {
     numTiposContainer.style.display = 'block';
     const idPieza = document.getElementById('idPieza');
     idPieza.style.display = "block"
     generarBloques()
-
+    document.getElementById('mostrarTablaImpresion').style.display = 'block'; // esta es La principal
+    if(contadorTipos >=1 || contadorTipos <=3 ){
+      document.getElementById("numTiposDec").style.display = 'none'; // Ocultar el botón de decremento
+    }
   } else {
     numTiposContainer.style.display = 'none';
     const idPieza = document.getElementById('idPieza');
@@ -547,8 +555,10 @@ function toggleNumTipos() {
     const container = document.getElementById('tiposGenerados');
     container.innerHTML = "";
     contadorTipos = 1
+    verificarSinImpresion()
   }
 }
+
 
 // Añadir eventos a los radio buttons para que se ejecuten cuando se cambien
 opcionesDiseño.forEach(radio => {
@@ -613,6 +623,11 @@ document.addEventListener('DOMContentLoaded', toggleNumTipos);
 function generarBloques() {
   const container = document.getElementById('tiposGenerados');
 
+  if(contadorTipos >30) {
+    alert(`No se pueden añadir más de ${contadorTipos-1} tipos, contacta con el administrador`);
+    return;
+  }
+
   // Verificamos si la opción de "Diseño estructural Multipieza" está seleccionada
   const disenyoMultipieza = document.getElementById('diseñoEstructuralMultiPieza');
 
@@ -621,6 +636,10 @@ function generarBloques() {
     contadorTipos = 2; // Generar 2 bloques cuando la opción de "Estructural Multipieza" se selecciona
   }
 
+  // Mostrar el botón de decremento solo si el contador es mayor o igual a 3
+  if (contadorTipos === 3) {
+    document.getElementById("numTiposDec").style.display = 'block'; // Mostrar el botón de decremento
+  }
 
   // Crear un nuevo bloque por cada pulsación del botón
   const bloque = document.createElement('div');
@@ -630,14 +649,14 @@ function generarBloques() {
   bloque.innerHTML = `
    </div id="tipos">
          <hr>
-    <h4>Tipo ${contadorTipos}</h4>
+
     <!-- Radio buttons para seleccionar la familia de productos -->
      <div class="input-medio">
         <label for="idPieza${contadorTipos}">
         <input type="text" id="idPieza${contadorTipos}" name="familiaProductos${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
         </label>
     </div>
-
+        <h4>Tipo papel ${contadorTipos}</h4>
      <div class="form-group">
     <label for="cartoncillo${contadorTipos}">
       <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" checked onchange="mostrarListado(${contadorTipos})"> Cartoncillo
@@ -669,7 +688,7 @@ function generarBloques() {
     </div>
 
     <!-- Cartoncillo -->
-    <div id="cartoncilloListado${contadorTipos}" style="display:none;">
+    <div id="cartoncilloListado${contadorTipos}" style="display:block;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo${contadorTipos}">
         <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="sinImpresion"> Sin impresión
@@ -765,6 +784,10 @@ function eliminarBloques() {
     // Decrementar el contador de tipos
     if (contadorTipos > 1) {
       contadorTipos--;
+    }
+    if(contadorTipos === 3 || contadorTipos === 2){
+      document.getElementById("numTiposDec").style.display = 'none'; // Ocultar el botón de decremento
+
     }
   }
 }
@@ -906,8 +929,6 @@ function validarCheckboxesMuestras() {
   return true; // Permitir el envío si al menos uno está marcado
 
 }
-
-
 
 
 

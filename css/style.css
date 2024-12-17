@@ -240,6 +240,7 @@ hr {
     transform: translateY(2px);
   }
 
+
   .dropdown button {
     width: 100%;
   }
@@ -248,6 +249,8 @@ hr {
     height: 120px; /* Reducimos el tamaño del textarea en pantallas más pequeñas */
   }
 }
+
+
 
 .bloque {
   display: flex;
@@ -495,4 +498,18 @@ form .reenvio {
 .estiloTabla.reenvio {
   border: 2px solid #00ff0d;
   background-color: #bcecbb; /* Fondo verde claro para la tabla */
+}
+
+
+.botonesEnvio {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea si no caben */
+  gap: 10px; /* Espacio entre botones */
+}
+
+@media (max-width: 600px) {
+  .botonesEnvio {
+    flex-direction: column; /* Alinear botones en columna en pantallas pequeñas */
+    gap: 5px;
+  }
 }
