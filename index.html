@@ -148,7 +148,7 @@
 
 
   <div class="form-group">
-    <label for="siAnulaTroquel">¿Anula troquel?</label>
+    <label for="siAnulaTroquel">¿Bloquea / Anula troquel?</label>
     <label for="siAnulaTroquel">
       <input type="radio" id="siAnulaTroquel" name="anulaTroquel" value="Si" required checked>
       Sí
@@ -203,11 +203,14 @@
   <div class="form-group">
     <label for="siAnulaFicha">Anula FF anterior?:
 
-      <label for="siAnulaFicha"></label>
-      <input type="radio" id="siAnulaFicha" name="anulaFicha" value="Si"> Si
+      <label for="siAnulaFicha">
+      <input type="radio" id="siAnulaFicha" name="anulaFicha" value="Si">
+      Si
+      </label>
 
       <label for="noAnulaFicha">
-        <input type="radio" id="noAnulaFicha" name="anulaFicha" value="No" checked> No
+        <input type="radio" id="noAnulaFicha" name="anulaFicha" value="No" checked>
+        No
       </label>
     </label>
 
@@ -350,7 +353,7 @@
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
 
 
-    <h4>Tipo acabado</h4>
+
 
     <div class="input-medio">
       <label for="idPieza">
@@ -358,6 +361,7 @@
                style="display: none;">
       </label>
     </div>
+    <h4>Tipo papel</h4>
 
     <div class="form-group">
       <!-- Radio buttons para seleccionar la familia de productos -->
@@ -391,7 +395,7 @@
     </div>
 
     <!-- Cartoncillo -->
-    <div id="cartoncilloListado" style="display:none;">
+    <div id="cartoncilloListado" style="display:block;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo">
         <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo" name="productoCartoncillo" value="sinImpresion"> Sin
@@ -448,9 +452,9 @@
     <div id="numTiposContainer" style="display:none;">
       <div id="tiposGenerados"></div>
 
-      <div class="addEstructural">
-        <button type="button" id="numTiposInc" onclick="generarBloques()">Agregar Tipo</button>
-        <button type="button" id="numTiposDec" onclick="eliminarBloques()">Eliminar Tipo</button>
+      <div class="addEstructural botonesEnvio">
+        <button type="button" id="numTiposInc" onclick="generarBloques()">Añadir pieza</button>
+        <button type="button" id="numTiposDec" onclick="eliminarBloques()" style="display: none">Eliminar última pieza</button>
       </div>
     </div>
     <hr>
@@ -486,7 +490,7 @@
   </table>
   <!--  <hr>-->
 
-  <div id="mostrarTablaImpresion">
+  <div id="mostrarTablaImpresion" class="mostrarTablaImpresion" style="display:block;">
   <h4>IMPRESION</h4>
   <table class="estiloTabla controlPeticion">
     <thead>
@@ -544,12 +548,11 @@
 
   <div id="seccionEnvios">
   </div>
-
-  <div id="botonesEnvio">
+  <div class="botonesEnvio">
   <!-- Botón para añadir más direcciones -->
-  <button type="button" id="agregarDireccion">Añadir destinatario</button>
+  <button type="button" id="agregarDireccion">Añadir dirección de envío</button>
   <!-- Botón para eliminar la última dirección -->
-  <button type="button" id="eliminarDireccion">Eliminar última destinatario</button>
+  <button type="button" id="eliminarDireccion" style="display: none">Eliminar última dirección de envío</button>
   </div>
 
 
