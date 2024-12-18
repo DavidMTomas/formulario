@@ -17,18 +17,6 @@ document.getElementById('fechaHora').value = fechaHoraActual;
 // Variable global para el contador de bloques
 let contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
 
-
-
-// slect de stilos
-function changeStyle() {
-  // Obtiene el valor seleccionado
-  const styleSelector = document.getElementById('styleSelector');
-  const themeStylesheet = document.getElementById('themeStylesheet');
-  // Cambia el atributo href del archivo de estilos
-  themeStylesheet.href = styleSelector.value;
-}
-
-
 // VALIDACIONES
 
 // Función para validar el correo electrónico
@@ -567,7 +555,6 @@ function toggleNumTipos() {
     const container = document.getElementById('tiposGenerados');
     container.innerHTML = "";
     contadorTipos = 1
-    verificarSinImpresion()
   }
 }
 
@@ -700,7 +687,7 @@ function generarBloques() {
     </div>
 
     <!-- Cartoncillo -->
-    <div id="cartoncilloListado${contadorTipos}" style="display:block;">
+    <div id="cartoncilloListado${contadorTipos}" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo${contadorTipos}">
         <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="productoCartoncillo${contadorTipos}" value="sinImpresion"> Sin impresión
@@ -799,7 +786,6 @@ function eliminarBloques() {
     }
     if(contadorTipos === 3 || contadorTipos === 2){
       document.getElementById("numTiposDec").style.display = 'none'; // Ocultar el botón de decremento
-
     }
   }
 }
@@ -941,6 +927,8 @@ function validarCheckboxesMuestras() {
   return true; // Permitir el envío si al menos uno está marcado
 
 }
+
+
 
 
 

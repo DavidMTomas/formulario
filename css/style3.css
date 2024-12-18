@@ -1,0 +1,491 @@
+/* General */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7f9fc;
+  padding: 30px;
+  color: #333;
+}
+
+form {
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  color: #2c3e50;
+  font-size: 1.8em;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin-top: 20px;
+  color: #2c3e50;
+  font-weight: 400;
+}
+
+/* Layout para Inputs en Línea con Flexbox */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group .input-item {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-group .input-item-2 {
+  flex: 1 1 48%;
+}
+
+/* Inputs y Labels */
+input[type="text"], input[type="email"], input[type="number"], textarea, select {
+  width: 100%;
+  padding: 12px;
+  margin: 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 12px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* Estilo para los checkboxes */
+input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* Estilo cuando el checkbox está seleccionado */
+input[type="checkbox"]:checked + label {
+  color: #e74c3c; /* Cambia el color de la etiqueta cuando el checkbox está seleccionado */
+}
+
+/* Opcional: Estilo de los checkbox cuando están seleccionados */
+input[type="checkbox"]:checked {
+  background-color: #e74c3c; /* Cambia el color de fondo cuando está marcado */
+  border-color: #e74c3c; /* Cambia el borde cuando está marcado */
+}
+
+/* Estilo de Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown button {
+  padding: 12px 25px;
+  font-size: 1em;
+  background-color: #e74c3c; /* Color rojo para el dropdown */
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown button:hover {
+  background-color: #c0392b; /* Cambio a un tono más oscuro de rojo */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content label {
+  display: block;
+  padding: 10px;
+  color: #7f8c8d;
+  font-size: 1em;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content label:hover {
+  background-color: #f1f1f1;
+}
+
+/* Botones en rojo */
+button {
+  padding: 12px 25px;
+  font-size: 1em;
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #c0392b; /* Rojo más oscuro */
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+/* Estilo de los campos de opción (radio, checkbox) */
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label {
+  color: #e74c3c; /* Rojo cuando están seleccionados */
+}
+
+/* Espaciado entre bloques */
+div {
+  margin-bottom: 30px;
+}
+
+/* Inputs con tamaño específico */
+.input-corto {
+  flex: 1 1 12%;
+  max-width: 120px;
+  min-width: 58px;
+}
+
+.input-intermedio {
+  flex: 1 1 18%;
+  max-width: 200px;
+  min-width: 50px;
+}
+
+.input-medio {
+  flex: 1 1 25%;
+  max-width: 500px;
+  min-width: 200px;
+}
+
+.input-largo {
+  flex: 1 1 50%;
+  max-width: 300px;
+  min-width: 100px;
+}
+
+.full-width {
+  flex: 0 0 100%;
+  margin-bottom: 10px;
+}
+
+.input-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-checkbox label {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  display: block;
+}
+
+.input-checkbox input[type="radio"] {
+  margin-right: 5px;
+}
+
+.input-20chars::placeholder {
+  color: #bdc3c7;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+  margin: 30px 0;
+}
+
+/* Diseño Responsivo */
+@media screen and (max-width: 768px) {
+  .form-group .input-item,
+  .form-group .input-item-2 {
+    flex: 1 1 100%;
+  }
+
+  button[type="submit"], button[type="button"] {
+    width: 100%;
+  }
+
+  button[type="button"]:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+  }
+
+  button[type="button"]:active {
+    background-color: #e74c3c;
+    transform: translateY(2px);
+  }
+
+  .dropdown button {
+    width: 100%;
+  }
+
+  textarea {
+    height: 120px;
+  }
+}
+
+.bloque {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.estiloTabla {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.estiloTabla th, .estiloTabla td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.estiloTabla th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.custom-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-spinner button {
+  font-size: 1.5rem;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.custom-spinner input[type="number"] {
+  font-size: 2rem;
+  text-align: center;
+  width: 100px;
+  padding: 0.5em;
+  margin: 0 5px;
+}
+
+#onduladoListado label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+#onduladoListado input[type="radio"] {
+  margin-right: 5px;
+}
+
+fieldset {
+  border: 2px solid #e74c3c;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+fieldset legend {
+  font-size: 1.4em;
+  color: white;
+  font-weight: bold;
+  padding: 0 10px;
+  background-color: #e74c3c;
+  border-radius: 5px;
+}
+
+fieldset > div {
+  margin-bottom: 15px;
+}
+
+fieldset input:focus, fieldset textarea:focus, fieldset select:focus {
+  border-color: #e74c3c;
+  outline: none;
+}
+
+fieldset .radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+fieldset .radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+fieldset table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+fieldset table th {
+  text-align: left;
+  padding: 5px;
+}
+
+fieldset table th label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+fieldset table th input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  fieldset .radio-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  fieldset table th {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+#nombreCliente {
+  flex: 1 1 auto;
+  transition: flex 0.3s ease;
+}
+
+#campoNumeroCliente {
+  display: flex;
+  flex: 1 1 auto;
+  transition: all 0.3s ease;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.estiloTabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.estiloTabla th, .estiloTabla td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.estiloTabla th {
+  background-color: #f2f2f2;
+}
+
+.custom-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-spinner button {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.custom-spinner input[type="number"] {
+  font-size: 1rem;
+  width: 60px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .estiloTabla th, .estiloTabla td {
+    font-size: 0.9rem;
+    padding: 5px;
+  }
+
+  .custom-spinner input[type="number"] {
+    width: 50px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form .error {
+  border: 2px solid red;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.estiloTabla.error {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
+form .reenvio {
+  border: 2px solid #00ff0d;
+  background-color: #bcecbb;
+  color: #2f721c;
+}
+
+.estiloTabla.reenvio {
+  border: 2px solid #00ff0d;
+  background-color: #bcecbb;
+}
+
+.botonesEnvio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .botonesEnvio {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
