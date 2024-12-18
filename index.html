@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="./css/style.css">
+  <title>Petición comercial</title>
+  <link id="themeStylesheet" rel="stylesheet" href="css/style.css">
   <meta name="description" content="">
 
   <meta property="og:title" content="Peticion comercial">
@@ -25,7 +25,27 @@
 </head>
 
 <body>
+
+<!-- Selector de estilos -->
+<label for="styleSelector">Tipos de estilo de pagina:</label>
+<br>
+<label for="styleSelector">El funcional es el "Estilo botones azul", el resto pueden fallar, si os gusta alguno de los otros lo puedo adaptar sin problema</label>
+<select id="styleSelector" onchange="changeStyle()">
+  <option value="css/style.css">Estilo botones en azul</option>
+  <option value="css/style7.css">Estilo oscuro</option>
+  <option value="css/style8.css">Estilo estilo minimalista</option>
+  <option value="css/style9.css">Estilo botones rojo</option>
+  <option value="css/style2.css">Estilo modo oscuro botones en azul</option>
+  <option value="css/style3.css">Estilo botones teja</option>
+  <option value="css/style4.css">Estilo Titulos y botones en rojo</option>
+  <option value="css/style5.css">Estilo Titulos y botones en azul</option>
+  <option value="css/style6.css">Estilo en verde y naranja</option>
+
+</select>
+
 <form id="petcicionComercial" method="POST">
+  <img src="logo.png">
+
 
   <h3>Datos cliente:</h3>
   <div class="input-check">

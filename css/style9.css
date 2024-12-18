@@ -1,0 +1,239 @@
+/* Base del Diseño */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f6f7f9; /* Fondo gris muy suave */
+  color: #333; /* Texto oscuro */
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Títulos */
+h3 {
+  font-size: 2.3em;
+  font-weight: 600;
+  color: #444; /* Gris oscuro */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 1.4em;
+  color: #666; /* Gris intermedio */
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+
+/* Formulario */
+form {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  margin: 40px auto;
+  max-width: 900px; /* Aumento del ancho */
+  box-shadow: 0px 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Bloques dentro del formulario */
+.form-section {
+  background-color: #f4f4f4; /* Fondo gris claro */
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.form-section:nth-child(even) {
+  background-color: #e9ecef; /* Fondo gris más claro para alternar bloques */
+}
+
+.form-section h4 {
+  color: #e63946; /* Rojo suave */
+}
+
+/* Campos de texto y áreas de entrada */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 16px;
+  font-size: 1em;
+  margin: 12px 0;
+  border: 2px solid #d1d3d8; /* Gris muy claro */
+  border-radius: 8px;
+  background-color: #f8f9fa; /* Fondo gris claro */
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #e63946; /* Rojo suave */
+  background-color: #ffffff;
+  outline: none;
+  box-shadow: 0px 0px 8px rgba(230, 57, 70, 0.2); /* Rojo claro */
+}
+
+/* Estilo de Botones */
+button {
+  padding: 16px 32px;
+  font-size: 1.1em;
+  background-color: #e63946; /* Rojo brillante */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: #c72c34; /* Rojo oscuro */
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+/* Botones de radio y checkbox */
+input[type="radio"],
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: #333;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+input[type="radio"] + label::before,
+input[type="checkbox"] + label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border: 2px solid #d1d3d8; /* Gris claro */
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
+}
+
+input[type="checkbox"] + label::before {
+  border-radius: 4px;
+}
+
+input[type="radio"]:checked + label::before,
+input[type="checkbox"]:checked + label::before {
+  border-color: #e63946; /* Rojo suave */
+  background-color: #e63946; /* Rojo brillante */
+}
+
+input[type="radio"]:checked + label::after,
+input[type="checkbox"]:checked + label::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+/* Estilo tabla */
+.estiloTabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+.estiloTabla th,
+.estiloTabla td {
+  padding: 16px;
+  border: 1px solid #d1d3d8; /* Gris claro */
+  text-align: center;
+}
+
+.estiloTabla th {
+  background-color: #f8f9fa; /* Fondo gris claro */
+  color: #e63946; /* Rojo brillante */
+  font-weight: 600;
+}
+
+.estiloTabla td {
+  background-color: #ffffff;
+  color: #444;
+}
+
+.estiloTabla tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Separador horizontal */
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #d1d3d8; /* Gris claro */
+  margin: 30px 0;
+}
+
+/* Diseño Responsivo */
+@media screen and (max-width: 768px) {
+  form {
+    padding: 20px;
+  }
+
+  button[type="submit"], button[type="button"] {
+    width: 100%;
+  }
+
+  .estiloTabla th,
+  .estiloTabla td {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+}
+
+/* Estilos adicionales para una estructura flexible */
+.bloque {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.botonesEnvio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .botonesEnvio {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
