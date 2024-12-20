@@ -492,6 +492,20 @@ document.querySelectorAll('input[name="familiaProductos"]').forEach(radio => {
 // FINAL mostrar div IMPRESION
 
 /////   REQUERIMIENTOS  //////
+
+
+// Agrega un evento para detectar cambios en el checkbox
+document.getElementById("archivoAdjunto").addEventListener('change', (event) => {
+  const checkbox = event.target;
+  const archivo= document.getElementById("archivoSubidaMedidas")
+  if (checkbox.checked) {
+    archivo.style.display = 'block'; // Muestra el botón
+  } else {
+    archivo.style.display = 'none'; // Oculta el botón
+  }
+});
+
+
 // Evento para mostrar el campo de texto si se selecciona "Otras"
 document.getElementById('rejillas').addEventListener('change', function () {
   const otrasOpcion = document.getElementById('otrasOpcion');
@@ -762,7 +776,7 @@ function mostrarListado(tipoIndex) {
     document.getElementById(`${valorSeleccionado}Listado${tipoIndex}`).style.display = 'block';
 
     // Mostrar "mostrar-calidad-cartoncillo" si el valor es "Cartoncillo" o "Contraencolado"
-    if (valorSeleccionado == 'cartoncillo' || valorSeleccionado == 'contraencolado') {
+    if (valorSeleccionado == 'cartoncillo') {
       document.getElementById(`mostrarcalidadcartoncillo${tipoIndex}`).style.display = 'block';
     }
   } else {
