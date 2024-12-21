@@ -170,6 +170,7 @@ function handleAnulaTroquel() {
     opcionesTroquel.style.display = 'none'; // Ocultar las opciones "Sí / No"
     //botonesTroquel.style.display="none"
   } else {
+    campoNumeroTroquelExistente.style.display = "block";
     document.getElementById("noAnulaFichaNo").style.visibility = 'visible'; // Mostrar "No"
     radioNoAnulaFicha.style.visibility='visible'; // Mostrar "No"
     radioNoAnulaFicha.disabled = false; // Reactiva "No"
@@ -177,6 +178,7 @@ function handleAnulaTroquel() {
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
     opcionesTroquel.style.display = 'block'; // Mostrar las opciones de si existe o no el troquel
     //botonesTroquel.style.display="block"
+
     // document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
   }
 }
@@ -669,6 +671,8 @@ function generarBloques() {
   // Si "Estructural Multipieza" está seleccionado, inicializamos el contador a 2 y generamos dos bloques
   if (disenyoMultipieza.checked && contadorTipos === 1) {
     contadorTipos = 2; // Generar 2 bloques cuando la opción de "Estructural Multipieza" se selecciona
+    // Desplazarse hacia el radio button seleccionado
+    disenyoMultipieza.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   // Mostrar el botón de decremento solo si el contador es mayor o igual a 3
@@ -751,10 +755,6 @@ function generarBloques() {
     </div>
 
 
-
-
-
-
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:block;">
       <h4>Tipos de impresión para Cartoncillo</h4>
@@ -835,6 +835,7 @@ function actualizarCanal() {
     opcionesCartoncillo.forEach(option => {
       option.style.display = 'block'; // Mostrar las opciones de cartoncillo
     });
+    selectCanal.value = "L"; // Seleccionar automáticamente "L"
   } else if (tipoPapel === "Contraencolado") {
     // Mostrar solo las opciones para Contraencolado
     const opcionesContraencolado = selectCanal.querySelectorAll('.canalContraencolado');
@@ -856,10 +857,12 @@ radios.forEach(radio => {
   radio.addEventListener('change', actualizarCanal);
 });
 
-//CON CONTADOR
-
-
+// Llamar a la función al cargar el script para inicializar correctamente
+document.addEventListener('DOMContentLoaded', actualizarCanal);
 /// FIN CANAL
+//CANAL CON CONTADOR
+
+
 
 
 // Función para mostrar u ocultar los listados según el tipo de producto seleccionado
@@ -888,6 +891,8 @@ function mostrarListado(tipoIndex) {
     document.getElementById(`mostrarcalidadcartoncillo${tipoIndex}`).style.display = 'none';
   }
 }
+
+
 
 
 // Función para eliminar bloques

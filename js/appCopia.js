@@ -17,6 +17,14 @@ document.getElementById('fechaHora').value = fechaHoraActual;
 // Variable global para el contador de bloques
 let contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
 
+// slect de stilos
+function changeStyle() {
+  // Obtiene el valor seleccionado
+  const styleSelector = document.getElementById('styleSelector');
+  const themeStylesheet = document.getElementById('themeStylesheet');
+  // Cambia el atributo href del archivo de estilos
+  themeStylesheet.href = styleSelector.value;
+}
 // VALIDACIONES
 
 // Función para validar el correo electrónico
