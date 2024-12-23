@@ -14,8 +14,8 @@
   <meta property="og:image" content="">
   <meta property="og:image:alt" content="">
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="./logo.png" sizes="any">
+  <link rel="icon" href="./logo.png" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
 
   <link rel="manifest" href="site.webmanifest">
@@ -117,7 +117,7 @@
 
   <div class="form-group">
     <div class="input-intermedio">
-      <label for="cantidadlote">Cantidad lote:</label>
+      <label for="cantidadLote">Cantidad lote:</label>
       <input type="number" id="cantidadLote" name="cantidadLote" min="0" required>
     </div>
     <div class="input-intermedio">
@@ -170,11 +170,11 @@
   <div class="form-group">
     <label for="siAnulaTroquel">¿Bloquea / Anula troquel?</label>
     <label for="siAnulaTroquel">
-      <input type="radio" id="siAnulaTroquel" name="anulaTroquel" value="Si" required checked>
+      <input type="radio" id="siAnulaTroquel" name="anulaTroquel" value="Si" required >
       Sí
     </label>
     <label for="noAnulaTroquel">
-      <input type="radio" id="noAnulaTroquel" name="anulaTroquel" value="No">
+      <input type="radio" id="noAnulaTroquel" name="anulaTroquel" value="No" checked>
       No
     </label>
 
@@ -755,7 +755,7 @@
     <div class="form-group divTipoPapel">
       <!-- Radio buttons para seleccionar la familia de productos -->
       <label for="cartoncillo">
-        <input type="radio" id="cartoncillo" name="familiaProductos" value="Cartoncillo" checked> Cartoncillo
+        <input type="radio" id="cartoncillo" name="familiaProductos" value="Cartoncillo"> Cartoncillo
       </label>
 
       <label for="contraencolado">
@@ -763,7 +763,7 @@
       </label>
 
       <label for="ondulado">
-        <input type="radio" id="ondulado" name="familiaProductos" value="Ondulado"> Ondulado
+        <input type="radio" id="ondulado" name="familiaProductos" value="Ondulado" checked> Ondulado
       </label>
 
       <div class="input-corto">
@@ -804,12 +804,13 @@
       </div>
 
 
-      <div class="input-corto">
-        <div id="mostrarcalidadcartoncillo" style="display:none;">
+      <div class="input-corto" id="textoCartoncillo">
+        <div class="input-corto" id="mostrarcalidadcartoncillo" style="display:block;">
           <label for="cllo">Cllo</label>
           <input type="text" id="cllo" name="cllo" placeholder="Cllo" required/>
         </div>
       </div>
+
     </div>
 
     <!-- Tipos de Impresion segun papel elegido-->
@@ -883,88 +884,78 @@
 
 
   <!-- Opciones comunes para todos los tipos de acabado -->
-  <h4>MAQUETA</h4>
-  <table class="estiloTabla controlPeticion">
-    <thead>
-    <tr>
-      <th>Muestras</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td><input type="checkbox" name="muestras" id="checkDiseñoEstructural"
-                 onclick="toggleDropdown('mostrarDesplegableMuestras','muestraExtra')"></td>
-    </tr>
-    <tr>
-      <td>
-        <div id="mostrarDesplegableMuestras" class="dropdown" style="display: none;">
-          <div class="custom-spinner">
-            <button type="button" onclick="decrement('muestraExtra')">-</button>
-            <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="0">
-            <button type="button" onclick="increment('muestraExtra')">+</button>
-          </div>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <!--  <hr>-->
 
-  <div id="mostrarTablaImpresion" class="mostrarTablaImpresion" style="display:block;">
-  <h4>IMPRESION</h4>
-  <table class="estiloTabla controlPeticion">
-    <thead>
-    <tr>
-      <th>Boceto</th>
-      <th>Plotter</th>
-      <th>Muestra Forrada</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td><input type="checkbox" name="boceto" id="checkBoceto" onclick="toggleDropdown('mostrarDesplegableBoceto', 'bocetoExtra')">
-      </td>
-      <td><input type="checkbox" name="plotter" id="checkPlotter"
-                 onclick="toggleDropdown('mostrarDesplegablePlotter', 'plotterExtra')">
-      </td>
-      <td><input type="checkbox" name="muestraforrada" id="checkForrada"
-                 onclick="toggleDropdown('mostrarDesplegableForrada','forradaExtra')"></td>
-    </tr>
-    <tr>
-      <td>
-        <div id="mostrarDesplegableBoceto" class="dropdown" style="display: none;">
-          <div class="custom-spinner">
-            <button type="button" onclick="decrement('bocetoExtra')">-</button>
-            <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="0">
-            <button type="button" onclick="increment('bocetoExtra')">+</button>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div id="mostrarDesplegablePlotter" class="dropdown" style="display: none;">
-          <div class="custom-spinner">
-            <button type="button" onclick="decrement('plotterExtra')">-</button>
-            <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="0">
-            <button type="button" onclick="increment('plotterExtra')">+</button>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div id="mostrarDesplegableForrada" class="dropdown" style="display: none;">
-          <div class="custom-spinner">
-            <button type="button" onclick="decrement('forradaExtra')">-</button>
-            <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="0">
-            <button type="button" onclick="increment('forradaExtra')">+</button>
-          </div>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+
+  <div class="control-peticion ">
+    <h4>MAQUETA</h4>
+    <div class="control-item estiloTabla controlPeticion">
+      <label for="checkDiseñoEstructural">Muestras</label>
+      <input type="checkbox" name="muestras" id="checkDiseñoEstructural"
+             onclick="toggleDropdown('mostrarDesplegableMuestras','muestraExtra')">
+    </div>
+
+    <div id="mostrarDesplegableMuestras" class="dropdown" style="display: none;">
+      <div class="custom-spinner">
+        <button type="button" onclick="decrement('muestraExtra')">-</button>
+        <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="0">
+        <button type="button" onclick="increment('muestraExtra')">+</button>
+      </div>
+    </div>
   </div>
 
   <hr>
-  <h4>ENVIO</h4>
+
+  <div id="mostrarTablaImpresion" class="mostrar-tabla-impresion " style="display:block;">
+    <h4>IMPRESIÓN</h4>
+    <div class="control-group estiloTabla controlPeticion">
+    <div class="control-impression-item">
+      <div class="control-item">
+        <label for="checkBoceto">Boceto</label>
+        <input type="checkbox" name="boceto" id="checkBoceto"
+               onclick="toggleDropdown('mostrarDesplegableBoceto', 'bocetoExtra')">
+      </div>
+      <div id="mostrarDesplegableBoceto" class="dropdown" style="display: none;">
+        <div class="custom-spinner">
+          <button type="button" onclick="decrement('bocetoExtra')">-</button>
+          <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="0">
+          <button type="button" onclick="increment('bocetoExtra')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-impression-item">
+      <div class="control-item">
+        <label for="checkPlotter">Plotter</label>
+        <input type="checkbox" name="plotter" id="checkPlotter"
+               onclick="toggleDropdown('mostrarDesplegablePlotter', 'plotterExtra')">
+      </div>
+      <div id="mostrarDesplegablePlotter" class="dropdown" style="display: none;">
+        <div class="custom-spinner">
+          <button type="button" onclick="decrement('plotterExtra')">-</button>
+          <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="0">
+          <button type="button" onclick="increment('plotterExtra')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-impression-item">
+      <div class="control-item">
+        <label for="checkForrada">Muestra Forrada</label>
+        <input type="checkbox" name="muestraforrada" id="checkForrada"
+               onclick="toggleDropdown('mostrarDesplegableForrada','forradaExtra')">
+      </div>
+      <div id="mostrarDesplegableForrada" class="dropdown" style="display: none;">
+        <div class="custom-spinner">
+          <button type="button" onclick="decrement('forradaExtra')">-</button>
+          <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="0">
+          <button type="button" onclick="increment('forradaExtra')">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <hr>
+  <h4>ENVIO MUESTRAS</h4>
 
   <div id="seccionEnvios">
   </div>
@@ -974,6 +965,15 @@
   <!-- Botón para eliminar la última dirección -->
   <button type="button" id="eliminarDireccion" style="display: none">Eliminar última dirección de envío</button>
   </div>
+
+
+  <h4>RECOGER MUESTRAS EN DEPARTAMENTO</h4>
+  <label>
+    <input type="checkbox" id="recogerMuestra">
+    Marcar para recoger muestras
+  </label>
+
+  <div id="totalMuestrasArecoger" style="display: none"></div>
 
 
   <hr>
@@ -998,7 +998,8 @@
 
 
     <div id="mostrarPaletizado" style="display: none">
-      <table class="estiloTabla" id="tablaPaletizado" style="display:block;">
+
+      <!-- <table class="estiloTabla" id="tablaPaletizado" style="display:block;">
         <tr>
           <th colspan="3">Paletizado</th>
         </tr>
@@ -1123,7 +1124,102 @@
             <input type="radio" name="pCantoneras" value="no">No
           </td>
         </tr>
-      </table>
+      </table> -->
+
+      <div class="paletizado-container" style="display: block;">
+        <div class="header">
+          <label for="palet-select">Paletizado</label>
+          <select id="palet-select" name="palet">
+            <option value="" disabled selected>Elige una opción</option>
+            <!-- Opciones del select aquí -->
+            <option value="normal_80x120">NORMAL 80 X 120</option>
+            <option value="chep_azul_100x120">CHEP AZUL 100 X 120</option>
+            <!-- Añade más opciones según sea necesario -->
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="alturaPalet">Altura máxima (incluido palet)</label>
+            <input type="text" id="alturaPalet" name="alturaPalet" placeholder="En centímetros">
+          </div>
+          <div class="field">
+            <label for="cajasPalet">Cajas por palet</label>
+            <input type="text" id="cajasPalet" name="cajasPalet">
+          </div>
+          <div class="field">
+            <label>Caja agrupadora</label>
+            <div>
+              <input type="radio" name="pCajaAgrupadora" value="si">Si
+              <input type="radio" name="pCajaAgrupadora" value="no">No
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="unidadesPaquete">Unidades por paquete</label>
+            <input type="text" id="unidadesPaquete" name="unidadesPaquete">
+          </div>
+          <div class="field">
+            <label for="unidadesBase">Unidades de base</label>
+            <input type="text" id="unidadesBase" name="unidadesBase">
+          </div>
+          <div class="field">
+            <label for="unidadesAltura">Unidades de altura</label>
+            <input type="text" id="unidadesAltura" name="unidadesAltura">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Palet tablero</label>
+            <div>
+              <input type="radio" name="pTablero" value="si">Si
+              <input type="radio" name="pTablero" value="no">No
+            </div>
+          </div>
+          <div class="field">
+            <label>Puede sobresalir</label>
+            <div>
+              <input type="radio" name="sobresalir" value="si">Si
+              <input type="radio" name="sobresalir" value="no">No
+            </div>
+          </div>
+          <div class="field">
+            <label>Paquetes volteados</label>
+            <div>
+              <input type="radio" name="volteados" value="si">Si
+              <input type="radio" name="volteados" value="no">No
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Flejado</label>
+            <div>
+              <input type="radio" name="pFlejado" value="si">Si
+              <input type="radio" name="pFlejado" value="no">No
+            </div>
+          </div>
+          <div class="field">
+            <label>Retractilado</label>
+            <div>
+              <input type="radio" name="pRetractilado" value="si">Si
+              <input type="radio" name="pRetractilado" value="no">No
+            </div>
+          </div>
+          <div class="field">
+            <label>Cantoneras</label>
+            <div>
+              <input type="radio" name="pCantoneras" value="si">Si
+              <input type="radio" name="pCantoneras" value="no">No
+            </div>
+          </div>
+        </div>
+      </div>
+
 
     </div>
     <div class="input-medio">
@@ -1147,19 +1243,19 @@
       <legend>Caja muestra por etiqueta:</legend>
       <div class="radio-group">
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="ninguna" checked> Ninguna
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="ninguna" checked onclick="checkValue()"> Ninguna
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="largo"> Largo
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="largo" onclick="checkValue()"> Largo
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="Ancho"> Ancho
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="Ancho" onclick="checkValue()"> Ancho
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="largoAncho"> Largo y ancho
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="largoAncho" onclick="checkValue()"> Largo y ancho
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="4lados"> 4 lados
+          <input type="radio" name="CajaMuestraPorEtiqueta" value="4lados" onclick="checkValue()"> 4 lados
         </label>
       </div>
     </fieldset>
