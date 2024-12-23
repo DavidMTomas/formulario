@@ -437,8 +437,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+
 // Recoger muestras por comerciales
-  document.getElementById("recogerMuestra").addEventListener("click", function () {
+  document.getElementById("recogerMuestra").addEventListener("click", function (event) {
     const contenedor = document.getElementById("totalMuestrasArecoger");
 
     // Obtener los totales disponibles
@@ -447,7 +449,9 @@ window.addEventListener('DOMContentLoaded', function () {
     // Verificar si no hay recursos disponibles
     if (totalesDisponibles.maquetas === 0 && totalesDisponibles.bocetos === 0 && totalesDisponibles.plotters === 0 && totalesDisponibles.muestrasForradas === 0) {
       alert("No hay recursos disponibles para añadir más direcciones.");
-      checkbox.checked = false;
+
+      // Prevenir que el checkbox quede marcado
+      event.preventDefault(); // Evita que el cambio en el checkbox se registre
       return;
     }
 
@@ -456,15 +460,20 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Si el checkbox no está marcado, ocultar el contenedor y desmarcarlo
     if (!checkbox.checked) {
-      contenedor.style.display = "none";  // Ocultar el contenedor si el checkbox no está marcado
+      document.getElementById("agregarDireccion").disabled=false
+      document.getElementById("agregarDireccion").style.background = "";
+      document.getElementById("eliminarDireccion").disabled=false
+      document.getElementById("eliminarDireccion").style.background = "";
+      contenedor.style.display = "none"; // Ocultar el contenedor si el checkbox no está marcado
       return;
     }
 
     // Validar si al menos una muestra ha sido seleccionada
     if (!validarCheckboxesMuestras()) {
       alert("Debe seleccionar al menos una muestra para poder añadir una dirección de envío");
-      checkbox.checked = false;  // Desmarcar el checkbox automáticamente
-      contenedor.style.display = "none";  // Ocultar el contenedor
+      event.preventDefault(); // Evita que el checkbox quede marcado
+      contenedor.innerHTML = "";
+      contenedor.style.display = "none"; // Ocultar el contenedor
       return;
     }
 
@@ -477,17 +486,17 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Añadir campos de entrada con los valores disponibles
     recoger.innerHTML = `
-    <label>Maquetas a enviar:
-      <input type="number" name="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}">
+    <label>Maquetas a recoger:
+      <input type="number" name="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly="true">
     </label>
-    <label>Bocetos a enviar:
-      <input type="number" name="bocetos[]" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}">
+    <label>Bocetos a recoger:
+      <input type="number" name="bocetos[]" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" readonly="true">
     </label>
-    <label>Plotters a enviar:
-      <input type="number" name="plotters[]" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}">
+    <label>Plotters a recoger:
+      <input type="number" name="plotters[]" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" readonly="true">
     </label>
-    <label>Muestras forradas a enviar:
-      <input type="number" name="muestrasForradas[]" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}">
+    <label>Muestras forradas a recoger:
+      <input type="number" name="muestrasForradas[]" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" readonly="true">
     </label>
     <hr>
   `;
@@ -495,6 +504,10 @@ window.addEventListener('DOMContentLoaded', function () {
     // Añadir el nuevo contenedor con los inputs al contenedor principal
     contenedor.appendChild(recoger);
     contenedor.style.display = "block"; // Mostrar el contenedor si está oculto
+    document.getElementById("agregarDireccion").disabled=true
+    document.getElementById("agregarDireccion").style.background = "grey";
+    document.getElementById("eliminarDireccion").disabled=true
+    document.getElementById("eliminarDireccion").style.background = "grey";
 
     // Ahora añadimos el evento de 'input' a cada campo de tipo number
     const inputs = recoger.querySelectorAll('input[type="number"]');
@@ -512,10 +525,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Llamamos a actualizarTotales para recalcular los valores inicialmente
     actualizarTotales();
+
   });
-
-
-
 
 
 
@@ -530,6 +541,7 @@ window.addEventListener('DOMContentLoaded', function () {
       document.getElementById("eliminarDireccion").style.display = "none";
     }
   });
+
 
   // Actualizar totales dinámicamente
   function actualizarTotales() {
@@ -549,6 +561,9 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+
+
 //FIN DIRECCION ENVIO
 
 // MOSTRAR DIV IMPRESION
