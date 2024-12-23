@@ -251,7 +251,6 @@ hr {
 }
 
 
-
 .bloque {
   display: flex;
   flex-direction: column;
@@ -523,4 +522,151 @@ form .reenvio {
   text-align: left;
 }
 
-/
+
+.control-peticion,
+.mostrar-tabla-impresion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.control-impression-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan si no caben */
+  justify-content: space-evenly; /* Espacio uniforme entre elementos */
+  align-items: center; /* Centrar verticalmente los elementos */
+  text-align: center;
+  gap: 30px; /* Espaciado entre elementos */
+  margin: 20px 0;
+  width: 100%; /* Asegura que el grupo ocupe todo el ancho disponible */
+}
+
+.control-item {
+  display: flex;
+  align-items: center; /* Centrar checkbox y texto verticalmente */
+  justify-content: center; /* Centrar checkbox y texto horizontalmente */
+  gap: 10px; /* Espaciado entre el checkbox y el texto */
+}
+
+.custom-spinner {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaciado interno entre los elementos del spinner */
+}
+
+.custom-spinner button {
+  display: flex; /* Usar flexbox dentro del botón */
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+
+
+.custom-spinner input {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.dropdown {
+  margin-top: 10px;
+}
+
+.control-item label {
+  font-size: 18px; /* Tamaño del texto */
+  font-weight: bold; /* Texto más llamativo */
+  margin: 0;
+}
+
+.control-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .control-peticion,
+  .mostrar-tabla-impresion {
+    padding: 10px;
+  }
+}
+
+.paletizado-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.field {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.field input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.field div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.field input[type="radio"] {
+  margin-right: 5px;
+}
