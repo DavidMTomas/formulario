@@ -170,14 +170,14 @@ div {
 }
 .input-intermedio {
   flex: 1 1 18%; /* Ocupa el 50% del ancho */
-  max-width: 200px;
-  min-width: 50px;
+  max-width: 230px;
+  min-width: 230px;
 }
 
 .input-medio {
   flex: 1 1 25%; /* Ocupa el 50% del ancho */
   max-width: 500px;
-  min-width: 200px;
+  min-width: 400px;
 }
 
 .input-largo {
@@ -539,17 +539,6 @@ form .reenvio {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 .control-impression-item {
   display: flex;
   flex-direction: column;
@@ -669,4 +658,56 @@ form .reenvio {
 
 .field input[type="radio"] {
   margin-right: 5px;
+}
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  form {
+    padding: 0; /* Ajusta el padding del formulario si también lo necesitas */
+  }
+}
+
+/* Estilos generales para pantallas grandes */
+.paletizado-container .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.paletizado-container .field {
+  flex: 1 1 30%; /* Ajusta el ancho de los campos en pantallas grandes */
+  margin-bottom: 20px;
+}
+
+/* Estilos responsive para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  /* Asegura que todos los elementos ocupen el 100% del ancho disponible en pantallas pequeñas */
+  .paletizado-container .row {
+    flex-direction: column;
+  }
+
+  .paletizado-container .field {
+    flex: 1 1 100%; /* Cada campo ocupa toda la fila */
+    margin-bottom: 15px;
+  }
+
+  /* Ajuste para los inputs y select */
+  .paletizado-container input[type="text"],
+  .paletizado-container select {
+    width: 100%; /* Asegura que los inputs y select ocupen el 100% del ancho */
+    padding: 10px;
+  }
+
+  /* Mostrar los radio buttons en fila */
+  .paletizado-container .field div {
+    display: flex;
+    gap: 10px;  /* Espacio entre los botones de radio */
+    flex-wrap: nowrap;
+  }
+
+  .paletizado-container .field div input[type="radio"] {
+    margin-right: 10px; /* Ajuste de espacio entre los radio buttons */
+  }
 }
