@@ -283,6 +283,9 @@ hr {
   color: #333;
 }
 
+
+
+
 label {
   margin-right: 10px;
   font-weight: bold;
@@ -507,9 +510,17 @@ form .reenvio {
   gap: 10px; /* Espacio entre botones */
 }
 
-@media (max-width: 600px) {
-  .botonesEnvio {
-    flex-direction: column; /* Alinear botones en columna en pantallas pequeñas */
-    gap: 5px;
-  }
+/* ultimas modificaciones */
+/* Estilos básicos */
+.estiloTabla {
+  width: 100%;
+  border-collapse: collapse;
 }
+
+.estiloTabla th, .estiloTabla td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/

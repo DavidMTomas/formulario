@@ -151,9 +151,14 @@ function handleAnulaTroquel() {
 
   // Si "Sí" en "Anula troquel" está seleccionado
   if (radioSiAnulaTroquel.checked) {
+    radioSiAnulaFicha.disabled = false;
     // Marca "Sí" en "Anula FF anterior" y desactiva "No"
+    document.getElementById("existeTroquelSi").checked=true;
+    radioSiAnulaFicha.style.visibility='visible';
+    document.getElementById("noAnulaFichaSi").style.visibility = 'visible'; // Mostrar "No"
     radioSiAnulaFicha.checked = true;
-    radioNoAnulaFicha.disabled = true;
+    radioNoAnulaFicha.style.visibility='hidden'; // Ocultar "No"
+    document.getElementById("noAnulaFichaNo").style.visibility = 'hidden'; // Mostrar "No"
     radioNoAnulaFicha.checked = false; // Desmarcar "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar campo de número de ficha
     // document.getElementById("acabadosEstructural").style.display="block" // nuevo estructural
@@ -165,12 +170,15 @@ function handleAnulaTroquel() {
     opcionesTroquel.style.display = 'none'; // Ocultar las opciones "Sí / No"
     //botonesTroquel.style.display="none"
   } else {
-
+    campoNumeroTroquelExistente.style.display = "block";
+    document.getElementById("noAnulaFichaNo").style.visibility = 'visible'; // Mostrar "No"
+    radioNoAnulaFicha.style.visibility='visible'; // Mostrar "No"
     radioNoAnulaFicha.disabled = false; // Reactiva "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar u ocultar el campo de número de ficha según la selección
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
     opcionesTroquel.style.display = 'block'; // Mostrar las opciones de si existe o no el troquel
     //botonesTroquel.style.display="block"
+
     // document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
   }
 }
@@ -186,11 +194,15 @@ function handleExisteTroquel() {
     radioNoAnulaFicha.checked = true; // Marca "No" en "Anula FF anterior?"
     radioSiAnulaFicha.disabled = true; // Desactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.checked = false; // Desmarcar "Sí"
+    radioSiAnulaFicha.style.visibility='hidden'; // Ocultar "Sí"
+    document.getElementById("noAnulaFichaSi").style.visibility = 'hidden'; // Mostrar "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Ocultar el campo de número de ficha
     //document.getElementById("acabadosEstructural").style.display="block"
   } else {
     // Si selecciona "Sí" en "¿Existe el troquel?", reactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.disabled = false;
+    radioSiAnulaFicha.style.visibility='visible'; // Ocultar "Sí"
+    document.getElementById("noAnulaFichaSi").style.visibility = 'visible'; // Mostrar "No"
     // document.getElementById("acabadosEstructural").style.display="none"
     //botonesTroquel.style.display="block"
   }
@@ -308,7 +320,6 @@ function checkValue() {
     textoExtra.style.display = "none"; // Oculta el texto
   }
 }
-
 
 
 // DIRECCIONES DE ENVIO
@@ -504,6 +515,20 @@ document.querySelectorAll('input[name="familiaProductos"]').forEach(radio => {
 // FINAL mostrar div IMPRESION
 
 /////   REQUERIMIENTOS  //////
+
+// Agrega un evento para detectar cambios en el checkbox
+document.getElementById("archivoAdjunto").addEventListener('change', (event) => {
+  const checkbox = event.target;
+  const archivo= document.getElementById("archivoSubidaMedidas")
+  if (checkbox.checked) {
+    archivo.style.display = 'block'; // Muestra el botón
+  } else {
+    archivo.style.display = 'none'; // Oculta el botón
+  }
+});
+
+
+
 // Evento para mostrar el campo de texto si se selecciona "Otras"
 document.getElementById('rejillas').addEventListener('change', function () {
   const otrasOpcion = document.getElementById('otrasOpcion');
@@ -646,6 +671,8 @@ function generarBloques() {
   // Si "Estructural Multipieza" está seleccionado, inicializamos el contador a 2 y generamos dos bloques
   if (disenyoMultipieza.checked && contadorTipos === 1) {
     contadorTipos = 2; // Generar 2 bloques cuando la opción de "Estructural Multipieza" se selecciona
+    // Desplazarse hacia el radio button seleccionado
+    disenyoMultipieza.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   // Mostrar el botón de decremento solo si el contador es mayor o igual a 3
@@ -682,22 +709,51 @@ function generarBloques() {
       <input type="radio" id="ondulado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Ondulado" onchange="mostrarListado(${contadorTipos})"> Ondulado
     </label>
 
+
      <div class="input-corto">
         <label for="calidad${contadorTipos}">Calidad</label>
         <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad" required/>
      </div>
 
-    <div class="input-corto">
+    <div class="input-intermedio">
         <label for="canal${contadorTipos}">Canal</label>
-        <input class="campotextomuycorto" type="text" id="canal${contadorTipos}" name="canal${contadorTipos}" placeholder="Canal" required/>
+        <select id="canal" name="canal" required>
+          <option value="">Seleccionar</option>
+          <!-- Opciones para Ondulado -->
+          <option value="G Nanomicro" class="canalOndulado${contadorTipos}">G Nanomicro</option>
+          <option value="F Minimicro" class="canalOndulado${contadorTipos}">F Minimicro 1,1mm</option>
+          <option value="F Micro" class="canalOndulado${contadorTipos}">E Micro 1,5-1,7mm</option>
+          <option value="D CanalD" class="canalOndulado${contadorTipos}">D Canal-D 2,5mm</option>
+          <option value="B Canal3" class="canalOndulado${contadorTipos}">B Canal-3 3mm</option>
+          <option value="C Canal5" class="canalOndulado${contadorTipos}">C Canal-5 4mm</option>
+          <option value="ED MicroD" class="canalOndulado${contadorTipos}">ED Micro-D 4mm</option>
+          <option value="EC Micro5" class="canalOndulado${contadorTipos}">EC Micro-5 6mm</option>
+          <option value="BC Canal3-5" class="canalOndulado${contadorTipos}">BC Canal 3-5 7mm</option>
+          <!-- Opciones para Contraencolado -->
+
+          <option value="L+B" class="canalContraencolado${contadorTipos}">L+B</option>
+          <option value="L+BC" class="canalContraencolado${contadorTipos}">L+BC</option>
+          <option value="L+C" class="canalContraencolado${contadorTipos}">L+C</option>
+          <option value="L+D" class="canalContraencolado${contadorTipos}">L+D</option>
+          <option value="L+E" class="canalContraencolado${contadorTipos}">L+E</option>
+          <option value="L+EC" class="canalContraencolado${contadorTipos}">L+EC</option>
+          <option value="L+ED" class="canalContraencolado${contadorTipos}">L+ED</option>
+          <option value="L+F" class="canalContraencolado${contadorTipos}">L+F</option>
+
+          <!-- Opciones para Cartoncillo -->
+          <option value="L" class="canalCartoncillo${contadorTipos}">L</option>
+        </select>
+
     </div>
+
       <div class="input-corto">
-          <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
+          <div id=" mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
             <label for="cllo${contadorTipos}">Cllo</label>
             <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo" required/>
             </div>
       </div>
     </div>
+
 
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:block;">
@@ -756,6 +812,59 @@ function generarBloques() {
 }
 
 
+// MOSTRAR SELECT CANAL EN FUNCION DEL TIPO DE PAPEL
+// Función para manejar la actualización del canal
+function actualizarCanal() {
+  // Obtener el valor del radio button seleccionado
+  const tipoPapel = document.querySelector('.divTipoPapel input[name="familiaProductos"]:checked').value;
+
+  // Obtener el select y restablecer su valor al estado inicial
+  const selectCanal = document.getElementById('canal');
+  selectCanal.value = "";  // Esto restablece el valor del select a la opción por defecto
+
+  // Ocultar todas las opciones del select
+  const opciones = selectCanal.querySelectorAll('option');
+  opciones.forEach(option => {
+    option.style.display = 'none'; // Ocultar todas las opciones
+  });
+
+  // Mostrar solo las opciones correspondientes al tipo de papel seleccionado
+  if (tipoPapel === "Cartoncillo") {
+    // Mostrar solo las opciones para Cartoncillo
+    const opcionesCartoncillo = selectCanal.querySelectorAll('.canalCartoncillo');
+    opcionesCartoncillo.forEach(option => {
+      option.style.display = 'block'; // Mostrar las opciones de cartoncillo
+    });
+    selectCanal.value = "L"; // Seleccionar automáticamente "L"
+  } else if (tipoPapel === "Contraencolado") {
+    // Mostrar solo las opciones para Contraencolado
+    const opcionesContraencolado = selectCanal.querySelectorAll('.canalContraencolado');
+    opcionesContraencolado.forEach(option => {
+      option.style.display = 'block'; // Mostrar las opciones de contraencolado
+    });
+  } else if (tipoPapel === "Ondulado") {
+    // Mostrar solo las opciones para Ondulado
+    const opcionesOndulado = selectCanal.querySelectorAll('.canalOndulado');
+    opcionesOndulado.forEach(option => {
+      option.style.display = 'block'; // Mostrar las opciones de ondulado
+    });
+  }
+}
+
+// Agregar el evento para los radio buttons
+const radios = document.querySelectorAll('.divTipoPapel input[name="familiaProductos"]');
+radios.forEach(radio => {
+  radio.addEventListener('change', actualizarCanal);
+});
+
+// Llamar a la función al cargar el script para inicializar correctamente
+document.addEventListener('DOMContentLoaded', actualizarCanal);
+/// FIN CANAL
+//CANAL CON CONTADOR
+
+
+
+
 // Función para mostrar u ocultar los listados según el tipo de producto seleccionado
 function mostrarListado(tipoIndex) {
   // Ocultar todos los listados del tipo seleccionado
@@ -774,14 +883,16 @@ function mostrarListado(tipoIndex) {
     // Mostrar el listado correspondiente al valor seleccionado
     document.getElementById(`${valorSeleccionado}Listado${tipoIndex}`).style.display = 'block';
 
-    // Mostrar "mostrar-calidad-cartoncillo" si el valor es "Cartoncillo" o "Contraencolado"
-    if (valorSeleccionado == 'cartoncillo' || valorSeleccionado == 'contraencolado') {
+    // Mostrar "mostrar-calidad-cartoncillo" si el valor es "Cartoncillo"
+    if (valorSeleccionado == 'cartoncillo') {
       document.getElementById(`mostrarcalidadcartoncillo${tipoIndex}`).style.display = 'block';
     }
   } else {
     document.getElementById(`mostrarcalidadcartoncillo${tipoIndex}`).style.display = 'none';
   }
 }
+
+
 
 
 // Función para eliminar bloques
@@ -844,7 +955,7 @@ function mostrarTextoCalidadCartoncillo() {
   let contraencolado = document.getElementById("contraencolado")
   let mostrarTexto = document.getElementById("mostrarcalidadcartoncillo")
 
-  if (cartoncillo.checked || contraencolado.checked) {
+  if (cartoncillo.checked) {
     mostrarTexto.style.display = "block"
   } else {
     mostrarTexto.style.display = "none"
