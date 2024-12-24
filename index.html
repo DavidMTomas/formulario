@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="" xmlns="http://www.w3.org/1999/html">
+<html class="no-js" lang="" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 <head>
   <meta charset="utf-8">
@@ -747,7 +747,6 @@
         <input type="text" id="calidad" name="calidad" placeholder="Calidad" required/>
       </div>
 
-
       <div class="input-intermedio">
         <label for="canal">Canal</label>
         <select id="canal" name="canal" required>
@@ -779,7 +778,6 @@
 
       </div>
 
-
       <div class="input-corto" id="textoCartoncillo">
         <div class="input-corto" id="mostrarcalidadcartoncillo" style="display:block;">
           <label for="cllo">Cllo</label>
@@ -790,7 +788,7 @@
     </div>
     <!-- Tipos de Impresion segun papel elegido-->
     <!-- Cartoncillo -->
-    <div id="cartoncilloListado" style="display:block;">
+    <div id="cartoncilloListado" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo">
         <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo" name="productoCartoncillo" value="sinImpresion"> Sin
@@ -799,6 +797,38 @@
       <label for="offsetCartoncillo">
         <input type="radio" id="offsetCartoncillo" name="productoCartoncillo" value="offset" checked> Offset
       </label>
+
+
+      <h4>Tintas</h4>
+      <div class="form-group">
+      <label for="tintac">
+        <input type="checkbox" id="tintac" name="cian" value="cian"> Cian (C)
+      </label>
+      <label for="tintam">
+        <input type="checkbox" id="tintam" name="magenta" value="magenta"> Magenta (M)
+      </label>
+      <label for="tintay">
+        <input type="checkbox" id="tintay" name="amarillo" value="amarillo"> Amarillo (Y)
+      </label>
+      <label for="tintak">
+        <input type="checkbox" id="tintak" name="negro" value="negro"> Negro (K)
+      </label>
+      <div class="input-corto">
+      <label for="tinta5"> Tinta 5 </label>
+      <input type="text" name="tinta5" id="tinta5" >
+
+      </div>
+      <div class="input-corto">
+      <label for="tinta6"> Tinta 6 </label>
+        <input type="text" name="tinta6" id="tinta6" >
+      </div>
+      <div class="input-corto">
+        <label for="tinta7">Tinta 7 </label>
+        <input type="text" name="tinta7" id="tinta7">
+      </div>
+      </div>
+
+
     </div>
     <!-- Contraencolado -->
     <div id="contraencoladoListado" style="display:none;">
@@ -812,7 +842,7 @@
       </label>
     </div>
     <!-- Ondulado -->
-    <div id="onduladoListado" style="display:none;">
+    <div id="onduladoListado" style="display:block;">
       <h4>Tipos de impresión para Ondulado</h4>
       <label for="sinImpresionOndulado">
         <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="productoOndulado" value="sinImpresion"> Sin impresión
@@ -833,7 +863,7 @@
         <input type="radio" id="flexoHdOndulado" name="productoOndulado" value="flexo HD"> Flexo HD
       </label>
     </div>
-    <br>
+
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
     <div id="numTiposContainer" style="display:none;">
       <div id="tiposGenerados"></div>
@@ -843,6 +873,7 @@
         <button type="button" id="numTiposDec" onclick="eliminarBloques()" style="display: none">Eliminar última pieza</button>
       </div>
     </div>
+
     <hr>
   </div><!--fin acabado estructural-->
 
