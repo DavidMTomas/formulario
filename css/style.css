@@ -87,10 +87,12 @@ input[type="checkbox"]:checked {
   display: inline-block;
 }
 
-.dropdown button {
+/* Estilo común para el botón y el input de tipo botón */
+.dropdown button,
+input[type="file"]:hover {
   padding: 12px 25px;
   font-size: 1em;
-  background-color: #27ae60; /* Color verde para el dropdown */
+  background-color: #27ae60; /* Color verde */
   color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -98,9 +100,12 @@ input[type="checkbox"]:checked {
   transition: background-color 0.3s ease;
 }
 
-.dropdown button:hover {
+/* Efecto hover para el botón y el input */
+.dropdown button:hover,
+input[type="file"]:hover  {
   background-color: #2ecc71;
 }
+
 
 .dropdown-content {
   display: none;
@@ -509,6 +514,42 @@ form .reenvio {
   gap: 10px; /* Espacio entre botones */
 }
 
+/* Estilos para el input file */
+input[type="file"] {
+  padding: 10px;  /* Espaciado interno */
+  font-size: 16px; /* Tamaño de la fuente */
+  border: 2px; /* Borde verde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor cuando pasa por encima */
+  width: 400px; /* Ancho */
+}
+
+/* Estilos para cuando el archivo está seleccionado */
+input[type="file"]:focus {
+  outline: none; /* Quita el contorno predeterminado */
+  border-color:#bcecbb; /* Borde verde más oscuro */
+}
+
+/* Estilo cuando el archivo es seleccionado */
+input[type="file"]:hover {
+  background-color: #a19a9a; /* Fondo más oscuro cuando pasa el mouse */
+}
+
+/* Estilos para el texto de selección (opcional) */
+input[type="file"]::-webkit-file-upload-button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #45a049; /* Fondo verde más oscuro */
+}
+
 /* ultimas modificaciones */
 /* Estilos básicos */
 .estiloTabla {
@@ -533,9 +574,6 @@ form .reenvio {
   border-radius: 5px;
   background-color: #f9f9f9;
 }
-
-
-
 
 
 

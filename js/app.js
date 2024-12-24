@@ -28,7 +28,6 @@ function changeStyle() {
   themeStylesheet.href = styleSelector.value;
 }
 
-
 // VALIDACIONES
 
 // Función para validar el correo electrónico
@@ -72,6 +71,19 @@ function validarTelefono(telefonoInput) {
   }
 }
 
+// Función para evitar caracteres específicos
+function evitarCaracteres(event) {
+  const codigoTecla = event.key;  // Obtener la tecla presionada
+  const campo = event.target.id;
+
+
+  // Si la tecla presionada es una coma (`,`) o un punto (`.`), evitamos su ingreso
+  if (codigoTecla === ',' || codigoTecla === '.') {
+    if (campo === "alturaPalet") alert("Medida en centímetros, no se permiten decimales");
+    else alert("Medida en milímetros, no se permiten decimales");
+    event.preventDefault();  // Prevenir la acción predeterminada (ingresar el carácter)
+  }
+}
 
 /////////////////////////////////////////////////////
 // Obtenemos el checkbox, el campo numeroCliente y la etiqueta del número
@@ -435,10 +447,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-
-
 // Recoger muestras por comerciales
   document.getElementById("recogerMuestra").addEventListener("click", function (event) {
     const contenedor = document.getElementById("totalMuestrasArecoger");
@@ -454,12 +462,16 @@ window.addEventListener('DOMContentLoaded', function () {
       event.preventDefault(); // Evita que el cambio en el checkbox se registre
       return;
     }
-
+    bloquearCheckboxesMuestras();
     // Verificar si el checkbox está marcado
     const checkbox = document.getElementById("recogerMuestra");
 
     // Si el checkbox no está marcado, ocultar el contenedor y desmarcarlo
     if (!checkbox.checked) {
+          if(document.getElementById("eliminarDireccion").style.display === "none"){
+            desbloquearCheckboxesMuestras();
+          }
+      contenedor.style.display = "none";  // Ocultar el contenedor si el checkbox no está marcado
       document.getElementById("agregarDireccion").disabled=false
       document.getElementById("agregarDireccion").style.background = "";
       document.getElementById("eliminarDireccion").disabled=false
@@ -511,24 +523,40 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Ahora añadimos el evento de 'input' a cada campo de tipo number
     const inputs = recoger.querySelectorAll('input[type="number"]');
-    inputs.forEach(input => {
-      input.addEventListener("input", function () {
-        // Verifica que el valor no supere el máximo
-        const max = parseInt(input.getAttribute("max"), 10);
-        if (parseInt(input.value, 10) > max) {
-          input.value = max; // Ajusta el valor al máximo si es mayor
-        }
-        // Luego, actualizamos los totales disponibles
-        actualizarTotales();
-      });
-    });
-
-    // Llamamos a actualizarTotales para recalcular los valores inicialmente
-    actualizarTotales();
-
+    inputs.forEach(input => input.addEventListener("input", actualizarTotales));
   });
 
 
+  function bloquearCheckboxesMuestras(){
+  document.getElementById("checkDiseñoEstructural").disabled = true;
+  document.getElementById("checkBoceto").disabled = true;
+  document.getElementById("checkPlotter").disabled = true;
+  document.getElementById("checkForrada").disabled = true;
+  const buttons = document.querySelectorAll(".controlBtn");  // Selecciona todos los botones con la clase "controlBtn"
+  buttons.forEach(button => {
+    button.disabled = true;  // Deshabilita cada botón
+    button.style.background = "grey";
+  });
+}
+
+  function desbloquearCheckboxesMuestras(){
+    document.getElementById("checkDiseñoEstructural").disabled = false;
+    document.getElementById("checkBoceto").disabled = false;
+    document.getElementById("checkPlotter").disabled = false;
+    document.getElementById("checkForrada").disabled = false;
+    const buttons = document.querySelectorAll(".controlBtn");
+    buttons.forEach(button => {
+      button.disabled = false;  // Habilita cada botón
+      button.style.background = "";
+    });
+  }
+
+
+// Seleccionar los elementos de entrada y agregar el evento de escucha
+  document.getElementById("ancho").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("alto").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("largo").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("alturaPalet").addEventListener("keydown", evitarCaracteres);
 
 
   // Eliminar la última dirección
@@ -541,7 +569,6 @@ window.addEventListener('DOMContentLoaded', function () {
       document.getElementById("eliminarDireccion").style.display = "none";
     }
   });
-
 
   // Actualizar totales dinámicamente
   function actualizarTotales() {
@@ -561,8 +588,6 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-
-
 
 //FIN DIRECCION ENVIO
 
@@ -641,7 +666,6 @@ document.getElementById("paletizado").addEventListener("change", function () {
 const opcionesDisenyo = document.getElementsByName('tipoDiseño');
 const numTiposContainer = document.getElementById('numTiposContainer');
 
-
 // Función para mostrar u ocultar el contenedor de número de tipos
 function toggleNumTipos() {
   // Comprobar si alguno de los radio buttons está seleccionado en "multipieza"
@@ -684,8 +708,6 @@ opcionesDisenyo.forEach(radio => {
 
 // Llamar a la función para asegurarse de que el contenedor esté correctamente visible/oculto
 toggleNumTipos(); // Esto asegura que el contenedor tenga el estado correcto cuando se carga la página
-
-
 
 ///////   TIPO   /////
 /////////////////////////////////////////////////////
@@ -735,7 +757,6 @@ document.querySelectorAll('input[name="estructuralOpciones"]').forEach(radioButt
 // Ejecutar la función para asegurarse de que el estado sea correcto cuando se cargue la página
 document.addEventListener('DOMContentLoaded', toggleNumTipos);
 
-
 // MOSTRAR SELECT CANAL EN FUNCION DEL TIPO DE PAPEL
 // Función para manejar la actualización del canal
 function actualizarCanal() {
@@ -784,7 +805,6 @@ radios.forEach(radio => {
 // Llamar a la función al cargar el script para inicializar correctamente
 document.addEventListener('DOMContentLoaded', actualizarCanal);
 /// FIN CANAL
-
 
 // Función para mostrar el listado de tipos de impresion correspondiente según el radio boton seleccionado
 // cartoncillo, contraencolado y ondulado
@@ -1011,7 +1031,6 @@ function generarBloques() {
   contadorTipos++;
 }
 
-
 // Función para eliminar bloques
 function eliminarBloques() {
   const container = document.getElementById('tiposGenerados');
@@ -1031,7 +1050,6 @@ function eliminarBloques() {
     }
   }
 }
-
 
 /////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', function () {
@@ -1060,7 +1078,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
 function validarCheckboxesMuestras() {
   const checkboxes = [
     document.getElementById("checkDiseñoEstructural"),
@@ -1087,6 +1104,16 @@ function validarCheckboxesMuestras() {
       tabla.classList.add("error"); // Resaltar la tabla
     });
 
+    /*
+    document.getElementById("eliminarDireccion").style.display = "none";
+    document.getElementById("seccionEnvios").innerHTML = "";
+    //document.getElementById("seccionEnvios").style.display = "none";
+
+    // desmarcar checkbox recoger muestra
+    document.getElementById("recogerMuestra").checked=false;
+    document.getElementById("totalMuestrasArecoger").style.display = "none";
+    */
+
     checkboxes.forEach(function (checkbox) {
       checkbox.classList.add("error-checkbox"); // Resaltar cada checkbox
     });
@@ -1109,7 +1136,6 @@ function validarCheckboxesMuestras() {
   return true; // Permitir el envío si al menos uno está marcado
 
 }
-
 
 // Función para validar el formulario
 function validarFormulario() {
@@ -1167,7 +1193,6 @@ function validarFormulario() {
 }
 // validar formulario
 
-
 // Función para eliminar las clases "error" o "reenvio" cuando el usuario empieza a escribir
 function actualizarEstadoCampo(campo) {
   if (campo.value.trim() !== "") {
@@ -1185,7 +1210,6 @@ campos.forEach(function (campo) {
   });
 });
 
-
 // Función para agregar los eventos de los campos nuevos (dinámicos)
 function agregarEventosCampos() {
   const campos = document.querySelectorAll("[required]"); // Seleccionamos todos los campos requeridos
@@ -1201,7 +1225,6 @@ function agregarEventosCampos() {
     }
   });
 }
-
 
 // Función para generar el PDF
 function generarPDF() {
@@ -1242,7 +1265,6 @@ function generarPDF() {
   // Abrir el cliente de correo con 'mailto'
   window.location.href = `mailto:${email}?subject=Formulario PDF&body=Adjunta el PDF descargado.`;
 }
-
 
 // Función para manejar el evento de clic en el botón "Enviar y Terminar"
 document.getElementById("enviarTerminar").addEventListener("click", function (event) {
