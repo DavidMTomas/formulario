@@ -174,13 +174,13 @@ div {
   min-width: 58px;
 }
 .input-intermedio {
-  flex: 1 1 18%; /* Ocupa el 50% del ancho */
+  flex: 1 1 18%; /* Ocupa el 18% del ancho */
   max-width: 230px;
-  min-width: 230px;
+  min-width: 150px;
 }
 
 .input-medio {
-  flex: 1 1 25%; /* Ocupa el 50% del ancho */
+  flex: 1 1 25%; /* Ocupa el 25% del ancho */
   max-width: 500px;
   min-width: 400px;
 }
@@ -703,7 +703,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
   }
 
   form {
-    padding: 0; /* Ajusta el padding del formulario si también lo necesitas */
+    padding: 5px; /* Ajusta el padding del formulario  */
   }
 }
 
@@ -749,3 +749,77 @@ input[type="file"]::-webkit-file-upload-button:hover {
     margin-right: 10px; /* Ajuste de espacio entre los radio buttons */
   }
 }
+
+.mensaje-superpuesto {
+  position: relative;
+  background: #e3f2fd; /* Azul claro */
+  color: #0d47a1; /* Azul oscuro */
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px;
+  border: 1px solid #90caf9; /* Azul intermedio */
+  border-radius: 8px;
+  display: none; /* Oculto por defecto */
+  text-align: center;
+  margin-top: 20px;
+}
+.mensaje-superpuesto span {
+  font-size: 22px;
+  margin-right: 10px;
+}
+/* Estilo general para los inputs de tipo "number" */
+.numerosNoPermitidos {
+  -webkit-appearance: none; /* Safari/Chrome */
+  -moz-appearance: textfield; /* Firefox */
+  appearance: none; /* Otros navegadores */
+  padding: 10px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  text-align: center;
+  width: 60px;
+  margin: 0 10px;
+}
+
+/* Estilo de los botones personalizados */
+.custom-number-button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-number-button:hover {
+  background-color: #45a049; /* Color al pasar el mouse */
+}
+
+.custom-number-button:active {
+  background-color: #387e39; /* Color al hacer clic */
+}
+
+/* Estilo para el borde y foco del input */
+.numerosNoPermitidos:focus {
+  border-color: #4CAF50; /* Color del borde al hacer focus */
+}
+
+/* Estilo para el hover */
+.numerosNoPermitidos:hover {
+  border-color: #45a049; /* Color del borde al pasar el mouse */
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+  .numerosNoPermitidos {
+    font-size: 20px; /* Aumentar tamaño del texto en móviles */
+    width: 80px; /* Aumentar tamaño del input */
+  }
+
+  .custom-number-button {
+    font-size: 24px; /* Aumentar tamaño de los botones en móviles */
+    padding: 15px 20px; /* Aumentar el tamaño de los botones */
+  }
+}
+
