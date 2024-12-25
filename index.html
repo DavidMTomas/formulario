@@ -791,42 +791,14 @@
     <div id="cartoncilloListado" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo">
-        <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo" name="productoCartoncillo" value="sinImpresion"> Sin
+        <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo" name="productoCartoncillo" value="sinImpresion" checked> Sin
         impresión
       </label>
       <label for="offsetCartoncillo">
-        <input type="radio" id="offsetCartoncillo" name="productoCartoncillo" value="offset" checked> Offset
+        <input type="radio" id="offsetCartoncillo" name="productoCartoncillo" value="offset"> Offset
       </label>
 
 
-      <h4>Tintas</h4>
-      <div class="form-group">
-      <label for="tintac">
-        <input type="checkbox" id="tintac" name="cian" value="cian"> Cian (C)
-      </label>
-      <label for="tintam">
-        <input type="checkbox" id="tintam" name="magenta" value="magenta"> Magenta (M)
-      </label>
-      <label for="tintay">
-        <input type="checkbox" id="tintay" name="amarillo" value="amarillo"> Amarillo (Y)
-      </label>
-      <label for="tintak">
-        <input type="checkbox" id="tintak" name="negro" value="negro"> Negro (K)
-      </label>
-      <div class="input-corto">
-      <label for="tinta5"> Tinta 5 </label>
-      <input type="text" name="tinta5" id="tinta5" >
-
-      </div>
-      <div class="input-corto">
-      <label for="tinta6"> Tinta 6 </label>
-        <input type="text" name="tinta6" id="tinta6" >
-      </div>
-      <div class="input-corto">
-        <label for="tinta7">Tinta 7 </label>
-        <input type="text" name="tinta7" id="tinta7">
-      </div>
-      </div>
 
 
     </div>
@@ -834,21 +806,21 @@
     <div id="contraencoladoListado" style="display:none;">
       <h4>Tipos de impresión para Contraencolado</h4>
       <label for="sinImpresionContraencolado">
-        <input class="trabajoImpresion" type="radio" id="sinImpresionContraencolado" name="productoContraencolado" value="sinImpresion"> Sin
+        <input class="trabajoImpresion" type="radio" id="sinImpresionContraencolado" name="productoContraencolado" value="sinImpresion" checked> Sin
         impresión
       </label>
       <label for="offsetContraencolado">
-        <input  type="radio" id="offsetContraencolado" name="productoContraencolado" value="offset" checked> Offset
+        <input  type="radio" id="offsetContraencolado" name="productoContraencolado" value="offset"> Offset
       </label>
     </div>
     <!-- Ondulado -->
     <div id="onduladoListado" style="display:block;">
       <h4>Tipos de impresión para Ondulado</h4>
       <label for="sinImpresionOndulado">
-        <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="productoOndulado" value="sinImpresion"> Sin impresión
+        <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="productoOndulado" value="sinImpresion" checked> Sin impresión
       </label>
       <label for="offsetOndulado">
-        <input type="radio" id="offsetOndulado" name="productoOndulado" value="offset" checked> Offset
+        <input type="radio" id="offsetOndulado" name="productoOndulado" value="offset"> Offset
       </label>
       <label for="digitalOndulado">
         <input type="radio" id="digitalOndulado" name="productoOndulado" value="digital"> Digital
@@ -863,6 +835,106 @@
         <input type="radio" id="flexoHdOndulado" name="productoOndulado" value="flexo HD"> Flexo HD
       </label>
     </div>
+
+    <div id="tintasOffset" style="display:block;">
+      <h4>Tintas para Offset</h4>
+      <div class="form-group">
+        <label >
+          <input type="checkbox" id="tintaCoffset" name="cian" value="cian"> Cian (C)
+        </label>
+        <label>
+          <input type="checkbox" id="tintaMoffset" name="magenta" value="magenta"> Magenta (M)
+        </label>
+        <label >
+          <input type="checkbox" id="tintaYoffset" name="amarillo" value="amarillo"> Amarillo (Y)
+        </label>
+        <label>
+          <input type="checkbox" id="tintaKoffset" name="negro" value="negro"> Negro (K)
+        </label>
+        <div class="input-corto">
+          <label > Tinta 5
+          <input type="text" name="tinta5Offset" id="tinta5Offset" >
+          </label>
+
+        </div>
+        <div class="input-corto">
+          <label > Tinta 6
+          <input type="text" name="tinta6Offset" id="tinta6Offset" >
+          </label>
+        </div>
+        <div class="input-corto">
+          <label >Tinta 7
+          <input type="text" name="tinta7Offset" id="tinta7Offset">
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="tintasDigital" style="display:none;">
+      <h4>Tintas para digital</h4>
+      <div class="form-group">
+        <label >
+          <input type="checkbox" id="tintaCdigital" name="cian" value="cian"> Cian (C)
+        </label>
+        <label >
+          <input type="checkbox" id="tintaMdigital" name="magenta" value="magenta"> Magenta (M)
+        </label>
+        <label>
+          <input type="checkbox" id="tintaYdigital" name="amarillo" value="amarillo"> Amarillo (Y)
+        </label>
+        <label>
+          <input type="checkbox" id="tintaKdigital" name="negro" value="negro"> Negro (K)
+        </label>
+        <label>
+          <input type="checkbox" id="tintaOdigital" name="naranja" value="violeta"> Orange (O)
+        </label>
+        <label>
+          <input type="checkbox" id="tintaVdigital" name="violeta" value="violeta"> Violeta (V)
+        </label>
+      </div>
+    </div>
+
+
+    <div id="tintasFlexo" style="display:none;">
+      <h4>Tintas para flexo</h4>
+      <div class="form-group">
+        <div class="input-corto">
+          <label > Tinta 1
+          <input type="text" name="tinta1Flexo" id="tinta1Flexo" >
+          </label>
+        </div>
+        <div class="input-corto">
+          <label > Tinta 2
+            <input type="text" name="tinta2Flexo" id="tinta2Flexo" >
+          </label>
+        </div>
+        <div class="input-corto">
+          <label > Tinta 3
+            <input type="text" name="tinta3Flexo" id="tinta3Flexo" >
+          </label>
+        </div>
+        <div class="input-corto">
+          <label > Tinta 4
+            <input type="text" name="tinta4Flexo" id="tinta4Flexo" >
+          </label>
+        </div>
+        <div class="input-corto">
+          <label > Tinta 5
+            <input type="text" name="tinta5Flexo" id="tinta5Flexo" >
+          </label>
+        </div>
+        <div class="input-corto">
+          <label > Tinta 6
+            <input type="text" name="tinta6Flexo" id="tinta6Flexo" >
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+
+
 
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
     <div id="numTiposContainer" style="display:none;">
@@ -891,7 +963,7 @@
     <div id="mostrarDesplegableMuestras" class="dropdown" style="display: none;">
       <div class="custom-spinner">
         <button type="button" class="controlBtn" onclick="decrement('muestraExtra')">-</button>
-        <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="0">
+        <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="0" readonly>
         <button type="button" class="controlBtn" onclick="increment('muestraExtra')">+</button>
       </div>
     </div>
@@ -909,7 +981,7 @@
       <div id="mostrarDesplegableBoceto" class="dropdown" style="display: none;">
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('bocetoExtra')">-</button>
-          <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="0">
+          <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="0" readonly>
           <button type="button" class="controlBtn" onclick="increment('bocetoExtra')">+</button>
         </div>
       </div>
@@ -924,7 +996,7 @@
       <div id="mostrarDesplegablePlotter" class="dropdown" style="display: none;">
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('plotterExtra')">-</button>
-          <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="0">
+          <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="0" readonly>
           <button type="button" class="controlBtn" onclick="increment('plotterExtra')">+</button>
         </div>
       </div>
@@ -939,7 +1011,7 @@
       <div id="mostrarDesplegableForrada" class="dropdown" style="display: none;">
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('forradaExtra')">-</button>
-          <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="0">
+          <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="0" readonly>
           <button type="button" class="controlBtn" onclick="increment('forradaExtra')">+</button>
         </div>
       </div>
@@ -957,12 +1029,20 @@
   <button type="button" id="eliminarDireccion" style="display: none">Eliminar última dirección de envío</button>
   </div>
 
+  <div id="mensaje" class="mensaje-superpuesto">
+    <span>ℹ️</span> Desmarque el checkbox si desea modificar las opciones de envío, o el número de muestras.
+  </div>
+
 
   <h4>RECOGER MUESTRAS EN DEPARTAMENTO</h4>
-  <label>
+
+  <label>Marcar para recoger muestras
     <input type="checkbox" id="recogerMuestra">
-    Marcar para recoger muestras
   </label>
+
+
+
+  <br>
   <div id="totalMuestrasArecoger" style="display: none"></div>
 
   <hr>
