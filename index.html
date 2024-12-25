@@ -633,15 +633,15 @@
             <tr>
               <th>
                 <label for="ancho">Ancho:</label>
-                <input  type="text" id="ancho" name="ancho" required placeholder="medida en milímetros" >
+                <input  type="number" id="ancho" name="ancho" required placeholder="medida en milímetros" >
               </th>
               <th>
                 <label for="alto">Alto:</label>
-                <input  type="text" id="alto" name="alto" required placeholder="medida en milímetros" >
+                <input  type="number" id="alto" name="alto" required placeholder="medida en milímetros" >
               </th>
               <th>
                 <label for="largo">Largo:</label>
-                <input  type="text" id="largo" name="largo" required placeholder="medida en milímetros" >
+                <input  type="number" id="largo" name="largo" required placeholder="medida en milímetros" >
               </th>
             </tr>
           </table>
@@ -712,6 +712,7 @@
   <div id="acabadosEstructural" style="display:block;">
     <h4>TIPO ESTRUCTURAL</h4>
     <!-- Selección entre simple y multipieza -->
+    <div class="form-group">
     <label>
       <input type="radio" name="tipoDiseño" value="simple" checked> Estructural simple
     </label>
@@ -719,6 +720,8 @@
       <input type="radio" name="tipoDiseño" value="multiPieza" id="diseñoEstructuralMultiPieza"> Estructural
       multipieza
     </label>
+    </div>
+
     <hr>
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
     <div class="input-medio">
@@ -747,7 +750,7 @@
         <input type="text" id="calidad" name="calidad" placeholder="Calidad" required/>
       </div>
 
-      <div class="input-intermedio">
+        <div class="input-intermedio">
         <label for="canal">Canal</label>
         <select id="canal" name="canal" required>
           <option value="">Seleccionar</option>
@@ -778,7 +781,7 @@
 
       </div>
 
-      <div class="input-corto" id="textoCartoncillo">
+        <div class="input-corto" id="textoCartoncillo">
         <div class="input-corto" id="mostrarcalidadcartoncillo" style="display:block;">
           <label for="cllo">Cllo</label>
           <input type="text" id="cllo" name="cllo" placeholder="Cllo" required/>
@@ -787,6 +790,8 @@
 
     </div>
     <!-- Tipos de Impresion segun papel elegido-->
+
+
     <!-- Cartoncillo -->
     <div id="cartoncilloListado" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
@@ -797,11 +802,8 @@
       <label for="offsetCartoncillo">
         <input type="radio" id="offsetCartoncillo" name="productoCartoncillo" value="offset"> Offset
       </label>
-
-
-
-
     </div>
+
     <!-- Contraencolado -->
     <div id="contraencoladoListado" style="display:none;">
       <h4>Tipos de impresión para Contraencolado</h4>
@@ -817,26 +819,26 @@
     <div id="onduladoListado" style="display:block;">
       <h4>Tipos de impresión para Ondulado</h4>
       <label for="sinImpresionOndulado">
-        <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="productoOndulado" value="sinImpresion" checked> Sin impresión
+        <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="productoOndulado" value="sinImpresion" checked>Sin impresión
       </label>
       <label for="offsetOndulado">
-        <input type="radio" id="offsetOndulado" name="productoOndulado" value="offset"> Offset
+        <input type="radio" id="offsetOndulado" name="productoOndulado" value="offset">Offset
       </label>
       <label for="digitalOndulado">
-        <input type="radio" id="digitalOndulado" name="productoOndulado" value="digital"> Digital
+        <input type="radio" id="digitalOndulado" name="productoOndulado" value="digital">Digital
       </label>
       <label for="flexoOndulado">
-        <input type="radio" id="flexoOndulado" name="productoOndulado" value="flexo"> Flexo
+        <input type="radio" id="flexoOndulado" name="productoOndulado" value="flexo">Flexo
       </label>
       <label for="flexoMejoradoOndulado">
-        <input type="radio" id="flexoMejoradoOndulado" name="productoOndulado" value="flexo mejorado"> Flexo mejorado
+        <input type="radio" id="flexoMejoradoOndulado" name="productoOndulado" value="flexo mejorado">Flexo mejorado
       </label>
       <label for="flexoHDOndulado">
-        <input type="radio" id="flexoHdOndulado" name="productoOndulado" value="flexo HD"> Flexo HD
+        <input type="radio" id="flexoHdOndulado" name="productoOndulado" value="flexo HD">Flexo HD
       </label>
     </div>
 
-    <div id="tintasOffset" style="display:block;">
+    <div id="tintasOffset" style="display:none;">
       <h4>Tintas para Offset</h4>
       <div class="form-group">
         <label >
@@ -855,7 +857,6 @@
           <label > Tinta 5
           <input type="text" name="tinta5Offset" id="tinta5Offset" >
           </label>
-
         </div>
         <div class="input-corto">
           <label > Tinta 6
@@ -869,7 +870,6 @@
         </div>
       </div>
     </div>
-
 
     <div id="tintasDigital" style="display:none;">
       <h4>Tintas para digital</h4>
@@ -894,7 +894,6 @@
         </label>
       </div>
     </div>
-
 
     <div id="tintasFlexo" style="display:none;">
       <h4>Tintas para flexo</h4>
@@ -931,7 +930,6 @@
         </div>
       </div>
     </div>
-
 
 
 
@@ -1127,11 +1125,11 @@
         <div class="row">
           <div class="field">
             <label for="alturaPalet">Altura máxima (incluido palet)</label>
-            <input type="text" id="alturaPalet" name="alturaPalet" placeholder="En centímetros">
+            <input type="number" id="alturaPalet" name="alturaPalet" placeholder="En centímetros">
           </div>
           <div class="field">
             <label for="cajasPalet">Cajas por palet</label>
-            <input type="text" id="cajasPalet" name="cajasPalet">
+            <input type="number" id="cajasPalet" name="cajasPalet">
           </div>
           <div class="field">
             <label>Caja agrupadora</label>
@@ -1145,15 +1143,15 @@
         <div class="row">
           <div class="field">
             <label for="unidadesPaquete">Unidades por paquete</label>
-            <input type="text" id="unidadesPaquete" name="unidadesPaquete">
+            <input type="number" id="unidadesPaquete" name="unidadesPaquete">
           </div>
           <div class="field">
             <label for="unidadesBase">Unidades de base</label>
-            <input type="text" id="unidadesBase" name="unidadesBase">
+            <input type="number" id="unidadesBase" name="unidadesBase">
           </div>
           <div class="field">
             <label for="unidadesAltura">Unidades de altura</label>
-            <input type="text" id="unidadesAltura" name="unidadesAltura">
+            <input type="number" id="unidadesAltura" name="unidadesAltura">
           </div>
         </div>
 
