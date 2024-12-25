@@ -727,7 +727,7 @@
     <div class="input-medio">
       <label for="idPieza">
         <input type="text" id="idPieza" name="familiaProductos" placeholder="Identificador de la pieza 1"
-               style="display: none;">
+               style="display: none;" required>
       </label>
     </div>
     <h4>Tipo papel</h4>
@@ -1216,7 +1216,7 @@
     <div class="custom-spinner">
       <label for="etiquetasPaletizado">Etiquetas paletizado:</label>
       <button type="button" onclick="decrement('etiquetasPaletizado')">-</button>
-      <input type="number" id="etiquetasPaletizado" name="forradaExtra" min="0" value="1">
+      <input type="number" id="etiquetasPaletizado" name="etiquetasPaletizado" min="0" value="1">
       <button type="button" onclick="increment('etiquetasPaletizado')">+</button>
       <div id="textoExtra" style="display: none;">Para más de 1 etiqueta se requiere autorización</div>
     </div>
