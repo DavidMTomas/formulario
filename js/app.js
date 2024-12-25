@@ -18,7 +18,6 @@ document.getElementById('fechaHora').value = fechaHoraActual;
 let contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
 
 
-
 // slect de stilos
 function changeStyle() {
   // Obtiene el valor seleccionado
@@ -73,24 +72,34 @@ function validarTelefono(telefonoInput) {
 
 
 // Función para evitar caracteres específicos
+// Función para evitar caracteres específicos
 function evitarCaracteres(event) {
   const codigoTecla = event.key;  // Obtener la tecla presionada
   const campo = event.target.id;
 
   // IDs de campos categorizados
   const camposMilimetros = ["ancho", "alto", "largo"];
-  const camposEnteros = ["cajasPalet", "unidadesPaquete", "unidadesBase", "unidadesAltura","consumoAnual","cantidadLote"];
+  const camposEnteros = ["cajasPalet", "unidadesPaquete", "unidadesBase", "unidadesAltura", "consumoAnual", "cantidadLote", "numeroTroquelExistente", "numeroFicha"
+
+  ];
 
   // Si la tecla presionada es una coma (`,`) o un punto (`.`), evitamos su ingreso
   if (codigoTecla === ',' || codigoTecla === '.') {
+    let mensaje = ""; // Variable para el mensaje
+
     if (campo === "alturaPalet") {
-      alert("Medida en centímetros, no se permiten decimales");
+      mensaje = "Medida en centímetros, no se permiten decimales";
     } else if (camposMilimetros.includes(campo)) {
-      alert("Medida en milímetros, no se permiten decimales");
+      mensaje = "Medida en milímetros, no se permiten decimales";
     } else if (camposEnteros.includes(campo)) {
-      alert("Decimales no permitidos para valores enteros");
+      mensaje = "Decimales no permitidos para valores enteros";
     }
-    event.preventDefault();  // Prevenir la acción predeterminada (ingresar el carácter)
+
+    if (mensaje) {
+      alert(mensaje); // Muestra el mensaje
+    }
+
+    event.preventDefault();  // Prevenir la acción predeterminada
   }
 }
 
@@ -377,7 +386,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   }
 
-  // Agregar una nueva dirección
+
   // Agregar una nueva dirección
   document.getElementById("agregarDireccion").addEventListener("click", function () {
     if (!validarCheckboxesMuestras()) {
@@ -436,7 +445,7 @@ window.addEventListener('DOMContentLoaded', function () {
     <label>Maquetas a enviar:
          <div class="input-corto custom-spinner" >
           <button type="button" class="controlBtn" onclick="decrement('maquetass${seccionEnvios.children.length}')">-</button>
-              <input type="number" class="numerosNoPermitidos" name="maquetass[]" id="maquetass${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}">
+              <input type="number" class="numerosNoPermitidos" name="maquetass[]" id="maquetass${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly>
         <button type="button" class="controlBtn" onclick="increment('maquetass${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
@@ -444,7 +453,7 @@ window.addEventListener('DOMContentLoaded', function () {
     <label>Bocetos a enviar:
           <div class="input-corto custom-spinner" >
            <button type="button" class="controlBtn" onclick="decrement('bocetos${seccionEnvios.children.length}')">-</button>
-              <input type="number" class="numerosNoPermitidos" name="bocetos[]" id="bocetos${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" >
+              <input type="number" class="numerosNoPermitidos" name="bocetos[]" id="bocetos${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" readonly>
          <button type="button" class="controlBtn" onclick="increment('bocetos${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
@@ -461,7 +470,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
          <div class="input-corto custom-spinner" >
          <button type="button" class="controlBtn" onclick="decrement('muestrasForradas${seccionEnvios.children.length}')">-</button>
-          <input type="number" class="numerosNoPermitidos" name="muestrasForradas[]" id="muestrasForradas${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" >
+          <input type="number" class="numerosNoPermitidos" name="muestrasForradas[]" id="muestrasForradas${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" readonly>
         <button type="button" class="controlBtn" onclick="increment('muestrasForradas${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
@@ -478,12 +487,6 @@ window.addEventListener('DOMContentLoaded', function () {
     const inputs = nuevaDireccion.querySelectorAll('input[type="number"]');
     inputs.forEach(input => input.addEventListener("input", actualizarTotales));
   });
-
-
-
-// Función para agregar el evento de evitar números
-
-
 
 
 // Recoger muestras por comerciales
@@ -598,8 +601,6 @@ window.addEventListener('DOMContentLoaded', function () {
       button.style.background = "grey";
     });
   }
-
-
 
 
   function desbloquearCheckboxesMuestras(){
@@ -806,11 +807,15 @@ function mostrarListaTiposImpresion() {
       // Mostrar el listado correspondiente según el valor seleccionado
       if (radioButton.value === 'Cartoncillo') {
         cartoncilloListado.style.display = 'block';
+        cartoncilloListado.querySelector('input#sinImpresionCartoncillo').checked=true
         mostrartextoCartoncillo.style.display = 'block'
       } else if (radioButton.value === 'Contraencolado') {
         contraencoladoListado.style.display = 'block';
+        contraencoladoListado.querySelector('input#sinImpresionContraencolado').checked=true
       } else if (radioButton.value === 'Ondulado') {
         onduladoListado.style.display = 'block';
+        // Accede al input usando querySelector
+        onduladoListado.querySelector('input#sinImpresionOndulado').checked=true;
       }
     }
   }
@@ -943,8 +948,8 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
       document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'block';
       document.getElementById(`sinImpresionCartoncillo${prefijo}`).checked = true; // ESTE CHECLK DEEBRIA MARCARSE
       document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
-      document.getElementById(` tintasDigital${prefijo}`).style.display = 'none';
-      document.getElementById(` tintasFlexo${prefijo}`).style.display = 'none';
+      document.getElementById(`tintasDigital${prefijo}`).style.display = 'none';
+      document.getElementById(`tintasFlexo${prefijo}`).style.display = 'none';
     } else if (valorSeleccionado === 'contraencolado') {
       document.getElementById(`mostrarCanalContraencolado${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'none';
@@ -952,8 +957,8 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
       document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'none';
       document.getElementById(`sinImpresionContraencolado${prefijo}`).checked = true;
       document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
-      document.getElementById(` tintasDigital${prefijo}`).style.display = 'none';
-      document.getElementById(` tintasFlexo${prefijo}`).style.display = 'none';
+      document.getElementById(`tintasDigital${prefijo}`).style.display = 'none';
+      document.getElementById(`tintasFlexo${prefijo}`).style.display = 'none';
     } else if (valorSeleccionado === 'ondulado') {
       document.getElementById(`mostrarCanalOndulado${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'none';
@@ -961,8 +966,8 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
       document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'none';
       document.getElementById(`sinImpresionOndulado${prefijo}`).checked = true;
       document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
-      document.getElementById(` tintasDigital${prefijo}`).style.display = 'none';
-      document.getElementById(` tintasFlexo${prefijo}`).style.display = 'none';
+      document.getElementById(`tintasDigital${prefijo}`).style.display = 'none';
+      document.getElementById(`tintasFlexo${prefijo}`).style.display = 'none';
     }
 
 
@@ -977,7 +982,6 @@ document.addEventListener('DOMContentLoaded', function () {
   mostrarListaTiposImpresionMultipieza();
   alert("Mensaje")
 });
-
 
 /////////////////////////////////////////////////////
 // Función para generar los bloques dinámicamente según el número de tipos seleccionado
@@ -1012,7 +1016,8 @@ function generarBloques() {
 
   // Aplicar un color de fondo más oscuro si el contador es par
   if (contadorTipos % 2 === 0) {
-    bloque.style.backgroundColor = '#f0f0f0'; // Color más oscuro (gris claro)
+    bloque.style.backgroundColor = '#cedce7'; // Azul claro
+      //'#f0f0f0'; // Color más oscuro (gris claro)
   } else {
     bloque.style.backgroundColor = '#ffffff'; // Color blanco por defecto
   }
@@ -1055,7 +1060,7 @@ function generarBloques() {
 
 
           <!-- Opciones para Ondulado -->
-          <optgroup id="mostrarCanalOndulado${contadorTipos}" style="display:none;">
+          <optgroup id="mostrarCanalOndulado${contadorTipos}" style="display:block;">
           <option value="">Seleccionar</option>
           <option value="G Nanomicro" class="canalOndulado${contadorTipos}">G Nanomicro</option>
           <option value="F Minimicro" class="canalOndulado${contadorTipos}">F Minimicro 1,1mm</option>
@@ -1083,7 +1088,7 @@ function generarBloques() {
           </optgroup>
 
           <!-- Opciones para Cartoncillo -->
-          <optgroup id="mostrarCanalCartoncillo${contadorTipos}" style="display:block;">
+          <optgroup id="mostrarCanalCartoncillo${contadorTipos}" style="display:none;">
           <option value="L" class="canalCartoncillo${contadorTipos}" >L</option>
           </optgroup>
         </select>
@@ -1092,7 +1097,7 @@ function generarBloques() {
 
 
         <div class="input-corto">
-            <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:block;">
+            <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
               <label for="cllo${contadorTipos}">Cllo</label>
               <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo" required/>
               </div>
@@ -1345,7 +1350,6 @@ function actualizarTintasMultipieza(tipoIndex) {
 }
 
 
-
 //FIN TINTAS
 function validarCheckboxesMuestras() {
   const checkboxes = [
@@ -1406,6 +1410,7 @@ function validarCheckboxesMuestras() {
 
 }
 
+
 // Función para validar el formulario
 function validarFormulario() {
   const formulario = document.getElementById("petcicionComercial");
@@ -1462,6 +1467,31 @@ function validarFormulario() {
 }
 // validar formulario
 
+// Prevenir el envío del formulario y mover el foco al siguiente campo al presionar Enter
+document.getElementById("petcicionComercial").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevenir la acción predeterminada del Enter (enviar formulario)
+
+    // Encontrar el campo activo (con el foco)
+    const campos = Array.from(document.querySelectorAll("#petcicionComercial input, #petcicionComercial select, #petcicionComercial textarea"));
+
+    // Filtrar los campos visibles
+    const camposVisibles = campos.filter(campo => {
+      const estilo = window.getComputedStyle(campo);
+      return (estilo.display !== 'none') && (estilo.visibility !== 'hidden') && (campo.offsetParent !== null);
+    });
+
+    // Encontrar el índice del campo actualmente con foco
+    const indiceActual = camposVisibles.indexOf(document.activeElement);
+
+    // Mover el foco al siguiente campo, si hay uno
+    if (indiceActual !== -1 && indiceActual < camposVisibles.length - 1) {
+      camposVisibles[indiceActual + 1].focus();
+    }
+  }
+});
+
+
 // Función para eliminar las clases "error" o "reenvio" cuando el usuario empieza a escribir
 function actualizarEstadoCampo(campo) {
   if (campo.value.trim() !== "") {
@@ -1495,40 +1525,78 @@ function agregarEventosCampos() {
   });
 }
 
-// Función para generar el PDF
+// Función para generar el PDF con el orden del formulario y los encabezados hasta h5
 function generarPDF() {
-  // Verificar si el campo honeypot está lleno (probablemente un bot)
-  const honeypot = document.querySelector('input[name="apellidoH"]').value;
-  if (honeypot) {
-    alert('Acceso no autorizado.');
-    return; // Detener la ejecución si el bot ha llenado el campo
-  }
-
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  // Capturar los datos del formulario
   const nombre = document.getElementById('nombre').value;
   const email = ""; // Correo predeterminado
   const referencia = document.getElementById('referencia').value;
   const nombreComercial = document.getElementById('nombreComercial').value;
   const fechaHora = document.getElementById('fechaHora').value;
 
-  // Agregar contenido al PDF
-  doc.text(`Formulario de solicitud`, 10, 10);
-  doc.text(`Nombre: ${nombre}`, 10, 20);
-  doc.text(`Email: ${email}`, 10, 30);
-  doc.text(`Referencia: ${referencia}`, 10, 40);
-  doc.text(`Comercial: ${nombreComercial}`, 10, 50); // Agregar nombre del comercial
-  doc.text(`Fecha y hora: ${fechaHora}`, 10, 60); // Agregar la fecha y hora
-  // Agregar más campos según sea necesario...
+  let yPosition = 10;
 
+  // Función para agregar texto con control de salto de página y formato
+  function agregarTexto(texto, estilo = 'normal', color = [0, 0, 0], fontSize = 12) {
+    doc.setTextColor(color[0], color[1], color[2]);
+    doc.setFontSize(fontSize);
+    doc.setFont("helvetica", estilo);
+    doc.text(texto, 10, yPosition);
+    yPosition += fontSize * 1.1; // Reducir el espacio entre líneas (ajustado a un 20% más pequeño)
+    if (yPosition >= 280) {
+      doc.addPage();
+      yPosition = 10;
+    }
+  }
 
+  // Función para verificar si un campo está visible
+  function esVisible(campo) {
+    const estilo = window.getComputedStyle(campo);
+    return (estilo.display !== 'none') && (estilo.visibility !== 'hidden') && (campo.offsetParent !== null);
+  }
+
+  // Agregar título principal
+  doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
+  doc.text('Formulario de Solicitud - Detalles', 10, yPosition);
+  yPosition += 10;
+
+  // Recorremos el formulario en el orden de los elementos
+  const formulario = document.getElementById('petcicionComercial');
+  const campos = formulario.querySelectorAll('input, select, textarea, h1, h2, h3, h4, h5'); // Incluir encabezados hasta h5
+
+  campos.forEach(campo => {
+    // Verificar si el campo es visible
+    if (esVisible(campo)) {
+      if (campo.tagName.toLowerCase() === 'h1' || campo.tagName.toLowerCase() === 'h2' || campo.tagName.toLowerCase() === 'h3' || campo.tagName.toLowerCase() === 'h4' || campo.tagName.toLowerCase() === 'h5') {
+        // Agregar encabezados con formato
+        agregarTexto(campo.innerText, 'bold', [0, 0, 0], 14); // Títulos en negrita y mayor tamaño
+      } else if (campo.type === 'checkbox' && campo.checked) {
+        // Solo agregar los checkboxes seleccionados
+        agregarTexto(`${campo.name} : Sí`, 'normal', [0, 0, 255]); // Azul para seleccionados
+      } else if (campo.type === 'radio') {
+        // Mostrar solo el radio seleccionado y cambiar color dependiendo de si es "Sí", "No" o cualquier otro valor
+        if (campo.checked) {
+          const valorRadio = campo.value.toLowerCase(); // Asegurar que el valor esté en minúsculas
+          const colorRadio = valorRadio === 'sí' ? [0, 128, 0] :
+            valorRadio === 'no' ? [255, 0, 0] :
+              [255, 165, 0]; // Naranja si no es "Sí" ni "No"
+          agregarTexto(`${campo.name} : ${campo.value}`, 'normal', colorRadio);
+        }
+      } else if (campo.type !== 'checkbox' && campo.type !== 'radio' && campo.value.trim() !== '') {
+        // Agregar los demás campos con su valor, sin mostrar el ID ni valores vacíos
+        agregarTexto(`${campo.name || campo.id}: ${campo.value}`, 'normal', [0, 0, 0]);
+      }
+    }
+  });
+
+  // Formato para el nombre del archivo
   const fechaFormateada = fechaHora.replace("T", "_").replace(":", "-").replace(":", "-");
   const nombreArchivo = `peticion_${fechaFormateada}.pdf`;
 
-
-  // Descargar el PDF automáticamente
+  // Guardar el archivo PDF
   doc.save(nombreArchivo);
 
   // Abrir el cliente de correo con 'mailto'
@@ -1600,3 +1668,5 @@ document.getElementById("enviarSobreescribir").addEventListener("click", functio
     console.log("Formulario no válido. No se generará el PDF ni se enviará el correo.");
   }
 });
+
+
