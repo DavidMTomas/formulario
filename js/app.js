@@ -77,11 +77,19 @@ function evitarCaracteres(event) {
   const codigoTecla = event.key;  // Obtener la tecla presionada
   const campo = event.target.id;
 
+  // IDs de campos categorizados
+  const camposMilimetros = ["ancho", "alto", "largo"];
+  const camposEnteros = ["cajasPalet", "unidadesPaquete", "unidadesBase", "unidadesAltura","consumoAnual","cantidadLote"];
 
   // Si la tecla presionada es una coma (`,`) o un punto (`.`), evitamos su ingreso
   if (codigoTecla === ',' || codigoTecla === '.') {
-    if (campo === "alturaPalet") alert("Medida en centímetros, no se permiten decimales");
-    else alert("Medida en milímetros, no se permiten decimales");
+    if (campo === "alturaPalet") {
+      alert("Medida en centímetros, no se permiten decimales");
+    } else if (camposMilimetros.includes(campo)) {
+      alert("Medida en milímetros, no se permiten decimales");
+    } else if (camposEnteros.includes(campo)) {
+      alert("Decimales no permitidos para valores enteros");
+    }
     event.preventDefault();  // Prevenir la acción predeterminada (ingresar el carácter)
   }
 }
@@ -426,26 +434,35 @@ window.addEventListener('DOMContentLoaded', function () {
       </div>
     </div>
     <label>Maquetas a enviar:
-        <div class="input-corto">
-              <input type="number" class="numerosNoPermitidos" name="maquetass[]" id="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}">
+         <div class="input-corto custom-spinner" >
+          <button type="button" class="controlBtn" onclick="decrement('maquetass${seccionEnvios.children.length}')">-</button>
+              <input type="number" class="numerosNoPermitidos" name="maquetass[]" id="maquetass${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}">
+        <button type="button" class="controlBtn" onclick="increment('maquetass${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
 
     <label>Bocetos a enviar:
-         <div class="input-corto">
-              <input type="number" class="numerosNoPermitidos" name="bocetos[]" id="bocetos[]" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" >
+          <div class="input-corto custom-spinner" >
+           <button type="button" class="controlBtn" onclick="decrement('bocetos${seccionEnvios.children.length}')">-</button>
+              <input type="number" class="numerosNoPermitidos" name="bocetos[]" id="bocetos${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" >
+         <button type="button" class="controlBtn" onclick="increment('bocetos${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
 
     <label>Plotters a enviar:
-     <div class="input-corto">
-              <input type="number" class="numerosNoPermitidos" name="plotters[]" id="plotters[]" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" >
-        </div>
+        <div class="input-corto custom-spinner" >
+            <button type="button" class="controlBtn" onclick="decrement('plotters${seccionEnvios.children.length}')">-</button>
+             <input type="number" class="numerosNoPermitidos" name="plotters[]" id="plotters${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" readonly>
+            <button type="button" class="controlBtn" onclick="increment('plotters${seccionEnvios.children.length}')">+</button>
+       </div>
     </label>
 
     <label>Muestras forradas a enviar:
-     <div class="input-corto">
-          <input type="number" class="numerosNoPermitidos" name="muestrasForradas[]" id="muestrasForradas[]" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" >
+
+         <div class="input-corto custom-spinner" >
+         <button type="button" class="controlBtn" onclick="decrement('muestrasForradas${seccionEnvios.children.length}')">-</button>
+          <input type="number" class="numerosNoPermitidos" name="muestrasForradas[]" id="muestrasForradas${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" >
+        <button type="button" class="controlBtn" onclick="increment('muestrasForradas${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
 
@@ -462,29 +479,9 @@ window.addEventListener('DOMContentLoaded', function () {
     inputs.forEach(input => input.addEventListener("input", actualizarTotales));
   });
 
+
+
 // Función para agregar el evento de evitar números
-  function agregarEventosCampos() {
-    document.querySelectorAll('.numerosNoPermitidos').forEach(input => {
-      input.addEventListener('keydown', evitarNumeros);  // Asignar el evento de "keydown" a cada input
-    });
-  }
-
-// Función para evitar la escritura de números
-  function evitarNumeros(event) {
-    const codigoTecla = event.key;
-
-    // Permitir las teclas de control como Backspace, Tab, Delete y las flechas
-    if (["ArrowUp", "ArrowDown", "Backspace", "Tab", "Delete"].includes(codigoTecla)) {
-      return;
-    }
-
-    // Prevenir la escritura de cualquier número
-    if (/\d/.test(codigoTecla)) {
-      event.preventDefault();
-    }
-  }
-
-
 
 
 
@@ -605,11 +602,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-
-
-
   function desbloquearCheckboxesMuestras(){
     document.getElementById("checkDiseñoEstructural").disabled = false;
     document.getElementById("checkBoceto").disabled = false;
@@ -624,10 +616,18 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 // Seleccionar los elementos de entrada y agregar el evento de escucha
+  document.getElementById("cantidadLote").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("consumoAnual").addEventListener("keydown", evitarCaracteres);
   document.getElementById("ancho").addEventListener("keydown", evitarCaracteres);
   document.getElementById("alto").addEventListener("keydown", evitarCaracteres);
   document.getElementById("largo").addEventListener("keydown", evitarCaracteres);
   document.getElementById("alturaPalet").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("cajasPalet").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("unidadesPaquete").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("unidadesBase").addEventListener("keydown", evitarCaracteres);
+  document.getElementById("unidadesAltura").addEventListener("keydown", evitarCaracteres);
+
+
 
 
   // Eliminar la última dirección
@@ -696,11 +696,6 @@ document.querySelectorAll('input[name="familiaProductos"]').forEach(radio => {
 
 // FINAL mostrar div IMPRESION
 
-// mostrar tintas
-
-
-
-// final mostrar tintas
 
 /////   REQUERIMIENTOS  //////
 // Agrega un evento para detectar cambios en el checkbox
@@ -942,27 +937,34 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
 
     // Mostrar "mostrar-calidad-cartoncillo" si el valor es "Cartoncillo"
     if (valorSeleccionado === 'cartoncillo') {
-      document.getElementById(`sinImpresionCartoncillo${prefijo}`).checked = true;
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalContraencolado${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarCanalOndulado${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'block';
+      document.getElementById(`sinImpresionCartoncillo${prefijo}`).checked = true; // ESTE CHECLK DEEBRIA MARCARSE
+      document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
+      document.getElementById(` tintasDigital${prefijo}`).style.display = 'none';
+      document.getElementById(` tintasFlexo${prefijo}`).style.display = 'none';
     } else if (valorSeleccionado === 'contraencolado') {
-      document.getElementById(`sinImpresionContraencolado${prefijo}`).checked = true;
       document.getElementById(`mostrarCanalContraencolado${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarCanalOndulado${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'none';
+      document.getElementById(`sinImpresionContraencolado${prefijo}`).checked = true;
+      document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
+      document.getElementById(` tintasDigital${prefijo}`).style.display = 'none';
+      document.getElementById(` tintasFlexo${prefijo}`).style.display = 'none';
     } else if (valorSeleccionado === 'ondulado') {
-      document.getElementById(`sinImpresionOndulado${prefijo}`).checked = true;
       document.getElementById(`mostrarCanalOndulado${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarCanalContraencolado${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'none';
+      document.getElementById(`sinImpresionOndulado${prefijo}`).checked = true;
+      document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
+      document.getElementById(` tintasDigital${prefijo}`).style.display = 'none';
+      document.getElementById(` tintasFlexo${prefijo}`).style.display = 'none';
     }
-    document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
-    document.getElementById(` tintasDigital${prefijo}`).style.display = 'none';
-    document.getElementById(` tintasFlexo${prefijo}`).style.display = 'none';
+
 
   }
 }
@@ -973,6 +975,7 @@ document.addEventListener('DOMContentLoaded', function () {
   generarBloques();
   //mostrarListado();
   mostrarListaTiposImpresionMultipieza();
+  alert("Mensaje")
 });
 
 
@@ -1007,8 +1010,16 @@ function generarBloques() {
   const bloque = document.createElement('div');
   bloque.classList.add('tipo-block');
 
+  // Aplicar un color de fondo más oscuro si el contador es par
+  if (contadorTipos % 2 === 0) {
+    bloque.style.backgroundColor = '#f0f0f0'; // Color más oscuro (gris claro)
+  } else {
+    bloque.style.backgroundColor = '#ffffff'; // Color blanco por defecto
+  }
+
   // El tipo será el valor del contador actual
   bloque.innerHTML = `
+
    <div id="tipos">
          <hr>
 
@@ -1020,9 +1031,9 @@ function generarBloques() {
     </div>
         <h4>Tipo papel ${contadorTipos}</h4>
      <div class="form-group">
-    <label for="cartoncillo${contadorTipos}">
-      <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Cartoncillo
-    </label>
+        <label for="cartoncillo${contadorTipos}">
+        <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Cartoncillo
+        </label>
 
     <label for="contraencolado${contadorTipos}">
       <input type="radio" id="contraencolado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Contraencolado" onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Contraencolado
@@ -1075,19 +1086,22 @@ function generarBloques() {
           <optgroup id="mostrarCanalCartoncillo${contadorTipos}" style="display:block;">
           <option value="L" class="canalCartoncillo${contadorTipos}" >L</option>
           </optgroup>
-
         </select>
 
+        </div>
 
+
+        <div class="input-corto">
+            <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:block;">
+              <label for="cllo${contadorTipos}">Cllo</label>
+              <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo" required/>
+              </div>
+        </div>
     </div>
 
-      <div class="input-corto">
-          <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:block;">
-            <label for="cllo${contadorTipos}">Cllo</label>
-            <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo" required/>
-            </div>
-      </div>
-    </div>
+
+    <!-- Tipos de Impresion segun papel elegido-->
+
 
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
@@ -1112,31 +1126,34 @@ function generarBloques() {
     </div>
 
     <!-- Ondulado -->
+
+        <div class="onduladoListado"
       <div id="onduladoListado${contadorTipos}" style="display:block;">
         <h4>Tipos de impresión para Ondulado</h4>
         <label for="sinImpresionOndulado${contadorTipos}">
-          <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionOndulado${contadorTipos}"name="tipoImpresionM${contadorTipos}" value="sinImpresion" checked onchange="actualizarTintasMultipieza(${contadorTipos})"> Sin impresión
+          <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionOndulado${contadorTipos}"name="tipoImpresionM${contadorTipos}" value="sinImpresion" checked onchange="actualizarTintasMultipieza(${contadorTipos})">Sin impresión
         </label>
         <label for="offsetOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})"> Offset
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})">Offset
         </label>
         <label for="digitalOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="digitalOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="digital" onchange="actualizarTintasMultipieza(${contadorTipos})"> Digital
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="digitalOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="digital" onchange="actualizarTintasMultipieza(${contadorTipos})">Digital
         </label>
         <label for="flexoOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo" onchange="actualizarTintasMultipieza(${contadorTipos})"> Flexo
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo
         </label>
         <label for="flexoMejoradoOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoMejoradoOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo mejorado" onchange="actualizarTintasMultipieza(${contadorTipos})"> Flexo mejorado
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoMejoradoOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo mejorado" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo mejorado
         </label>
         <label for="flexoHDOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoHDOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo hd" onchange="actualizarTintasMultipieza(${contadorTipos})"> Flexo HD
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoHDOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo hd" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo HD
         </label>
       </div>
-    </div>
+      </div>
 
 
-     <div id="tintasOffset${contadorTipos}" style="display:block;">
+
+     <div id="tintasOffset${contadorTipos}" style="display:none;">
       <h4>Tintas para Offset</h4>
       <div class="form-group">
         <label >
@@ -1230,12 +1247,7 @@ function generarBloques() {
         </div>
       </div>
     </div>
-
-
        <br>
-
-
-
 
   `;
 
@@ -1331,9 +1343,6 @@ function mostrarTintasMultipieza(tipoIndex = '') {
 function actualizarTintasMultipieza(tipoIndex) {
   mostrarTintasMultipieza(tipoIndex);
 }
-
-
-
 
 
 
