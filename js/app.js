@@ -103,7 +103,6 @@ function evitarCaracteres(event) {
   }
 }
 
-
 /////////////////////////////////////////////////////
 // Obtenemos el checkbox, el campo numeroCliente y la etiqueta del número
 document.addEventListener('DOMContentLoaded', function () {
@@ -161,6 +160,7 @@ function mostrarSeleccion() {
 document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(function (checkbox) {
   checkbox.addEventListener('change', mostrarSeleccion);
 });
+
 
 // Función general para mostrar/ocultar el campo de texto
 function toggleCampoTexto(radioSi, campoTexto) {
@@ -683,6 +683,8 @@ function verificarSinImpresion() {
     document.getElementById('mostrarTablaImpresion').style.display = 'none';
   } else {
     document.getElementById('mostrarTablaImpresion').style.display = 'block';
+    document.getElementById('fscQr').style.display = 'block';
+    document.getElementById('fscNo').checked=true;
   }
 }
 
@@ -744,6 +746,8 @@ function toggleNumTipos() {
   // Comprobar si alguno de los radio buttons está seleccionado en "multipieza"
   let isMultipiezaSelected = false;
 
+
+
   // Recorrer los radio buttons
   opcionesDisenyo.forEach(radio => {
     if (radio.checked && radio.value === 'multiPieza') {
@@ -756,11 +760,11 @@ function toggleNumTipos() {
   // Mostrar u ocultar el contenedor según si la opción "multipieza" está seleccionada
   if (isMultipiezaSelected) {
     numTiposContainer.style.display = 'block';
-    const idPieza = document.getElementById('idPieza');
+    const idPieza = document.getElementById(`idPieza`);
     idPieza.style.display = "block"
     generarBloques()
     document.getElementById('mostrarTablaImpresion').style.display = 'block'; // esta es La principal
-    if(contadorTipos >=1 || contadorTipos <=3 ){
+    if(contadorTipos >=1 ){
       document.getElementById("numTiposDec").style.display = 'none'; // Ocultar el botón de decremento
     }
   } else {
@@ -800,6 +804,7 @@ function mostrarListaTiposImpresion() {
   contraencoladoListado.style.display = 'none';
   onduladoListado.style.display = 'none';
  mostrartextoCartoncillo.style.display = 'none'
+  document.getElementById('fscQr').style.display = 'none';
 
   // Recorrer los radio buttons seleccionados
   for (const radioButton of radioButtons) {
@@ -852,11 +857,15 @@ function actualizarVisibilidadTintas() {
 // Añadir el evento al cambiar la selección de los radios
 document.querySelectorAll('input[type="radio"]').forEach(radio => {
   radio.addEventListener('change', function () {
+    // Verificar si el radio está dentro de 'fscQR' y salir si es así
+    if (this.closest('.fscQr')) return; // Ignorar si el radio pertenece al contenedor 'fscQR'
     const value = this.value.toLowerCase();
 
     document.getElementById('tintasOffset').style.display = (value === 'offset') ? 'block' : 'none';
     document.getElementById('tintasDigital').style.display = (value === 'digital') ? 'block' : 'none';
     document.getElementById('tintasFlexo').style.display = (value.includes('flexo')) ? 'block' : 'none';
+    document.getElementById('contenedorBarnizHD').style.display=(value=== 'flexo hd') ? 'block' : 'none';
+
   });
 });
 
@@ -924,6 +933,8 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
   document.getElementById(`contraencoladoListado${prefijo}`).style.display = 'none';
   document.getElementById(`onduladoListado${prefijo}`).style.display = 'none';
   document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'none';
+  document.getElementById(`fscQr${prefijo}`).style.display = 'none';
+  document.getElementById(`fscNo${prefijo}`).checked = false;
 
   // Obtener el radio button seleccionado
   const seleccionado = document.querySelector(`input[name="familiaProductos${prefijo}"]:checked`);
@@ -1026,7 +1037,7 @@ function generarBloques() {
   // El tipo será el valor del contador actual
   bloque.innerHTML = `
 
-   <div id="tipos">
+   <div id="tipos${contadorTipos}">
          <hr>
 
     <!-- Radio buttons para seleccionar la familia de productos -->
@@ -1096,7 +1107,6 @@ function generarBloques() {
 
         </div>
 
-
         <div class="input-corto">
             <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
               <label for="cllo${contadorTipos}">Cllo</label>
@@ -1105,9 +1115,7 @@ function generarBloques() {
         </div>
     </div>
 
-
     <!-- Tipos de Impresion segun papel elegido-->
-
 
     <!-- Cartoncillo -->
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
@@ -1132,7 +1140,6 @@ function generarBloques() {
     </div>
 
     <!-- Ondulado -->
-
         <div class="onduladoListado"
       <div id="onduladoListado${contadorTipos}" style="display:block;">
         <h4>Tipos de impresión para Ondulado</h4>
@@ -1156,8 +1163,6 @@ function generarBloques() {
         </label>
       </div>
       </div>
-
-
 
      <div id="tintasOffset${contadorTipos}" style="display:none;">
       <h4>Tintas para Offset</h4>
@@ -1190,11 +1195,63 @@ function generarBloques() {
           </label>
         </div>
       </div>
+
+
+        <div class="form-group">
+        <div class="input-intermedio">
+          <label for="barniz">Tipo de barniz:</label>
+          <select id="barniz${contadorTipos}" name="barniz">
+            <option value="">Seleccionar</option>
+            <option value="acrilico_brillo">Acrílico Brillo</option>
+            <option value="acrilico_mate">Acrílico Mate</option>
+            <option value="barniz_antideslizante">Barniz Antideslizante</option>
+            <option value="barniz_antieslip">Barniz Antieslip</option>
+            <option value="barniz_graso">Barniz Graso</option>
+            <option value="no">NO</option>
+            <option value="primer">Primer</option>
+            <option value="uvi_brillo">UVI Brillo</option>
+            <option value="uvi_mate">UVI Mate</option>
+          </select>
+        </div>
+        <div class="input-intermedio">
+          <label>Acabados especiales:</label>
+          <ul class="checkbox-list">
+            <li>
+              <input type="checkbox" id="cool_foild${contadorTipos}" value="coolFoild">
+              <label for="cool_foild">COOL FOILD</label>
+            </li>
+            <li>
+              <input type="checkbox" id="glasofonado_brillo${contadorTipos}" value="glasofonadoBrillo">
+              <label for="glasofonado_brillo">GLASOFONADO BRILLO</label>
+            </li>
+            <li>
+              <input type="checkbox" id="glasofonado_mate${contadorTipos}" value="glasofonadoMate">
+              <label for="glasofonado_mate">GLASOFONADO MATE</label>
+            </li>
+            <li>
+              <input type="checkbox" id="gofrado${contadorTipos}" value="gofrado">
+              <label for="gofrado">GOFRADO</label>
+            </li>
+            <li>
+              <input type="checkbox" id="relieve${contadorTipos}" value="relieve">
+              <label for="relieve">RELIEVE</label>
+            </li>
+            <li>
+              <input type="checkbox" id="stamping${contadorTipos}" value="stamping">
+              <label for="stamping">STAMPING</label>
+            </li>
+            <li>
+              <input type="checkbox" id="uvi_selectivo${contadorTipos}" value="uviSelectivo">
+              <label for="uvi_selectivo">UVI SELECTIVO</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+
     </div>
 
-
     <div id="tintasDigital${contadorTipos}" style="display:none;">
-      <h4>Tintas para digital</h4>
+      <h4>Tintas para Digital</h4>
       <div class="form-group">
         <label >
           <input type="checkbox" id="tintaCdigital${contadorTipos}" name="cian" value="cian"> Cian (C)
@@ -1217,9 +1274,8 @@ function generarBloques() {
       </div>
     </div>
 
-
     <div id="tintasFlexo${contadorTipos}" style="display:none;">
-      <h4>Tintas para flexo</h4>
+      <h4>Tintas para Flexo</h4>
       <div class="form-group">
         <div class="input-corto">
           <label > Tinta 1
@@ -1252,7 +1308,49 @@ function generarBloques() {
           </label>
         </div>
       </div>
+      <div class="input-intermedio" id="contenedorBarnizHD${contadorTipos}" style="display: none">
+        <label for="barnizFelxoHD">Tipo de barniz:</label>
+        <select id="barnizFelxoHD${contadorTipos}" name="barniz">
+          <option value="">Seleccionar</option>
+          <option value="acrilico_brillo">Acrílico Brillo</option>
+          <option value="acrilico_mate">Acrílico Mate</option>
+          <option value="barniz_antideslizante">Barniz Antideslizante</option>
+          <option value="barniz_antieslip">Barniz Antieslip</option>
+          <option value="barniz_graso">Barniz Graso</option>
+          <option value="no">NO</option>
+          <option value="primer">Primer</option>
+          <option value="uvi_brillo">UVI Brillo</option>
+          <option value="uvi_mate">UVI Mate</option>
+        </select>
+      </div>
+
     </div>
+
+     <div id="fscQr${contadorTipos}" class="fscQrList" style="display: none">
+        <div class="form-group">
+          <label>FSC:</label>
+          <label>
+            <input type="radio" id="fscNo${contadorTipos}" name="fsc${contadorTipos}" value="no" checked>NO
+          </label>
+          <label>
+            <input type="radio" id="fscR${contadorTipos}" name="fsc${contadorTipos}" value="fscR">FSC R
+          </label>
+          <label>
+            <input type="radio" id="fscTm${contadorTipos}" name="fsc${contadorTipos}" value="fscTm">FSC TM
+          </label>
+        </div>
+      <div class="input-corto">
+        <label for="llevaQr">Código QR:
+          <input type="checkbox" id="llevaQr${contadorTipos}" name="llevaQr">
+        </label>
+      </div>
+      <div class="input-medio">
+        <label>Observaciones impresión:
+          <input type="text" id="obsImp${contadorTipos}" name="observacionesImpresion">
+        </label>
+      </div>
+    </div>
+
        <br>
 
   `;
@@ -1316,18 +1414,18 @@ document.addEventListener('DOMContentLoaded', function () {
 function mostrarTintasMultipieza(tipoIndex = '') {
   // Construir los IDs dinámicamente según si hay un índice o no
   const prefijo = tipoIndex ? `${tipoIndex}` : '';
-
   // Ocultar todos los listados de tintas
   document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
   document.getElementById(`tintasDigital${prefijo}`).style.display = 'none';
   document.getElementById(`tintasFlexo${prefijo}`).style.display = 'none';
+  document.getElementById(`contenedorBarnizHD${prefijo}`).style.display = 'none';
+  document.getElementById(`fscQr${prefijo}`).style.display = 'none';
+  document.getElementById(`fscNo${prefijo}`).checked = false;
 
   // Obtener el radio button seleccionado
   const seleccionado = document.querySelector(`input[name="tipoImpresionM${prefijo}"]:checked`);
 
   // Restablecer el valor del select a "Seleccionar" (opción por defecto)
- // const selectCanal = document.getElementById(`canal${tipoIndex}`);
-  //selectCanal.value = '';  // Restablecer a la opción "Seleccionar"
 
   // Mostrar el listado correspondiente de tintas según el tipo de impresión
   if (seleccionado) {
@@ -1337,10 +1435,18 @@ function mostrarTintasMultipieza(tipoIndex = '') {
     // Mostrar el listado de tintas correspondiente al valor seleccionado
     if (valorSeleccionado === 'offset') {
       document.getElementById(`tintasOffset${prefijo}`).style.display = 'block';
+      document.getElementById(`fscQr${prefijo}`).style.display = 'block';
+      document.getElementById(`fscNo${prefijo}`).checked = true;
     } else if (valorSeleccionado === 'digital') {
       document.getElementById(`tintasDigital${prefijo}`).style.display = 'block';
+      document.getElementById(`fscQr${prefijo}`).style.display = 'block';
+      document.getElementById(`fscNo${prefijo}`).checked = true;
     } else if (['flexo', 'flexo mejorado', 'flexo hd'].includes(valorSeleccionado)) {
       document.getElementById(`tintasFlexo${prefijo}`).style.display = 'block';
+      document.getElementById(`fscQr${prefijo}`).style.display = 'block';
+      document.getElementById(`fscNo${prefijo}`).checked = true;
+      if (valorSeleccionado === 'flexo hd') {document.getElementById(`contenedorBarnizHD${prefijo}`).style.display = 'block';
+      }
     }
 
   }
@@ -1350,8 +1456,8 @@ function actualizarTintasMultipieza(tipoIndex) {
   mostrarTintasMultipieza(tipoIndex);
 }
 
-
 //FIN TINTAS
+
 function validarCheckboxesMuestras() {
   const checkboxes = [
     document.getElementById("checkDiseñoEstructural"),
@@ -1378,15 +1484,6 @@ function validarCheckboxesMuestras() {
       tabla.classList.add("error"); // Resaltar la tabla
     });
 
-    /*
-    document.getElementById("eliminarDireccion").style.display = "none";
-    document.getElementById("seccionEnvios").innerHTML = "";
-    //document.getElementById("seccionEnvios").style.display = "none";
-
-    // desmarcar checkbox recoger muestra
-    document.getElementById("recogerMuestra").checked=false;
-    document.getElementById("totalMuestrasArecoger").style.display = "none";
-    */
 
     checkboxes.forEach(function (checkbox) {
       checkbox.classList.add("error-checkbox"); // Resaltar cada checkbox
@@ -1411,8 +1508,6 @@ function validarCheckboxesMuestras() {
 
 }
 
-
-// Función para validar el formulario
 // Función para validar el formulario
 function validarFormulario() {
   const formulario = document.getElementById("petcicionComercial");
@@ -1559,7 +1654,6 @@ document.getElementById("petcicionComercial").addEventListener("keydown", functi
   }
 });
 
-
 // Función para eliminar las clases "error" o "reenvio" cuando el usuario empieza a escribir
 function actualizarEstadoCampo(campo) {
   if (campo.value.trim() !== "") {
@@ -1599,11 +1693,8 @@ fechaHora.addEventListener("focus", (event) => {
   event.preventDefault(); // Evita que el campo sea enfocado
   fechaHora.blur(); // Elimina cualquier foco activo
 });
-
 // Prevenir navegación con tabulación
 fechaHora.setAttribute("tabindex", "-1"); // Elimina del orden de tabulación
-
-
 
 // Función para generar el PDF con el orden del formulario y los encabezados hasta h5
 function generarPDF() {

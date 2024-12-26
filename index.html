@@ -22,6 +22,8 @@
   <meta name="theme-color" content="#fafafa">
   <!-- Incluye la librería jsPDF para generar el PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+
 </head>
 
 <body>
@@ -125,6 +127,7 @@
   <hr>
   <h3>Información adicional:</h3>
   <div class="form-group">
+
     <label for="productosBtn">Tipo de documentación aportada:</label>
     <div class="dropdown">
       <button type="button" id="productosBtn">Seleccionar</button>
@@ -153,6 +156,7 @@
         </label>
       </div>
     </div>
+
   </div>
   <!-- Espacio para mostrar los productos seleccionados automáticamente -->
   <div id="totalDocAportada"></div>
@@ -168,9 +172,6 @@
       No
     </label>
 
-    <!--  <div class="input-corto">-->
-    <!--    <div id="contenedorAnulaTorquel" style="display: none"></div>-->
-    <!--  </div>-->
 
     <!-- Campo de texto que se mostrará si "Sí" es seleccionado -->
     <div class="input-intermedio">
@@ -233,18 +234,6 @@
   <h4>ESTRUCTURAL</h4>
 
   <div class="form-group">
-    <div class="input-corto">
-      <label for="llevaFsc">FSC:
-        <input type="checkbox" id="llevaFsc" name="llevaFsc">
-      </label>
-    </div>
-
-    <div class="input-corto">
-      <label for="llevaQr">QR:
-        <input type="checkbox" id="llevaQr" name="llevaQr">
-      </label>
-    </div>
-
 
     <div class="input-corto">
       <label for="fefco">Modelo fefco:</label>
@@ -791,7 +780,6 @@
     </div>
     <!-- Tipos de Impresion segun papel elegido-->
 
-
     <!-- Cartoncillo -->
     <div id="cartoncilloListado" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
@@ -869,10 +857,61 @@
           </label>
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="input-intermedio">
+          <label for="barniz">Tipo de barniz:</label>
+          <select id="barniz" name="barniz">
+            <option value="">Seleccionar</option>
+            <option value="acrilico_brillo">Acrílico Brillo</option>
+            <option value="acrilico_mate">Acrílico Mate</option>
+            <option value="barniz_antideslizante">Barniz Antideslizante</option>
+            <option value="barniz_antieslip">Barniz Antieslip</option>
+            <option value="barniz_graso">Barniz Graso</option>
+            <option value="no">NO</option>
+            <option value="primer">Primer</option>
+            <option value="uvi_brillo">UVI Brillo</option>
+            <option value="uvi_mate">UVI Mate</option>
+          </select>
+        </div>
+        <div class="input-intermedio">
+          <label>Acabados especiales:</label>
+          <ul class="checkbox-list">
+            <li>
+              <input type="checkbox" id="cool_foild" value="coolFoild">
+              <label for="cool_foild">COOL FOILD</label>
+            </li>
+            <li>
+              <input type="checkbox" id="glasofonado_brillo" value="glasofonadoBrillo">
+              <label for="glasofonado_brillo">GLASOFONADO BRILLO</label>
+            </li>
+            <li>
+              <input type="checkbox" id="glasofonado_mate" value="glasofonadoMate">
+              <label for="glasofonado_mate">GLASOFONADO MATE</label>
+            </li>
+            <li>
+              <input type="checkbox" id="gofrado" value="gofrado">
+              <label for="gofrado">GOFRADO</label>
+            </li>
+            <li>
+              <input type="checkbox" id="relieve" value="relieve">
+              <label for="relieve">RELIEVE</label>
+            </li>
+            <li>
+              <input type="checkbox" id="stamping" value="stamping">
+              <label for="stamping">STAMPING</label>
+            </li>
+            <li>
+              <input type="checkbox" id="uvi_selectivo" value="uviSelectivo">
+              <label for="uvi_selectivo">UVI SELECTIVO</label>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div id="tintasDigital" style="display:none;">
-      <h4>Tintas para digital</h4>
+      <h4>Tintas para Digital</h4>
       <div class="form-group">
         <label >
           <input type="checkbox" id="tintaCdigital" name="cian" value="cian"> Cian (C)
@@ -896,7 +935,7 @@
     </div>
 
     <div id="tintasFlexo" style="display:none;">
-      <h4>Tintas para flexo</h4>
+      <h4>Tintas para Flexo</h4>
       <div class="form-group">
         <div class="input-corto">
           <label > Tinta 1
@@ -929,8 +968,47 @@
           </label>
         </div>
       </div>
+      <div class="input-intermedio" id="contenedorBarnizHD" style="display: none">
+        <label for="barnizFelxoHD">Tipo de barniz:</label>
+        <select id="barnizFelxoHD" name="barniz">
+          <option value="">Seleccionar</option>
+          <option value="acrilico_brillo">Acrílico Brillo</option>
+          <option value="acrilico_mate">Acrílico Mate</option>
+          <option value="barniz_antideslizante">Barniz Antideslizante</option>
+          <option value="barniz_antieslip">Barniz Antieslip</option>
+          <option value="barniz_graso">Barniz Graso</option>
+          <option value="no">NO</option>
+          <option value="primer">Primer</option>
+          <option value="uvi_brillo">UVI Brillo</option>
+          <option value="uvi_mate">UVI Mate</option>
+        </select>
+      </div>
     </div>
 
+    <div id="fscQr" class="fscQrList" style="display: none">
+        <div class="form-group">
+          <label>FSC:</label>
+          <label>
+            <input type="radio" id="fscNo" name="fsc" value="no" checked>NO
+          </label>
+          <label>
+            <input type="radio" id="fscR" name="fsc" value="fscR">FSC R
+          </label>
+          <label>
+            <input type="radio" id="fscTm" name="fsc" value="fscTm">FSC TM
+          </label>
+        </div>
+      <div class="input-corto">
+        <label for="llevaQr">Código QR:
+          <input type="checkbox" id="llevaQr" name="llevaQr">
+        </label>
+      </div>
+      <div class="input-medio">
+        <label>Observaciones impresión:
+          <input type="text" id="obsImp" name="observacionesImpresion">
+        </label>
+      </div>
+    </div>
 
 
 
@@ -943,6 +1021,7 @@
         <button type="button" id="numTiposDec" onclick="eliminarBloques()" style="display: none">Eliminar última pieza</button>
       </div>
     </div>
+
 
     <hr>
   </div><!--fin acabado estructural-->
