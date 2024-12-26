@@ -808,7 +808,7 @@ function mostrarListaTiposImpresion() {
       if (radioButton.value === 'Cartoncillo') {
         cartoncilloListado.style.display = 'block';
         cartoncilloListado.querySelector('input#sinImpresionCartoncillo').checked=true
-        mostrartextoCartoncillo.style.display = 'block'
+       mostrartextoCartoncillo.style.display = 'block'
       } else if (radioButton.value === 'Contraencolado') {
         contraencoladoListado.style.display = 'block';
         contraencoladoListado.querySelector('input#sinImpresionContraencolado').checked=true
@@ -942,6 +942,7 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
 
     // Mostrar "mostrar-calidad-cartoncillo" si el valor es "Cartoncillo"
     if (valorSeleccionado === 'cartoncillo') {
+      selectCanal.value = 'L'; // Seleccionar automáticamente "L"
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalContraencolado${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarCanalOndulado${prefijo}`).style.display = 'none';
@@ -1325,8 +1326,8 @@ function mostrarTintasMultipieza(tipoIndex = '') {
   const seleccionado = document.querySelector(`input[name="tipoImpresionM${prefijo}"]:checked`);
 
   // Restablecer el valor del select a "Seleccionar" (opción por defecto)
-  const selectCanal = document.getElementById(`canal${tipoIndex}`);
-  selectCanal.value = '';  // Restablecer a la opción "Seleccionar"
+ // const selectCanal = document.getElementById(`canal${tipoIndex}`);
+  //selectCanal.value = '';  // Restablecer a la opción "Seleccionar"
 
   // Mostrar el listado correspondiente de tintas según el tipo de impresión
   if (seleccionado) {
@@ -1412,6 +1413,7 @@ function validarCheckboxesMuestras() {
 
 
 // Función para validar el formulario
+// Función para validar el formulario
 function validarFormulario() {
   const formulario = document.getElementById("petcicionComercial");
   const camposRequeridos = formulario.querySelectorAll("[required]");
@@ -1419,49 +1421,109 @@ function validarFormulario() {
   let mensajeMostrado = false; // Controla si ya mostramos el mensaje de advertencia
   let primerCampoConError = null; // Variable para almacenar el primer campo con error
 
-
-
-  // Recorremos todos los campos requeridos
+  // Validar campos requeridos
   camposRequeridos.forEach(function (campo) {
-    // Verificamos si el campo está visible (no oculto)
     const estilo = window.getComputedStyle(campo);
     const esVisible = (estilo.display !== 'none') && (estilo.visibility !== 'hidden') && (campo.offsetParent !== null);
 
-    // Solo validamos si el campo es visible
     if (esVisible) {
       if (campo.value.trim() === "") {
         valido = false;
         campo.classList.add("error"); // Agrega clase de error si el campo está vacío
 
-        // Mostrar el mensaje solo una vez
         if (!mensajeMostrado) {
           alert("Por favor, completa todos los campos requeridos.");
           mensajeMostrado = true; // Marcar que el mensaje ya fue mostrado
         }
-        // Guardamos el primer campo con error
+
         if (primerCampoConError === null) {
           primerCampoConError = campo;
         }
-
       } else {
         campo.classList.remove("error"); // Remueve la clase de error si está completado
       }
     }
   });
 
-  // Si hay un campo con error, movemos el foco al primer campo con error
+  // Si hay un campo con error, mover el foco
   if (primerCampoConError !== null) {
     primerCampoConError.scrollIntoView({ behavior: "smooth", block: "center" });
     primerCampoConError.focus();
-    return false; // Evitar que el formulario se envíe
+    return false;
+  }
+
+  // Validar divs sin prefijo
+  const divsTintas = [
+    document.getElementById("tintasOffset"),
+    document.getElementById("tintasDigital"),
+    document.getElementById("tintasFlexo"),
+  ];
+
+  let divValido = true; // Suponemos que todos los divs cumplen
+  divsTintas.forEach(div => {
+    if (div && div.style.display !== "none") {
+      const inputs = div.querySelectorAll("input");
+      const tieneSeleccionado = Array.from(inputs).some(input =>
+        (input.type === "checkbox" && input.checked) ||
+        (input.type === "text" && input.value.trim() !== "")
+      );
+
+      if (!tieneSeleccionado) {
+        divValido = false;
+        if (!mensajeMostrado) {
+          alert(`Por favor selecciona o completa al menos un campo en ${div.querySelector("h4").innerText}`);
+          div.scrollIntoView({ behavior: "smooth", block: "center" });
+          div.focus(); // Mover el foco al div de tinta
+          div.classList.add("error"); // Agrega clase de error si el div no tiene selección
+          mensajeMostrado = true;
+        }
+      } else {
+        div.classList.remove("error"); // Si tiene selección, remueve el error
+      }
+    }
+  });
+
+  if (!divValido) {
+    return false; // Evitar envío si no pasa la validación
+  }
+
+  // Obtener todos los prefijos dinámicamente basados en los divs con prefijo
+  const divsConPrefijo = document.querySelectorAll("[id^='tintasOffset'], [id^='tintasDigital'], [id^='tintasFlexo']");
+
+  divsConPrefijo.forEach(div => {
+    // Solo procesamos los divs visibles
+    if (div && div.style.display !== "none") {
+      const prefijo = div.id.replace(/^tintas(Offset|Digital|Flexo)/, ""); // Extraemos el prefijo del ID
+      const inputs = div.querySelectorAll("input");
+
+      const tieneSeleccionado = Array.from(inputs).some(input =>
+        (input.type === "checkbox" && input.checked) ||
+        (input.type === "text" && input.value.trim() !== "")
+      );
+
+      if (!tieneSeleccionado) {
+        divValido = false;
+        if (!mensajeMostrado) {
+          alert(`Por favor selecciona o completa al menos un campo en ${div.querySelector("h4").innerText}`);
+          div.scrollIntoView({ behavior: "smooth", block: "center" });
+          div.focus(); // Mover el foco al div de tinta
+          div.classList.add("error"); // Agrega clase de error si el div no tiene selección
+          mensajeMostrado = true;
+        }
+      } else {
+        div.classList.remove("error"); // Si tiene selección, remueve el error
+      }
+    }
+  });
+
+  if (!divValido) {
+    return false; // Evitar envío si no pasa la validación
   }
 
   // Llamamos a la función que valida los checkboxes
   if (!validarCheckboxesMuestras()) {
     return false; // Si no se seleccionó ningún checkbox, no permitir el envío
   }
-
-
 
   return valido;
 }
@@ -1470,9 +1532,15 @@ function validarFormulario() {
 // Prevenir el envío del formulario y mover el foco al siguiente campo al presionar Enter
 document.getElementById("petcicionComercial").addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    event.preventDefault(); // Prevenir la acción predeterminada del Enter (enviar formulario)
+    // Si el campo activo es un textarea, permitir la nueva línea y no mover el foco
+    if (document.activeElement.tagName === "TEXTAREA") {
+      return; // No hacemos nada, dejamos que Enter funcione normalmente
+    }
 
-    // Encontrar el campo activo (con el foco)
+    // Prevenir la acción predeterminada del Enter (como enviar el formulario)
+    event.preventDefault();
+
+    // Encontrar todos los campos del formulario
     const campos = Array.from(document.querySelectorAll("#petcicionComercial input, #petcicionComercial select, #petcicionComercial textarea"));
 
     // Filtrar los campos visibles
@@ -1524,6 +1592,18 @@ function agregarEventosCampos() {
     }
   });
 }
+
+const fechaHora = document.getElementById("fechaHora");
+// Prevenir foco y edición
+fechaHora.addEventListener("focus", (event) => {
+  event.preventDefault(); // Evita que el campo sea enfocado
+  fechaHora.blur(); // Elimina cualquier foco activo
+});
+
+// Prevenir navegación con tabulación
+fechaHora.setAttribute("tabindex", "-1"); // Elimina del orden de tabulación
+
+
 
 // Función para generar el PDF con el orden del formulario y los encabezados hasta h5
 function generarPDF() {
