@@ -166,7 +166,7 @@ button:active {
   background-color: #c0392b;
 }
 
-.dropdown-content {
+.dropdown-content  {
   display: none;
   position: absolute;
   background-color: #fff;
