@@ -292,6 +292,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+
+
+// MODIFICAR REQUERIMIENTO DIMENSIONES SI ESTA MARCADO ARCHIVO ADJUNTO Y ENTREGA MUESTAR FISICIA
+// Función para actualizar el estado de los campos
+function actualizarCampos() {
+  // Obtener los elementos de las casillas de verificación
+  const archivoAdjunto = document.getElementById('archivoAdjunto');
+  const muestraFisica = document.getElementById('muestraFisica');
+
+  // Obtener los campos de ancho, alto y largo
+  const ancho = document.getElementById('ancho');
+  const alto = document.getElementById('alto');
+  const largo = document.getElementById('largo');
+
+  // Si cualquiera de las casillas está marcada, los campos no son requeridos
+  if (archivoAdjunto.checked || muestraFisica.checked) {
+    ancho.removeAttribute('required');
+    alto.removeAttribute('required');
+    largo.removeAttribute('required');
+  } else {
+    // Si ninguna casilla está marcada, los campos son requeridos
+    ancho.setAttribute('required', true);
+    alto.setAttribute('required', true);
+    largo.setAttribute('required', true);
+  }
+}
+
+// Escuchar cambios en las casillas de verificación
+document.getElementById('archivoAdjunto').addEventListener('change', actualizarCampos);
+document.getElementById('muestraFisica').addEventListener('change', actualizarCampos);
+
+// Ejecutar la función al cargar la página por si las casillas ya están seleccionadas
+window.onload = actualizarCampos;
+
+// FIN REQUERIDO MUESTRA
+
+
 //MAQUETA -- IMPRESIONES
 // Función para mostrar/ocultar el div de los botones de incremento/decremento
 function toggleDropdown(divId,inputId) {
@@ -681,6 +718,8 @@ function verificarSinImpresion() {
   // Si "Sin impresión" está seleccionado en alguna opción, ocultar el div de impresión
   if ((sinImpresionCartoncillo || sinImpresionContraencolado || sinImpresionOndulado) && contadorTipos === 1) {
     document.getElementById('mostrarTablaImpresion').style.display = 'none';
+    document.getElementById('fscQr').style.display = 'none';
+   // document.getElementById('fscNo').checked=true;
   } else {
     document.getElementById('mostrarTablaImpresion').style.display = 'block';
     document.getElementById('fscQr').style.display = 'block';
@@ -1168,16 +1207,16 @@ function generarBloques() {
       <h4>Tintas para Offset</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCoffset${contadorTipos}" name="cian" value="cian"> Cian (C)
+          <input type="checkbox" id="tintaCoffset${contadorTipos}" name="cian" value="cian" checked> Cian (C)
         </label>
         <label>
-          <input type="checkbox" id="tintaMoffset${contadorTipos}" name="magenta" value="magenta"> Magenta (M)
+          <input type="checkbox" id="tintaMoffset${contadorTipos}" name="magenta" value="magenta" checked> Magenta (M)
         </label>
         <label >
-          <input type="checkbox" id="tintaYoffset${contadorTipos}" name="amarillo" value="amarillo"> Amarillo (Y)
+          <input type="checkbox" id="tintaYoffset${contadorTipos}" name="amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKoffset${contadorTipos}" name="negro" value="negro"> Negro (K)
+          <input type="checkbox" id="tintaKoffset${contadorTipos}" name="negro" value="negro" checked> Negro (K)
         </label>
         <div class="input-corto">
           <label > Tinta 5
@@ -1254,22 +1293,22 @@ function generarBloques() {
       <h4>Tintas para Digital</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCdigital${contadorTipos}" name="cian" value="cian"> Cian (C)
+          <input type="checkbox" id="tintaCdigital${contadorTipos}" name="cian" value="cian" checked> Cian (C)
         </label>
         <label >
-          <input type="checkbox" id="tintaMdigital${contadorTipos}" name="magenta" value="magenta"> Magenta (M)
+          <input type="checkbox" id="tintaMdigital${contadorTipos}" name="magenta" value="magenta" checked> Magenta (M)
         </label>
         <label>
-          <input type="checkbox" id="tintaYdigital${contadorTipos}" name="amarillo" value="amarillo"> Amarillo (Y)
+          <input type="checkbox" id="tintaYdigital${contadorTipos}" name="amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKdigital${contadorTipos}" name="negro" value="negro"> Negro (K)
+          <input type="checkbox" id="tintaKdigital${contadorTipos}" name="negro" value="negro" checked> Negro (K)
         </label>
         <label>
-          <input type="checkbox" id="tintaOdigital${contadorTipos}" name="naranja" value="violeta"> Orange (O)
+          <input type="checkbox" id="tintaOdigital${contadorTipos}" name="naranja" value="violeta" checked> Orange (O)
         </label>
         <label>
-          <input type="checkbox" id="tintaVdigital${contadorTipos}" name="violeta" value="violeta"> Violeta (V)
+          <input type="checkbox" id="tintaVdigital${contadorTipos}" name="violeta" value="violeta" checked> Violeta (V)
         </label>
       </div>
     </div>

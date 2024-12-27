@@ -34,6 +34,7 @@
 <label for="styleSelector">El funcional es el "Estilo botones azul", el resto pueden fallar, si os gusta alguno de los otros lo puedo adaptar sin problema</label>
 <select id="styleSelector" onchange="changeStyle()">
   <option value="css/style.css">Estilo botones en azul</option>
+  <option value="css/stylePersonalizado.css">Estilo caja</option>
   <option value="css/style7.css">Estilo oscuro</option>
   <option value="css/style8.css">Estilo estilo minimalista</option>
   <option value="css/style9.css">Estilo botones rojo</option>
@@ -87,7 +88,8 @@
     </div>
   </div>
 
-  <hr>
+  <div class="tip-hinge"></div>
+
   <h3>Nueva petición:</h3>
   <div class="form-group">
     <div class="input-medio">
@@ -124,7 +126,9 @@
     </div>
   </div>
 
-  <hr>
+  <div class="tip-hinge"></div>
+
+
   <h3>Información adicional:</h3>
   <div class="form-group">
 
@@ -229,7 +233,8 @@
     </div>
   </div>
 
-  <hr>
+  <div class="tip-hinge"></div>
+
   <h3>Requerimientos:</h3>
   <h4>ESTRUCTURAL</h4>
 
@@ -711,7 +716,8 @@
     </label>
     </div>
 
-    <hr>
+    <div class="tip-hinge"></div>
+    <br>
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
     <div class="input-medio">
       <label for="idPieza">
@@ -830,16 +836,16 @@
       <h4>Tintas para Offset</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCoffset" name="cian" value="cian"> Cian (C)
+          <input type="checkbox" id="tintaCoffset" name="cian" value="cian" checked> Cian (C)
         </label>
         <label>
-          <input type="checkbox" id="tintaMoffset" name="magenta" value="magenta"> Magenta (M)
+          <input type="checkbox" id="tintaMoffset" name="magenta" value="magenta" checked> Magenta (M)
         </label>
         <label >
-          <input type="checkbox" id="tintaYoffset" name="amarillo" value="amarillo"> Amarillo (Y)
+          <input type="checkbox" id="tintaYoffset" name="amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKoffset" name="negro" value="negro"> Negro (K)
+          <input type="checkbox" id="tintaKoffset" name="negro" value="negro" checked> Negro (K)
         </label>
         <div class="input-corto">
           <label > Tinta 5
@@ -914,22 +920,22 @@
       <h4>Tintas para Digital</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCdigital" name="cian" value="cian"> Cian (C)
+          <input type="checkbox" id="tintaCdigital" name="cian" value="cian" checked> Cian (C)
         </label>
         <label >
-          <input type="checkbox" id="tintaMdigital" name="magenta" value="magenta"> Magenta (M)
+          <input type="checkbox" id="tintaMdigital" name="magenta" value="magenta" checked> Magenta (M)
         </label>
         <label>
-          <input type="checkbox" id="tintaYdigital" name="amarillo" value="amarillo"> Amarillo (Y)
+          <input type="checkbox" id="tintaYdigital" name="amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKdigital" name="negro" value="negro"> Negro (K)
+          <input type="checkbox" id="tintaKdigital" name="negro" value="negro" checked> Negro (K)
         </label>
         <label>
-          <input type="checkbox" id="tintaOdigital" name="naranja" value="violeta"> Orange (O)
+          <input type="checkbox" id="tintaOdigital" name="naranja" value="violeta" checked> Orange (O)
         </label>
         <label>
-          <input type="checkbox" id="tintaVdigital" name="violeta" value="violeta"> Violeta (V)
+          <input type="checkbox" id="tintaVdigital" name="violeta" value="violeta" checked> Violeta (V)
         </label>
       </div>
     </div>
@@ -1120,8 +1126,9 @@
 
   <br>
   <div id="totalMuestrasArecoger" style="display: none"></div>
+  <br>
 
-  <hr>
+  <div class="tip-hinge"></div>
   <h4>OTROS</h4>
   <label for=checkFichaTecnica>Ficha tecnica laboratotio
     <input type="checkbox" name="checkFichaTecnica" id="checkFichaTecnica">
@@ -1321,7 +1328,7 @@
       </div>
     </fieldset>
   </div>
-  <hr>
+  <div class="tip-hinge"></div>
 
   <h3>Gestionado por:</h3>
   <div class="form-group">
