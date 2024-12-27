@@ -9,10 +9,49 @@ body {
 form {
   margin: 0 auto;
   padding: 30px;
-  background-color: #fff;
+  background-color: #e3dfd9; /* Color marrón claro tipo cartón */
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%; /* Ajusta el tamaño del formulario si es necesario */
 }
+
+
+
+.tip-hinge {
+  width: 100vw;  /* Hace que el <div> ocupe el 100% del ancho de la ventana */
+  height: 3px;  /* Altura de la línea */
+  background: transparent;  /* Fondo transparente */
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2); /* Efecto cóncavo (hundido) */
+  position: absolute;
+  left: 50%;  /* Centra el <div> */
+  transform: translateX(-50%); /* Alinea al centro completamente */
+  margin: 0;  /* Elimina cualquier margen alrededor del <div> */
+  z-index: 1; /* Para asegurar que esté por encima del contenido */
+}
+
+/* Crea los espacios transparentes en los extremos con mayor grosor */
+.tip-hinge::before,
+.tip-hinge::after {
+  content: "";  /* Necesario para mostrar los pseudo-elementos */
+  position: absolute;
+  top: -2px;
+  bottom: 0;
+  width: 20%;  /* Esto cubre el 30% de la línea en cada extremo */
+  background: white;  /* Fondo transparente */
+  height: 6px;  /* Doble grosor de la línea en los extremos */
+  border-radius: 12px; /* Bordes redondeados */
+}
+
+.tip-hinge::before {
+  left: 0;  /* El primer 30% de la línea estará a la izquierda */
+}
+
+.tip-hinge::after {
+  right: 0;  /* El último 30% de la línea estará a la derecha */
+}
+
+
+
 
 h3 {
   color: #2c3e50;
@@ -711,6 +750,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
 .field input[type="radio"] {
   margin-right: 5px;
 }
+
 @media screen and (max-width: 768px) {
   body {
     padding: 0;
@@ -837,43 +877,8 @@ input[type="file"]::-webkit-file-upload-button:hover {
   }
 }
 
-.custom-hr {
-  position: relative;
-  height: 4px; /* Grosor de las líneas */
-  width: 100%; /* Ancho total del HR */
-  background-color: transparent; /* Fondo transparente */
-  border: none; /* Sin bordes */
-  margin: 20px auto; /* Espaciado alrededor */
-}
 
-/* Líneas de los extremos (25% cada lado) */
-.custom-hr::before,
-.custom-hr::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: 4px; /* Grosor de las líneas */
-  background-color: #333; /* Color de las líneas */
-}
 
-.custom-hr::before {
-  width: 25%; /* Longitud del segmento izquierdo */
-  left: 0;
-}
 
-.custom-hr::after {
-  width: 25%; /* Longitud del segmento derecho */
-  right: 0;
-}
 
-/* Línea del centro (hendido) */
-.custom-hr-center {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%; /* Centrado horizontal */
-  transform: translateX(-50%); /* Ajustar al centro */
-  width: 20%; /* Longitud del hendido (20%) */
-  height: 4px; /* Grosor del hendido */
-  background-color: #333; /* Color del hendido */
-}
+
