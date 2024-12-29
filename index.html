@@ -28,25 +28,29 @@
 
 <body>
 
-<!-- Selector de estilos -->
-<label for="styleSelector">Tipos de estilo de pagina:</label>
-<br>
-<label for="styleSelector">El funcional es el "Estilo botones azul", el resto pueden fallar, si os gusta alguno de los otros lo puedo adaptar sin problema</label>
-<select id="styleSelector" onchange="changeStyle()">
-  <option value="css/style.css">Estilo botones en azul</option>
-  <option value="css/stylePersonalizado.css">Estilo caja</option>
-  <option value="css/style7.css">Estilo oscuro</option>
-  <option value="css/style8.css">Estilo estilo minimalista</option>
-  <option value="css/style9.css">Estilo botones rojo</option>
-  <option value="css/style2.css">Estilo modo oscuro botones en azul</option>
-  <option value="css/style3.css">Estilo botones teja</option>
-  <option value="css/style4.css">Estilo Titulos y botones en rojo</option>
-  <option value="css/style5.css">Estilo Titulos y botones en azul</option>
-  <option value="css/style6.css">Estilo en verde y naranja</option>
 
-</select>
+<div class="switch-container">
+  <label >estilo</label> <!-- Descripción global para el switch -->
+  <div class="switch">
+    <input type="radio" id="switch1" name="switch" value="css/style.css" checked onchange="changeStyle()"/>
+    <label for="switch1"></label>
+    <input type="radio" id="switch2" name="switch" value="css/styleBox.css" onchange="changeStyle()"/>
+    <label for="switch2"></label>
+    <input type="radio" id="switch3" name="switch" value="css/styleDark.css" onchange="changeStyle()"/>
+    <label for="switch3"></label>
+    <div class="switch__inner"></div>
+  </div>
+</div>
+
+<br>
+
+
 
 <form id="petcicionComercial" method="POST">
+  <div class="solapa">
+
+  </div>
+
 
   <img src="logo.png">
 
@@ -232,6 +236,8 @@
       </div>
     </div>
   </div>
+
+
 
   <div class="tip-hinge"></div>
 
@@ -702,7 +708,7 @@
     </div>
   </div>
   <!--ESTRUCTURAL-->
-  <hr>
+
   <div id="acabadosEstructural" style="display:block;">
     <h4>TIPO ESTRUCTURAL</h4>
     <!-- Selección entre simple y multipieza -->
@@ -716,7 +722,7 @@
     </label>
     </div>
 
-    <div class="tip-hinge"></div>
+
     <br>
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
     <div class="input-medio">
@@ -1017,7 +1023,6 @@
     </div>
 
 
-
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
     <div id="numTiposContainer" style="display:none;">
       <div id="tiposGenerados"></div>
@@ -1029,7 +1034,8 @@
     </div>
 
 
-    <hr>
+    <div class="tip-hinge"></div>
+    <br>
   </div><!--fin acabado estructural-->
 
   <!-- Opciones comunes para todos los tipos de acabado -->
@@ -1051,7 +1057,6 @@
       </div>
     </div>
   </div>
-  <hr>
   <div id="mostrarTablaImpresion" class="mostrar-tabla-impresion " style="display:block;">
     <h4>IMPRESIÓN</h4>
     <div class="control-group estiloTabla controlPeticion">
@@ -1101,7 +1106,6 @@
     </div>
   </div>
   </div>
-  <hr>
   <h4>ENVIO MUESTRAS</h4>
   <div id="seccionEnvios">
   </div>
@@ -1123,7 +1127,6 @@
     <input type="checkbox" id="recogerMuestra">
   </label>
 
-
   <br>
   <div id="totalMuestrasArecoger" style="display: none"></div>
   <br>
@@ -1133,7 +1136,9 @@
   <label for=checkFichaTecnica>Ficha tecnica laboratotio
     <input type="checkbox" name="checkFichaTecnica" id="checkFichaTecnica">
   </label>
-  <hr>
+  <br>
+  <br>
+  <div class="tip-hinge"></div>
 
 
   <h4>CAPE</h4>
