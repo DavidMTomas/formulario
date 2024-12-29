@@ -881,9 +881,13 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 
 /*Inicio switch*/
+
+.switch-container {
+  float: right; /* Mueve el contenedor hacia la derecha */
+  padding-right: 10px;
+}
 .switch {
-  position: relative;
-  width: 850px;
+  position: absolute;
   height: 50px;
 
 }
