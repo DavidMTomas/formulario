@@ -29,30 +29,23 @@
 <body>
 
 
-<div class="switch-container">
-  <label >estilo</label> <!-- Descripción global para el switch -->
-  <div class="switch">
-    <input type="radio" id="switch1" name="switch" value="css/style.css" checked onchange="changeStyle()"/>
-    <label for="switch1"></label>
-    <input type="radio" id="switch2" name="switch" value="css/styleBox.css" onchange="changeStyle()"/>
-    <label for="switch2"></label>
-    <input type="radio" id="switch3" name="switch" value="css/styleDark.css" onchange="changeStyle()"/>
-    <label for="switch3"></label>
-    <div class="switch__inner"></div>
-  </div>
-</div>
-
-<br>
-
-
-
 <form id="petcicionComercial" method="POST">
   <div class="solapa">
-
   </div>
-
-
   <img src="logo.png">
+
+  <div class="switch-container">
+    <label >estilo</label> <!-- Descripción global para el switch -->
+    <div class="switch">
+      <input type="radio" id="switch1" name="switch" value="css/style.css" checked onchange="changeStyle()"/>
+      <label for="switch1"></label>
+      <input type="radio" id="switch2" name="switch" value="css/styleBox.css" onchange="changeStyle()"/>
+      <label for="switch2"></label>
+      <input type="radio" id="switch3" name="switch" value="css/styleDark.css" onchange="changeStyle()"/>
+      <label for="switch3"></label>
+      <div class="switch__inner"></div>
+    </div>
+  </div>
 
   <h3>Datos cliente:</h3>
   <div class="input-check">
@@ -92,7 +85,8 @@
     </div>
   </div>
 
-  <div class="tip-hinge"></div>
+  <div class="tip-hinge">
+  </div>
 
   <h3>Nueva petición:</h3>
   <div class="form-group">
