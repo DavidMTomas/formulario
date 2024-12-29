@@ -9,10 +9,57 @@ body {
 form {
   margin: 0 auto;
   padding: 30px;
-  background-color: #fff;
+  background-color: #e3dfd9; /* Color marrón claro tipo cartón */
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%; /* Ajusta el tamaño del formulario si es necesario */
 }
+
+
+
+.tip-hinge {
+  width: 100%;  /* Hace que el <div> ocupe el 100% del ancho de la ventana */
+  height: 1.5px;  /* Altura de la línea */
+  background: transparent;  /* Fondo transparente */
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2); /* Efecto cóncavo (hundido) */
+  position: absolute;
+  left: 50%;  /* Centra el <div> */
+  transform: translateX(-50%); /* Alinea al centro completamente */
+  z-index: 1; /* Para asegurar que esté por encima del contenido */
+  margin-bottom: 30px;  /* Margen adicional en la parte inferior */
+}
+
+/* Crea los espacios transparentes en los extremos con mayor grosor */
+.tip-hinge::before,
+.tip-hinge::after {
+  content: "";  /* Necesario para mostrar los pseudo-elementos */
+  position: absolute;
+  top: -2px;
+  bottom: 0;
+  width: 20%;  /* Esto cubre el 30% de la línea en cada extremo */
+  background: white;  /* Fondo transparente */
+  height: 3px;  /* Doble grosor de la línea en los extremos */
+  border-radius: 12px; /* Bordes redondeados */
+
+}
+
+.tip-hinge::before {
+  left: 0;  /* El primer 30% de la línea estará a la izquierda */
+}
+
+.tip-hinge::after {
+  right: 0;  /* El último 30% de la línea estará a la derecha */
+}
+
+hr {
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2); /* Efecto cóncavo */
+  border: none; /* Elimina cualquier borde */
+  margin: 0;
+}
+
 
 h3 {
   color: #2c3e50;
@@ -80,6 +127,10 @@ input[type="checkbox"]:checked {
   background-color: #3498db; /* Cambia el color de fondo cuando está marcado */
   border-color: #3498db; /* Cambia el borde cuando está marcado */
 }
+.checkbox-list {
+  list-style-type: none; /* Elimina los puntos de la lista */
+  padding: 0;            /* Elimina el padding por defecto */
+}
 
 /* Estilo de Dropdown */
 .dropdown {
@@ -87,10 +138,12 @@ input[type="checkbox"]:checked {
   display: inline-block;
 }
 
-.dropdown button {
+/* Estilo común para el botón y el input de tipo botón */
+.dropdown button,
+input[type="file"]:hover {
   padding: 12px 25px;
   font-size: 1em;
-  background-color: #27ae60; /* Color verde para el dropdown */
+  background-color: #27ae60; /* Color verde */
   color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -98,9 +151,12 @@ input[type="checkbox"]:checked {
   transition: background-color 0.3s ease;
 }
 
-.dropdown button:hover {
+/* Efecto hover para el botón y el input */
+.dropdown button:hover,
+input[type="file"]:hover  {
   background-color: #2ecc71;
 }
+
 
 .dropdown-content {
   display: none;
@@ -165,25 +221,25 @@ div {
 /* Inputs con tamaño específico */
 .input-corto {
   flex: 1 1 12%;
-  max-width: 120px;
-  min-width: 58px;
+  max-width: 130px;
+  min-width: 130px;
 }
 .input-intermedio {
-  flex: 1 1 18%; /* Ocupa el 50% del ancho */
-  max-width: 200px;
-  min-width: 50px;
+  flex: 1 1 18%; /* Ocupa el 18% del ancho */
+  max-width: 230px;
+  min-width: 150px;
 }
 
 .input-medio {
-  flex: 1 1 25%; /* Ocupa el 50% del ancho */
+  flex: 1 1 25%; /* Ocupa el 25% del ancho */
   max-width: 500px;
-  min-width: 200px;
+  min-width: 350px;
 }
 
 .input-largo {
   flex: 1 1 50%; /* Ocupa toda la fila */
-  max-width: 300px;
-  min-width: 100px;
+  max-width: 1000px;
+  min-width: 300px;
 }
 
 .full-width {
@@ -250,7 +306,9 @@ hr {
   }
 }
 
-
+.tipo-block {
+  padding: 8px;
+}
 
 .bloque {
   display: flex;
@@ -282,6 +340,9 @@ hr {
   background-color: #f2f2f2;
   color: #333;
 }
+
+
+
 
 label {
   margin-right: 10px;
@@ -315,6 +376,16 @@ label {
 }
 
 #onduladoListado input[type="radio"] {
+  margin-right: 5px; /* Espacio entre el botón de radio y el texto */
+}
+
+.onduladoListado label {
+  display: inline-flex; /* Alinea el botón de radio y la etiqueta en línea */
+  align-items: center; /* Centra verticalmente el texto con el radio button */
+  margin-right: 15px; /* Espacio entre los radio buttons */
+}
+
+.onduladoListado input[type="radio"] {
   margin-right: 5px; /* Espacio entre el botón de radio y el texto */
 }
 
@@ -507,9 +578,413 @@ form .reenvio {
   gap: 10px; /* Espacio entre botones */
 }
 
-@media (max-width: 600px) {
-  .botonesEnvio {
-    flex-direction: column; /* Alinear botones en columna en pantallas pequeñas */
-    gap: 5px;
+/* Estilos para el input file */
+input[type="file"] {
+  padding: 10px;  /* Espaciado interno */
+  font-size: 16px; /* Tamaño de la fuente */
+  border: 2px; /* Borde verde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor cuando pasa por encima */
+  width: 400px; /* Ancho */
+}
+
+/* Estilos para cuando el archivo está seleccionado */
+input[type="file"]:focus {
+  outline: none; /* Quita el contorno predeterminado */
+  border-color:#bcecbb; /* Borde verde más oscuro */
+}
+
+/* Estilo cuando el archivo es seleccionado */
+input[type="file"]:hover {
+  background-color: #a19a9a; /* Fondo más oscuro cuando pasa el mouse */
+}
+
+/* Estilos para el texto de selección (opcional) */
+input[type="file"]::-webkit-file-upload-button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #45a049; /* Fondo verde más oscuro */
+}
+
+/* ultimas modificaciones */
+/* Estilos básicos */
+.estiloTabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.estiloTabla th, .estiloTabla td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+
+.control-peticion,
+.mostrar-tabla-impresion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+
+
+.control-impression-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan si no caben */
+  justify-content: space-evenly; /* Espacio uniforme entre elementos */
+  align-items: center; /* Centrar verticalmente los elementos */
+  text-align: center;
+  gap: 30px; /* Espaciado entre elementos */
+  margin: 20px 0;
+  width: 100%; /* Asegura que el grupo ocupe todo el ancho disponible */
+}
+
+.control-item {
+  display: flex;
+  align-items: center; /* Centrar checkbox y texto verticalmente */
+  justify-content: center; /* Centrar checkbox y texto horizontalmente */
+  gap: 10px; /* Espaciado entre el checkbox y el texto */
+}
+
+.custom-spinner {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaciado interno entre los elementos del spinner */
+}
+
+.custom-spinner button {
+  display: flex; /* Usar flexbox dentro del botón */
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+
+
+.custom-spinner input {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.dropdown {
+  margin-top: 10px;
+}
+
+.control-item label {
+  font-size: 18px; /* Tamaño del texto */
+  font-weight: bold; /* Texto más llamativo */
+  margin: 0;
+}
+
+.control-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .control-peticion,
+  .mostrar-tabla-impresion {
+    padding: 10px;
   }
+}
+
+.paletizado-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.field {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.field input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.field div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.field input[type="radio"] {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  form {
+    padding: 5px; /* Ajusta el padding del formulario  */
+  }
+}
+
+/* Estilos generales para pantallas grandes */
+.paletizado-container .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.paletizado-container .field {
+  flex: 1 1 30%; /* Ajusta el ancho de los campos en pantallas grandes */
+  margin-bottom: 20px;
+}
+
+/* Estilos responsive para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  /* Asegura que todos los elementos ocupen el 100% del ancho disponible en pantallas pequeñas */
+  .paletizado-container .row {
+    flex-direction: column;
+  }
+
+  .paletizado-container .field {
+    flex: 1 1 100%; /* Cada campo ocupa toda la fila */
+    margin-bottom: 15px;
+  }
+
+  /* Ajuste para los inputs y select */
+  .paletizado-container input[type="text"],
+  .paletizado-container select {
+    width: 100%; /* Asegura que los inputs y select ocupen el 100% del ancho */
+    padding: 10px;
+  }
+
+  /* Mostrar los radio buttons en fila */
+  .paletizado-container .field div {
+    display: flex;
+    gap: 10px;  /* Espacio entre los botones de radio */
+    flex-wrap: nowrap;
+  }
+
+  .paletizado-container .field div input[type="radio"] {
+    margin-right: 10px; /* Ajuste de espacio entre los radio buttons */
+  }
+}
+
+.mensaje-superpuesto {
+  position: relative;
+  background: #e3f2fd; /* Azul claro */
+  color: #0d47a1; /* Azul oscuro */
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px;
+  border: 1px solid #90caf9; /* Azul intermedio */
+  border-radius: 8px;
+  display: none; /* Oculto por defecto */
+  text-align: center;
+  margin-top: 20px;
+}
+.mensaje-superpuesto span {
+  font-size: 22px;
+  margin-right: 10px;
+}
+/* Estilo general para los inputs de tipo "number" */
+.numerosNoPermitidos {
+  -webkit-appearance: none; /* Safari/Chrome */
+  -moz-appearance: textfield; /* Firefox */
+  appearance: none; /* Otros navegadores */
+  padding: 10px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  text-align: center;
+  width: 60px;
+  margin: 0 10px;
+}
+
+/* Estilo de los botones personalizados */
+.custom-number-button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-number-button:hover {
+  background-color: #45a049; /* Color al pasar el mouse */
+}
+
+.custom-number-button:active {
+  background-color: #387e39; /* Color al hacer clic */
+}
+
+/* Estilo para el borde y foco del input */
+.numerosNoPermitidos:focus {
+  border-color: #4CAF50; /* Color del borde al hacer focus */
+}
+
+/* Estilo para el hover */
+.numerosNoPermitidos:hover {
+  border-color: #45a049; /* Color del borde al pasar el mouse */
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+  .numerosNoPermitidos {
+    font-size: 20px; /* Aumentar tamaño del texto en móviles */
+    width: 80px; /* Aumentar tamaño del input */
+  }
+
+  .custom-number-button {
+    font-size: 24px; /* Aumentar tamaño de los botones en móviles */
+    padding: 15px 20px; /* Aumentar el tamaño de los botones */
+  }
+}
+
+
+/*Inicio switch*/
+.switch {
+  position: relative;
+  width: 850px;
+  height: 50px;
+
+}
+.switch #switch1,
+.switch #switch2,
+.switch #switch3 {
+  position: absolute;
+  z-index: 9;
+  -webkit-appearance: none;
+}
+.switch #switch1 + label::after,
+.switch #switch2 + label::after,
+.switch #switch3 + label::after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 25px;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.switch #switch1 + label::after {
+  left: 0;
+}
+.switch #switch1:checked ~ .switch__inner {
+  background-color: white;
+  transition: background-color 200ms ease-in-out;
+}
+.switch #switch1:checked ~ .switch__inner::after {
+  left: 0;
+  transition: left 200ms ease-in-out;
+}
+.switch #switch2 + label::after {
+  left: 20px;
+}
+.switch #switch2:checked ~ .switch__inner {
+  background-color: #E3DFD9;
+  transition: background-color 200ms ease-in-out;
+}
+.switch #switch2:checked ~ .switch__inner::after {
+  left: 20px;
+  transition: left 200ms ease-in-out;
+}
+.switch #switch3 + label::after {
+  left: 40px;
+}
+.switch #switch3:checked ~ .switch__inner {
+  background-color: #333;
+  transition: background-color 200ms ease-in-out;
+}
+.switch #switch3:checked ~ .switch__inner::after {
+  left: 40px;
+  transition: left 200ms ease-in-out;
+}
+.switch__inner {
+  position: absolute; /* Asegura que se puede mover dentro del contenedor */
+  width: 63px;
+  height: 30px;
+  background-color: #fff;
+  border: solid 1px grey;
+  border-radius: 4px;
+}
+.switch__inner::after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 20px;
+  height: 25px;
+  top: 0;
+  left: 0;
+  background-color: #eee;
+  border: solid 1px grey;
+  border-radius: 4px;
+  transition: left 200ms ease-in-out;
+}
+
+/*Final switch*/
+.solapa {
+  position: absolute;
+  top: -20px; /* Eleva la solapa sobre el formulario */
+  left: 50%;
+  transform: translateX(-50%); /* Centra la solapa */
+  background-color: #e3dfd9;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 50%; /* La solapa ocupa el 50% del ancho */
+  height: 90px; /* Altura de la solapa */
+  border-radius: 10px 10px 0 0;
+  transition: all 0.3s ease; /* Transición suave */
+  clip-path: polygon(0% 50%, 5% 0%, 95% 0%, 100% 50%); /* Forma inclinada menos pronunciada */
 }
