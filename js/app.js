@@ -20,11 +20,12 @@ let contadorTipos = 1; // Comienza con 1, ya que el primer tipo es el tipo 1
 
 // slect de stilos
 function changeStyle() {
-  // Obtiene el valor seleccionado
-  const styleSelector = document.getElementById('styleSelector');
+  // Obtiene el valor del radio button seleccionado
+  const selectedStyle = document.querySelector('input[name="switch"]:checked').value;
+  // Obtiene el elemento <link> con id "themeStylesheet"
   const themeStylesheet = document.getElementById('themeStylesheet');
-  // Cambia el atributo href del archivo de estilos
-  themeStylesheet.href = styleSelector.value;
+  // Cambia el atributo href para aplicar el nuevo estilo
+  themeStylesheet.href = selectedStyle;
 }
 
 // VALIDACIONES
@@ -1077,7 +1078,7 @@ function generarBloques() {
   bloque.innerHTML = `
 
    <div id="tipos${contadorTipos}">
-         <hr>
+         <br>
 
     <!-- Radio buttons para seleccionar la familia de productos -->
      <div class="input-medio">
@@ -1388,9 +1389,8 @@ function generarBloques() {
           <input type="text" id="obsImp${contadorTipos}" name="observacionesImpresion">
         </label>
       </div>
+      <br>
     </div>
-
-       <br>
 
   `;
 
