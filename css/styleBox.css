@@ -8,10 +8,11 @@ body {
 
 form {
   margin: 0 auto;
-  padding: 30px;
+  padding: 50px;
   background-color: #e3dfd9; /* Color marrón claro tipo cartón */
   border-radius: 8px;
   position: relative;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
   width: 100%; /* Ajusta el tamaño del formulario si es necesario */
 }
 
@@ -27,6 +28,7 @@ form {
   transform: translateX(-50%); /* Alinea al centro completamente */
   z-index: 1; /* Para asegurar que esté por encima del contenido */
   margin-bottom: 30px;  /* Margen adicional en la parte inferior */
+
 }
 
 /* Crea los espacios transparentes en los extremos con mayor grosor */
@@ -34,7 +36,7 @@ form {
 .tip-hinge::after {
   content: "";  /* Necesario para mostrar los pseudo-elementos */
   position: absolute;
-  top: -2px;
+  top: -1px;
   bottom: 0;
   width: 20%;  /* Esto cubre el 30% de la línea en cada extremo */
   background: white;  /* Fondo transparente */
@@ -50,6 +52,9 @@ form {
 .tip-hinge::after {
   right: 0;  /* El último 30% de la línea estará a la derecha */
 }
+
+
+
 
 hr {
   width: 100%;
@@ -890,9 +895,12 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 
 /*Inicio switch*/
+.switch-container {
+  float: right; /* Mueve el contenedor hacia la derecha */
+  padding-right: 10px;
+}
 .switch {
-  position: relative;
-  width: 850px;
+  position: absolute;
   height: 50px;
 
 }
@@ -980,11 +988,12 @@ input[type="file"]::-webkit-file-upload-button:hover {
   padding: 10px;
   text-align: center;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
   z-index: 1;
   width: 50%; /* La solapa ocupa el 50% del ancho */
   height: 90px; /* Altura de la solapa */
   border-radius: 10px 10px 0 0;
   transition: all 0.3s ease; /* Transición suave */
   clip-path: polygon(0% 50%, 5% 0%, 95% 0%, 100% 50%); /* Forma inclinada menos pronunciada */
+  margin-top: 1px;
 }
