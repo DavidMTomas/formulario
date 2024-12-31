@@ -185,6 +185,9 @@ function handleAnulaTroquel() {
     document.getElementById("noAnulaFichaNo").style.visibility = 'hidden'; // Mostrar "No"
     radioNoAnulaFicha.checked = false; // Desmarcar "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar campo de número de ficha
+    document.getElementById("contenedorFefco").style.visibility='visible'
+    document.getElementById("contenedorPegado").style.visibility='visible'
+    document.getElementById("contenedorMaqueta").style.visibility='visible'
     // document.getElementById("acabadosEstructural").style.display="block" // nuevo estructural
 
     // Forzar actualización del estilo visual
@@ -201,6 +204,9 @@ function handleAnulaTroquel() {
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Mostrar u ocultar el campo de número de ficha según la selección
     // Si selecciona "No" en "Anula Troquel", mostrar opciones de existencia de troquel
     opcionesTroquel.style.display = 'block'; // Mostrar las opciones de si existe o no el troquel
+    document.getElementById("contenedorFefco").style.visibility='hidden'
+    document.getElementById("contenedorPegado").style.visibility='hidden'
+    document.getElementById("contenedorMaqueta").style.visibility='hidden'
     //botonesTroquel.style.display="block"
 
     // document.getElementById("acabadosEstructural").style.display="none" // no hay nuevo estrurtral
@@ -220,12 +226,18 @@ function handleExisteTroquel() {
     radioSiAnulaFicha.style.visibility='hidden'; // Ocultar "Sí"
     document.getElementById("noAnulaFichaSi").style.visibility = 'hidden'; // Mostrar "No"
     toggleCampoTexto(radioSiAnulaFicha, campoFicha); // Ocultar el campo de número de ficha
+    document.getElementById("contenedorFefco").style.visibility='visible'
+    document.getElementById("contenedorPegado").style.visibility='visible'
+    document.getElementById("contenedorMaqueta").style.visibility='visible'
     //document.getElementById("acabadosEstructural").style.display="block"
   } else {
     // Si selecciona "Sí" en "¿Existe el troquel?", reactiva la opción "Sí" en "Anula FF anterior?"
     radioSiAnulaFicha.disabled = false;
     radioSiAnulaFicha.style.visibility='visible'; // Ocultar "Sí"
     document.getElementById("noAnulaFichaSi").style.visibility = 'visible'; // Mostrar "No"
+    document.getElementById("contenedorFefco").style.visibility='hidden'
+    document.getElementById("contenedorPegado").style.visibility='hidden'
+    document.getElementById("contenedorMaqueta").style.visibility='hidden'
     // document.getElementById("acabadosEstructural").style.display="none"
     //botonesTroquel.style.display="block"
   }
@@ -859,6 +871,7 @@ function mostrarListaTiposImpresion() {
       } else if (radioButton.value === 'Contraencolado') {
         contraencoladoListado.style.display = 'block';
         contraencoladoListado.querySelector('input#sinImpresionContraencolado').checked=true
+        mostrartextoCartoncillo.style.display = 'block'
       } else if (radioButton.value === 'Ondulado') {
         onduladoListado.style.display = 'block';
         // Accede al input usando querySelector
@@ -1008,7 +1021,7 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
       document.getElementById(`mostrarCanalContraencolado${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarCanalOndulado${prefijo}`).style.display = 'none';
-      document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'none';
+      document.getElementById(`mostrarcalidadcartoncillo${prefijo}`).style.display = 'block';
       document.getElementById(`sinImpresionContraencolado${prefijo}`).checked = true;
       document.getElementById(`tintasOffset${prefijo}`).style.display = 'none';
       document.getElementById(`tintasDigital${prefijo}`).style.display = 'none';

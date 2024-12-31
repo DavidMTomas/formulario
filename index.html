@@ -50,7 +50,7 @@
   <h3>Datos cliente:</h3>
   <div class="input-check">
     <label for="nuevoCliente">Nuevo Cliente:</label>
-    <input type="checkbox" name="nuevo_cliente" id="nuevoCliente" value="nuevo">
+    <input type="checkbox" name="nuevo_cliente" id="nuevoCliente" value="nuevo" >
   </div>
   <div class="form-group">
 
@@ -62,12 +62,12 @@
 
     <div class="input-medio">
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre_cliente" required>
+      <input type="text" id="nombre" name="nombre_cliente" required >
     </div>
 
     <div class="input-medio">
       <label for="personaContacto">Persona de contacto:</label>
-      <input type="text" id="personaContacto" name="persona_contacto" required>
+      <input type="text" id="personaContacto" name="persona_contacto" required oninput="sincronizarContacto()">
     </div>
 
     <div class="input-medio">
@@ -79,7 +79,7 @@
 
     <div class="input-intermedio">
       <label for="telefonoPersonaContaco">Teléfono de contacto</label>
-      <input type="text" id="telefonoPersonaContaco" name="telefono_persona_contaco" required onblur="validarTelefono(this)">
+      <input type="text" id="telefonoPersonaContaco" name="telefono_persona_contaco" required onblur="validarTelefono(this)" oninput="sincronizarTelefono()">
       <!-- Mensaje de error para el teléfono -->
       <span class="mensajeTelefono" style="color: red;"></span>
     </div>
@@ -241,7 +241,8 @@
 
   <div class="form-group">
 
-    <div class="input-corto">
+
+    <div class="input-corto" id="contenedorFefco" style="visibility: hidden">
       <label for="fefco">Modelo fefco:</label>
       <select id="fefco" name="fefco">
         <option value="">Selección</option>
@@ -685,7 +686,7 @@
     </div>
 
 
-    <div class="input-medio">
+    <div class="input-medio" id="contenedorPegado" style="visibility: hidden">
       <label for="pegado">Pegado:</label>
       <select id="pegado" name="pegado">
         <option value="">Selecciona una opción</option>
@@ -1039,7 +1040,7 @@
   <div class="tip-hinge"></div>
   <br>
 
-  <div class="control-peticion ">
+  <div class="control-peticion " id="contenedorMaqueta" style="visibility: hidden">
     <h4>MAQUETA</h4>
     <div class="control-item estiloTabla controlPeticion">
       <label for="checkDiseñoEstructural">Muestras</label>
@@ -1144,7 +1145,7 @@
     <div class="input-intermedio">
       <label for="paletizado">Paletizado:</label>
       <select id="paletizado" name="paletizado">
-        <option value="a_convenir">A convenir</option>
+        <option value="a_convenir">Vuestro criterio</option>
         <option value="especificar">Especificar</option>
       </select>
     </div>
@@ -1357,7 +1358,7 @@
         <option value="mico">Gloria</option>
         <option value="pardo">Jordi</option>
         <option value="calatayud">Maite</option>
-        <option value="requena">Paco</option>
+        <option value="requena">Requena</option>
       </select>
     </div>
   </div>
