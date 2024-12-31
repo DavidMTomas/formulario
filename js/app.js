@@ -271,8 +271,8 @@ handleAnulaTroquel();
 
 // mostrar dimensiones si anula troquel, si no existe troquel
 document.addEventListener('DOMContentLoaded', () => {
-  const anulaTroquelRadios = document.getElementsByName('anulaTroquel');
-  const existeTroquelRadios = document.getElementsByName('existeTroquel');
+  const anulaTroquelRadios = document.getElementsByName('anula_troquel');
+  const existeTroquelRadios = document.getElementsByName('existe_troquel');
   const medidasEstructuralDiv = document.getElementById('medidasEstructural');
 
   function verificarCombinacion() {
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const existeTroquel = [...existeTroquelRadios].find(radio => radio.checked)?.value;
 
     // Mostrar el div si la combinación es la requerida
-    if (anulaTroquel === 'Si' || existeTroquel === 'No') {
+    if (anulaTroquel === 'si' || existeTroquel === 'no') {
       medidasEstructuralDiv.style.display = 'block';
     } else {
       medidasEstructuralDiv.style.display = 'none';
@@ -298,6 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // MODIFICAR REQUERIMIENTO DIMENSIONES SI ESTA MARCADO ARCHIVO ADJUNTO Y ENTREGA MUESTAR FISICIA
 // Función para actualizar el estado de los campos
 function actualizarCampos() {
+
+  document.getElementById("onduladoListado").style.display = "block";
   // Obtener los elementos de las casillas de verificación
   const archivoAdjunto = document.getElementById('archivoAdjunto');
   const muestraFisica = document.getElementById('muestraFisica');
@@ -366,7 +368,7 @@ function decrement(inputId) {
 function checkValue() {
   const input = document.getElementById("etiquetasPaletizado");
   const textoExtra = document.getElementById("textoExtra");
-  const selectedRadio = document.querySelector('input[name="CajaMuestraPorEtiqueta"]:checked').value;
+  const selectedRadio = document.querySelector('input[name="caja_muestra_por_etiqueta"]:checked').value;
 
   // Ajustar valor mínimo según la opción seleccionada
   if (selectedRadio === "largoAncho") {
@@ -732,8 +734,8 @@ function verificarSinImpresion() {
 document.getElementById('cartoncilloListado').addEventListener('change', verificarSinImpresion);
 document.getElementById('contraencoladoListado').addEventListener('change', verificarSinImpresion);
 document.getElementById('onduladoListado').addEventListener('change', verificarSinImpresion);
-// Evento para los radio buttons de "familiaProductos"
-document.querySelectorAll('input[name="familiaProductos"]').forEach(radio => {
+// Evento para los radio buttons de "tipo_papel"
+document.querySelectorAll('input[name="tipo_papel"]').forEach(radio => {
   radio.addEventListener('change', verificarSinImpresion);
 });
 
@@ -778,7 +780,7 @@ document.getElementById("paletizado").addEventListener("change", function () {
 /////////////////////////////////////////////////////
 
 // Obtener los radio buttons y el contenedor del número de tipos
-const opcionesDisenyo = document.getElementsByName('tipoDiseño');
+const opcionesDisenyo = document.getElementsByName('tipo_diseño');
 const numTiposContainer = document.getElementById('numTiposContainer');
 
 // Función para mostrar u ocultar el contenedor de número de tipos
@@ -790,7 +792,7 @@ function toggleNumTipos() {
 
   // Recorrer los radio buttons
   opcionesDisenyo.forEach(radio => {
-    if (radio.checked && radio.value === 'multiPieza') {
+    if (radio.checked && radio.value === 'multi_pieza') {
       isMultipiezaSelected = true;
     }
   });
@@ -829,7 +831,7 @@ toggleNumTipos(); // Esto asegura que el contenedor tenga el estado correcto cua
 ///////   TIPO   /////
 /////////////////////////////////////////////////////
 // Obtener todos los radio buttons y los divs para los listados
-const radioButtons = document.getElementsByName('familiaProductos');
+const radioButtons = document.getElementsByName('tipo_papel');
 const cartoncilloListado = document.getElementById('cartoncilloListado');
 const contraencoladoListado = document.getElementById('contraencoladoListado');
 const onduladoListado = document.getElementById('onduladoListado');
@@ -898,7 +900,7 @@ function actualizarVisibilidadTintas() {
 document.querySelectorAll('input[type="radio"]').forEach(radio => {
   radio.addEventListener('change', function () {
     // Verificar si el radio está dentro de 'fscQR' y salir si es así
-    if (this.closest('.fscQr')) return; // Ignorar si el radio pertenece al contenedor 'fscQR'
+    if (this.closest('.fscQrList')) return; // Ignorar si el radio pertenece al contenedor 'fscQR'
     const value = this.value.toLowerCase();
 
     document.getElementById('tintasOffset').style.display = (value === 'offset') ? 'block' : 'none';
@@ -916,7 +918,7 @@ document.querySelectorAll('input[type="radio"]').forEach(radio => {
 // Función para manejar la actualización del canal
 function actualizarCanal() {
   // Obtener el valor del radio button seleccionado
-  const tipoPapel = document.querySelector('.divTipoPapel input[name="familiaProductos"]:checked').value;
+  const tipoPapel = document.querySelector('.divTipoPapel input[name="tipo_papel"]:checked').value;
 
   // Obtener el select y restablecer su valor al estado inicial
   const selectCanal = document.getElementById('canal');
@@ -935,7 +937,7 @@ function actualizarCanal() {
     opcionesCartoncillo.forEach(option => {
       option.style.display = 'block'; // Mostrar las opciones de cartoncillo
     });
-    selectCanal.value = "L"; // Seleccionar automáticamente "L"
+    selectCanal.value = "l"; // Seleccionar automáticamente "L"
   } else if (tipoPapel === "Contraencolado") {
     // Mostrar solo las opciones para Contraencolado
     const opcionesContraencolado = selectCanal.querySelectorAll('.canalContraencolado');
@@ -952,7 +954,7 @@ function actualizarCanal() {
 }
 
 // Agregar el evento para los radio buttons
-const radios = document.querySelectorAll('.divTipoPapel input[name="familiaProductos"]');
+const radios = document.querySelectorAll('.divTipoPapel input[name="tipo_papel"]');
 radios.forEach(radio => {
   radio.addEventListener('change', actualizarCanal);
 });
@@ -977,7 +979,7 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
   document.getElementById(`fscNo${prefijo}`).checked = false;
 
   // Obtener el radio button seleccionado
-  const seleccionado = document.querySelector(`input[name="familiaProductos${prefijo}"]:checked`);
+  const seleccionado = document.querySelector(`input[name="tipo_papel_${prefijo}"]:checked`);
 
   // Restablecer el valor del select a "Seleccionar" (opción por defecto)
   const selectCanal = document.getElementById(`canal${tipoIndex}`);
@@ -993,7 +995,7 @@ function mostrarListaTiposImpresionMultipieza(tipoIndex = '') {
 
     // Mostrar "mostrar-calidad-cartoncillo" si el valor es "Cartoncillo"
     if (valorSeleccionado === 'cartoncillo') {
-      selectCanal.value = 'L'; // Seleccionar automáticamente "L"
+      selectCanal.value = 'l'; // Seleccionar automáticamente "L"
       document.getElementById(`mostrarCanalCartoncillo${prefijo}`).style.display = 'block';
       document.getElementById(`mostrarCanalContraencolado${prefijo}`).style.display = 'none';
       document.getElementById(`mostrarCanalOndulado${prefijo}`).style.display = 'none';
@@ -1032,7 +1034,6 @@ document.addEventListener('DOMContentLoaded', function () {
   generarBloques();
   //mostrarListado();
   mostrarListaTiposImpresionMultipieza();
-  alert("Mensaje")
 });
 
 /////////////////////////////////////////////////////
@@ -1071,7 +1072,7 @@ function generarBloques() {
     bloque.style.backgroundColor = '#cedce7'; // Azul claro
       //'#f0f0f0'; // Color más oscuro (gris claro)
   } else {
-    bloque.style.backgroundColor = '#ffffff'; // Color blanco por defecto
+    bloque.style.backgroundColor = 'lightgray'; // Color blanco por defecto
   }
 
   // El tipo será el valor del contador actual
@@ -1082,31 +1083,32 @@ function generarBloques() {
 
     <!-- Radio buttons para seleccionar la familia de productos -->
      <div class="input-medio">
+      <h4>Pieza ${contadorTipos}</h4>
         <label for="idPieza${contadorTipos}">
-        <input type="text" id="idPieza${contadorTipos}" name="familiaProductos${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
+        <input type="text" id="idPieza${contadorTipos}" name="pieza_id_${contadorTipos}" placeholder="Identificador de la pieza ${contadorTipos}" required>
         </label>
     </div>
         <h4>Tipo papel ${contadorTipos}</h4>
      <div class="form-group">
         <label for="cartoncillo${contadorTipos}">
-        <input type="radio" id="cartoncillo${contadorTipos}" name="familiaProductos${contadorTipos}" value="Cartoncillo" onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Cartoncillo
+        <input type="radio" id="cartoncillo${contadorTipos}" name="tipo_papel_${contadorTipos}" value="Cartoncillo" onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Cartoncillo
         </label>
 
     <label for="contraencolado${contadorTipos}">
-      <input type="radio" id="contraencolado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Contraencolado" onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Contraencolado
+      <input type="radio" id="contraencolado${contadorTipos}" name="tipo_papel_${contadorTipos}" value="Contraencolado" onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Contraencolado
     </label>
 
     <label for="ondulado${contadorTipos}">
-      <input type="radio" id="ondulado${contadorTipos}" name="familiaProductos${contadorTipos}" value="Ondulado" checked onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Ondulado
+      <input type="radio" id="ondulado${contadorTipos}" name="tipo_papel_${contadorTipos}" value="Ondulado" checked onchange="mostrarListaTiposImpresionMultipieza(${contadorTipos})"> Ondulado
     </label>
 
 
      <div class="input-corto">
         <label for="calidad${contadorTipos}">Calidad</label>
-        <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad${contadorTipos}" placeholder="Calidad" required/>
+        <input class="campotextomuycorto" type="text" id="calidad${contadorTipos}" name="calidad_${contadorTipos}" placeholder="Calidad" required/>
      </div>
 
-    <div class="input-intermedio">
+        <div class="input-intermedio">
         <label for="canal${contadorTipos}">Canal</label>
         <select id="canal${contadorTipos}" name="canal" required>
 
@@ -1114,34 +1116,34 @@ function generarBloques() {
           <!-- Opciones para Ondulado -->
           <optgroup id="mostrarCanalOndulado${contadorTipos}" style="display:block;">
           <option value="">Seleccionar</option>
-          <option value="G Nanomicro" class="canalOndulado${contadorTipos}">G Nanomicro</option>
-          <option value="F Minimicro" class="canalOndulado${contadorTipos}">F Minimicro 1,1mm</option>
-          <option value="F Micro" class="canalOndulado${contadorTipos}">E Micro 1,5-1,7mm</option>
-          <option value="D CanalD" class="canalOndulado${contadorTipos}">D Canal-D 2,5mm</option>
-          <option value="B Canal3" class="canalOndulado${contadorTipos}">B Canal-3 3mm</option>
-          <option value="C Canal5" class="canalOndulado${contadorTipos}">C Canal-5 4mm</option>
-          <option value="ED MicroD" class="canalOndulado${contadorTipos}">ED Micro-D 4mm</option>
-          <option value="EC Micro5" class="canalOndulado${contadorTipos}">EC Micro-5 6mm</option>
-          <option value="BC Canal3-5" class="canalOndulado${contadorTipos}">BC Canal 3-5 7mm</option>
+          <option value="g_nanomicro" class="canalOndulado${contadorTipos}">G Nanomicro</option>
+          <option value="f_minimicro" class="canalOndulado${contadorTipos}">F Minimicro 1,1mm</option>
+          <option value="f_micro" class="canalOndulado${contadorTipos}">E Micro 1,5-1,7mm</option>
+          <option value="d_canal_d" class="canalOndulado${contadorTipos}">D Canal-D 2,5mm</option>
+          <option value="b_canal_3" class="canalOndulado${contadorTipos}">B Canal-3 3mm</option>
+          <option value="c_canal_5" class="canalOndulado${contadorTipos}">C Canal-5 4mm</option>
+          <option value="ed_micro_d" class="canalOndulado${contadorTipos}">ED Micro-D 4mm</option>
+          <option value="ec_micro_5" class="canalOndulado${contadorTipos}">EC Micro-5 6mm</option>
+          <option value="bc_canal_3-5" class="canalOndulado${contadorTipos}">BC Canal 3-5 7mm</option>
           </optgroup>
 
 
           <!-- Opciones para Contraencolado -->
           <optgroup id="mostrarCanalContraencolado${contadorTipos}" style="display:none;">
           <option value="">Seleccionar</option>
-          <option value="L+B" class="canalContraencolado${contadorTipos}">L+B</option>
-          <option value="L+BC" class="canalContraencolado${contadorTipos}">L+BC</option>
-          <option value="L+C" class="canalContraencolado${contadorTipos}">L+C</option>
-          <option value="L+D" class="canalContraencolado${contadorTipos}">L+D</option>
-          <option value="L+E" class="canalContraencolado${contadorTipos}">L+E</option>
-          <option value="L+EC" class="canalContraencolado${contadorTipos}">L+EC</option>
-          <option value="L+ED" class="canalContraencolado${contadorTipos}">L+ED</option>
-          <option value="L+F" class="canalContraencolado${contadorTipos}">L+F</option>
+          <option value="l+b" class="canalContraencolado${contadorTipos}">L+B</option>
+          <option value="l+bc" class="canalContraencolado${contadorTipos}">L+BC</option>
+          <option value="l+c" class="canalContraencolado${contadorTipos}">L+C</option>
+          <option value="l+d" class="canalContraencolado${contadorTipos}">L+D</option>
+          <option value="l+e" class="canalContraencolado${contadorTipos}">L+E</option>
+          <option value="l+ec" class="canalContraencolado${contadorTipos}">L+EC</option>
+          <option value="l+ed" class="canalContraencolado${contadorTipos}">L+ED</option>
+          <option value="l+f" class="canalContraencolado${contadorTipos}">L+F</option>
           </optgroup>
 
           <!-- Opciones para Cartoncillo -->
           <optgroup id="mostrarCanalCartoncillo${contadorTipos}" style="display:none;">
-          <option value="L" class="canalCartoncillo${contadorTipos}" >L</option>
+          <option value="l" class="canalCartoncillo${contadorTipos}" >L</option>
           </optgroup>
         </select>
 
@@ -1150,7 +1152,7 @@ function generarBloques() {
         <div class="input-corto">
             <div id="mostrarcalidadcartoncillo${contadorTipos}" style="display:none;">
               <label for="cllo${contadorTipos}">Cllo</label>
-              <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo${contadorTipos}" placeholder="Cllo" required/>
+              <input class="campotextomuycorto" type="text" id="cllo${contadorTipos}" name="cllo_${contadorTipos}" placeholder="Cllo" required/>
               </div>
         </div>
     </div>
@@ -1161,10 +1163,10 @@ function generarBloques() {
     <div id="cartoncilloListado${contadorTipos}" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo${contadorTipos}">
-        <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionCartoncillo${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="sinImpresion"  onchange="actualizarTintasMultipieza(${contadorTipos})"> Sin impresión
+        <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionCartoncillo${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="cartoncillo_${contadorTipos}_impresion" value="sinImpresion"  onchange="actualizarTintasMultipieza(${contadorTipos})"> Sin impresión
       </label>
       <label for="offsetCartoncillo${contadorTipos}">
-        <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetCartoncillo${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})"> Offset
+        <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetCartoncillo${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="cartoncillo_${contadorTipos}_impresion" value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})"> Offset
       </label>
     </div>
 
@@ -1172,10 +1174,10 @@ function generarBloques() {
     <div id="contraencoladoListado${contadorTipos}" style="display:none;">
       <h4>Tipos de impresión para Contraencolado</h4>
       <label  for="sinImpresionContraencolado${contadorTipos}">
-        <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionContraencolado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="sinImpresion"  onchange="actualizarTintasMultipieza(${contadorTipos})"> Sin impresión
+        <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionContraencolado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="contraencolado_${contadorTipos}_impresion" value="sinImpresion"  onchange="actualizarTintasMultipieza(${contadorTipos})"> Sin impresión
       </label>
       <label for="offsetContraencolado${contadorTipos}">
-        <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetContraencolado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})"> Offset
+        <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetContraencolado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="contraencolado_${contadorTipos}_impresion"  value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})"> Offset
       </label>
     </div>
 
@@ -1184,22 +1186,22 @@ function generarBloques() {
       <div id="onduladoListado${contadorTipos}" style="display:block;">
         <h4>Tipos de impresión para Ondulado</h4>
         <label for="sinImpresionOndulado${contadorTipos}">
-          <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionOndulado${contadorTipos}"name="tipoImpresionM${contadorTipos}" value="sinImpresion" checked onchange="actualizarTintasMultipieza(${contadorTipos})">Sin impresión
+          <input class="trabajoImpresion tipoImpresionM${contadorTipos}" type="radio" id="sinImpresionOndulado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="ondulado_${contadorTipos}_impresion" value="sinImpresion" checked onchange="actualizarTintasMultipieza(${contadorTipos})">Sin impresión
         </label>
         <label for="offsetOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})">Offset
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="offsetOndulado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="ondulado_${contadorTipos}_impresion" value="offset" onchange="actualizarTintasMultipieza(${contadorTipos})">Offset
         </label>
         <label for="digitalOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="digitalOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="digital" onchange="actualizarTintasMultipieza(${contadorTipos})">Digital
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="digitalOndulado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="ondulado_${contadorTipos}_impresion" value="digital" onchange="actualizarTintasMultipieza(${contadorTipos})">Digital
         </label>
         <label for="flexoOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoOndulado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="ondulado_${contadorTipos}_impresion" value="flexo" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo
         </label>
         <label for="flexoMejoradoOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoMejoradoOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo mejorado" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo mejorado
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoMejoradoOndulado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="ondulado_${contadorTipos}_impresion" value="flexo mejorado" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo mejorado
         </label>
         <label for="flexoHDOndulado${contadorTipos}">
-          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoHDOndulado${contadorTipos}" name="tipoImpresionM${contadorTipos}" value="flexo hd" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo HD
+          <input type="radio" class="tipoImpresionM${contadorTipos}" id="flexoHDOndulado${contadorTipos}" class="tipoImpresionM_${contadorTipos}" name="ondulado_${contadorTipos}_impresion" value="flexo hd" onchange="actualizarTintasMultipieza(${contadorTipos})">Flexo HD
         </label>
       </div>
       </div>
@@ -1208,30 +1210,30 @@ function generarBloques() {
       <h4>Tintas para Offset</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCoffset${contadorTipos}" name="cian" value="cian" checked> Cian (C)
+          <input type="checkbox" id="tintaCoffset${contadorTipos}" name="offset_${contadorTipos}_cian" value="cian" checked> Cian (C)
         </label>
         <label>
-          <input type="checkbox" id="tintaMoffset${contadorTipos}" name="magenta" value="magenta" checked> Magenta (M)
+          <input type="checkbox" id="tintaMoffset${contadorTipos}" name="offset_${contadorTipos}_magenta" value="magenta" checked> Magenta (M)
         </label>
         <label >
-          <input type="checkbox" id="tintaYoffset${contadorTipos}" name="amarillo" value="amarillo" checked> Amarillo (Y)
+          <input type="checkbox" id="tintaYoffset${contadorTipos}" name="offset_${contadorTipos}_amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKoffset${contadorTipos}" name="negro" value="negro" checked> Negro (K)
+          <input type="checkbox" id="tintaKoffset${contadorTipos}" name="offset_${contadorTipos}_negro" value="negro" checked> Negro (K)
         </label>
         <div class="input-corto">
           <label > Tinta 5
-          <input type="text" name="tinta5Offset" id="tinta5Offset${contadorTipos}" >
+          <input type="text" name="offset_${contadorTipos}_tinta5" id="tinta5Offset${contadorTipos}" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 6
-          <input type="text" name="tinta6Offset" id="tinta6Offset${contadorTipos}" >
+          <input type="text" name="offset_${contadorTipos}_tinta6" id="tinta6Offset${contadorTipos}" >
           </label>
         </div>
         <div class="input-corto">
           <label >Tinta 7
-          <input type="text" name="tinta7Offset" id="tinta7Offset${contadorTipos}">
+          <input type="text" name="offset_${contadorTipos}_tinta7" id="tinta7Offset${contadorTipos}">
           </label>
         </div>
       </div>
@@ -1257,32 +1259,32 @@ function generarBloques() {
           <label>Acabados especiales:</label>
           <ul class="checkbox-list">
             <li>
-              <input type="checkbox" id="cool_foild${contadorTipos}" value="coolFoild">
-              <label for="cool_foild">COOL FOILD</label>
+              <input type="checkbox" id="cool_foild${contadorTipos}" name="coolFoild_M_${contadorTipos}" value="coolFoild">
+              <label for="cool_foild${contadorTipos}">COOL FOILD</label>
             </li>
             <li>
-              <input type="checkbox" id="glasofonado_brillo${contadorTipos}" value="glasofonadoBrillo">
-              <label for="glasofonado_brillo">GLASOFONADO BRILLO</label>
+              <input type="checkbox" id="glasofonado_brillo${contadorTipos}" name="glasofonadoBrillo_M_${contadorTipos}" value="glasofonadoBrillo">
+              <label for="glasofonado_brillo${contadorTipos}">GLASOFONADO BRILLO</label>
             </li>
             <li>
-              <input type="checkbox" id="glasofonado_mate${contadorTipos}" value="glasofonadoMate">
-              <label for="glasofonado_mate">GLASOFONADO MATE</label>
+              <input type="checkbox" id="glasofonado_mate${contadorTipos}" name="glasofonadoMate_M_${contadorTipos}" value="glasofonadoMate">
+              <label for="glasofonado_mate${contadorTipos}">GLASOFONADO MATE</label>
             </li>
             <li>
-              <input type="checkbox" id="gofrado${contadorTipos}" value="gofrado">
-              <label for="gofrado">GOFRADO</label>
+              <input type="checkbox" id="gofrado${contadorTipos}" name="gofrado_M_${contadorTipos}" value="gofrado">
+              <label for="gofrado${contadorTipos}">GOFRADO</label>
             </li>
             <li>
-              <input type="checkbox" id="relieve${contadorTipos}" value="relieve">
-              <label for="relieve">RELIEVE</label>
+              <input type="checkbox" id="relieve${contadorTipos}" name="relieve_M_${contadorTipos}" value="relieve">
+              <label for="relieve${contadorTipos}">RELIEVE</label>
             </li>
             <li>
-              <input type="checkbox" id="stamping${contadorTipos}" value="stamping">
-              <label for="stamping">STAMPING</label>
+              <input type="checkbox" id="stamping${contadorTipos}" name="stamping_M_${contadorTipos}" value="stamping">
+              <label for="stamping${contadorTipos}">STAMPING</label>
             </li>
             <li>
-              <input type="checkbox" id="uvi_selectivo${contadorTipos}" value="uviSelectivo">
-              <label for="uvi_selectivo">UVI SELECTIVO</label>
+              <input type="checkbox" id="uvi_selectivo${contadorTipos}" name="uviSelectivo_M_${contadorTipos}" value="uviSelectivo">
+              <label for="uvi_selectivo${contadorTipos}">UVI SELECTIVO</label>
             </li>
           </ul>
         </div>
@@ -1294,22 +1296,22 @@ function generarBloques() {
       <h4>Tintas para Digital</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCdigital${contadorTipos}" name="cian" value="cian" checked> Cian (C)
+          <input type="checkbox" id="tintaCdigital${contadorTipos}" name="digital_${contadorTipos}_cian" value="cian" checked> Cian (C)
         </label>
         <label >
-          <input type="checkbox" id="tintaMdigital${contadorTipos}" name="magenta" value="magenta" checked> Magenta (M)
+          <input type="checkbox" id="tintaMdigital${contadorTipos}" name="digital_${contadorTipos}_magenta" value="magenta" checked> Magenta (M)
         </label>
         <label>
-          <input type="checkbox" id="tintaYdigital${contadorTipos}" name="amarillo" value="amarillo" checked> Amarillo (Y)
+          <input type="checkbox" id="tintaYdigital${contadorTipos}" name="digital_${contadorTipos}_amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKdigital${contadorTipos}" name="negro" value="negro" checked> Negro (K)
+          <input type="checkbox" id="tintaKdigital${contadorTipos}" name="digital_${contadorTipos}_negro" value="negro" checked> Negro (K)
         </label>
         <label>
-          <input type="checkbox" id="tintaOdigital${contadorTipos}" name="naranja" value="violeta" checked> Orange (O)
+          <input type="checkbox" id="tintaOdigital${contadorTipos}" name="digital_${contadorTipos}_naranja" value="violeta" checked> Orange (O)
         </label>
         <label>
-          <input type="checkbox" id="tintaVdigital${contadorTipos}" name="violeta" value="violeta" checked> Violeta (V)
+          <input type="checkbox" id="tintaVdigital${contadorTipos}" name="digital_${contadorTipos}_violeta" value="violeta" checked> Violeta (V)
         </label>
       </div>
     </div>
@@ -1319,32 +1321,32 @@ function generarBloques() {
       <div class="form-group">
         <div class="input-corto">
           <label > Tinta 1
-          <input type="text" name="tinta1Flexo" id="tinta1Flexo${contadorTipos}" >
+          <input type="text" name="flexo_${contadorTipos}_tinta1" id="tinta1Flexo${contadorTipos}" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 2
-            <input type="text" name="tinta2Flexo" id="tinta2Flexo${contadorTipos}" >
+            <input type="text" name="flexo_${contadorTipos}_tinta2" id="tinta2Flexo${contadorTipos}" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 3
-            <input type="text" name="tinta3Flexo" id="tinta3Flexo${contadorTipos}" >
+            <input type="text" name="flexo_${contadorTipos}_tinta3" id="tinta3Flexo${contadorTipos}" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 4
-            <input type="text" name="tinta4Flexo" id="tinta4Flexo${contadorTipos}" >
+            <input type="text" name="flexo_${contadorTipos}_tinta4" id="tinta4Flexo${contadorTipos}" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 5
-            <input type="text" name="tinta5Flexo" id="tinta5Flexo${contadorTipos}" >
+            <input type="text" name="flexo_${contadorTipos}_tinta5" id="tinta5Flexo${contadorTipos}" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 6
-            <input type="text" name="tinta6Flexo" id="tinta6Flexo${contadorTipos}" >
+            <input type="text" name="flexo_${contadorTipos}_tinta6" id="tinta6Flexo${contadorTipos}" >
           </label>
         </div>
       </div>
@@ -1370,23 +1372,23 @@ function generarBloques() {
         <div class="form-group">
           <label>FSC:</label>
           <label>
-            <input type="radio" id="fscNo${contadorTipos}" name="fsc${contadorTipos}" value="no" checked>NO
+            <input type="radio" id="fscNo${contadorTipos}" name="fsc_${contadorTipos}" value="no" checked>NO
           </label>
           <label>
-            <input type="radio" id="fscR${contadorTipos}" name="fsc${contadorTipos}" value="fscR">FSC R
+            <input type="radio" id="fscR${contadorTipos}" name="fsc_${contadorTipos}" value="fsc_r">FSC R
           </label>
           <label>
-            <input type="radio" id="fscTm${contadorTipos}" name="fsc${contadorTipos}" value="fscTm">FSC TM
+            <input type="radio" id="fscTm${contadorTipos}" name="fsc_${contadorTipos}" value="fsc_tm">FSC TM
           </label>
         </div>
       <div class="input-corto">
         <label for="llevaQr">Código QR:
-          <input type="checkbox" id="llevaQr${contadorTipos}" name="llevaQr">
+          <input type="checkbox" id="llevaQr${contadorTipos}" name="lleva_qr_${contadorTipos}">
         </label>
       </div>
       <div class="input-medio">
         <label>Observaciones impresión:
-          <input type="text" id="obsImp${contadorTipos}" name="observacionesImpresion">
+          <input type="text" id="obsImp${contadorTipos}" name="observaciones_impresion_${contadorTipos}">
         </label>
       </div>
       <br>
@@ -1462,7 +1464,8 @@ function mostrarTintasMultipieza(tipoIndex = '') {
   document.getElementById(`fscNo${prefijo}`).checked = false;
 
   // Obtener el radio button seleccionado
-  const seleccionado = document.querySelector(`input[name="tipoImpresionM${prefijo}"]:checked`);
+  const seleccionado = document.querySelector(`input.tipoImpresionM${prefijo}:checked`);
+
 
   // Restablecer el valor del select a "Seleccionar" (opción por defecto)
 
@@ -1735,6 +1738,8 @@ fechaHora.addEventListener("focus", (event) => {
 // Prevenir navegación con tabulación
 fechaHora.setAttribute("tabindex", "-1"); // Elimina del orden de tabulación
 
+
+
 // Función para generar el PDF con el orden del formulario y los encabezados hasta h5
 function generarPDF() {
   const { jsPDF } = window.jspdf;
@@ -1767,11 +1772,31 @@ function generarPDF() {
     return (estilo.display !== 'none') && (estilo.visibility !== 'hidden') && (campo.offsetParent !== null);
   }
 
+  // Obtener valores de los checkboxes seleccionados
+  function obtenerCheckboxSeleccionados() {
+    const checkboxes = document.querySelectorAll('input[name="documento"]:checked');
+    let valores = [];
+    checkboxes.forEach(checkbox => {
+      valores.push(checkbox.value); // Obtener el valor de cada checkbox seleccionado
+    });
+    return valores.join(' '); // Retornar los valores separados por espacio
+  }
+
+  // Agregar el salto de línea por palabra en el texto de los documentos seleccionados
+  function agregarSaltoDeLineaPorPalabra(texto) {
+    const palabras = texto.split(' '); // Dividir el texto en palabras
+    palabras.forEach(palabra => {
+      agregarTexto(palabra, 'normal', [0, 0, 0], 12); // Agregar cada palabra en una nueva línea
+    });
+  }
+
   // Agregar título principal
   doc.setFontSize(16);
   doc.setFont("helvetica", "bold");
   doc.text('Formulario de Solicitud - Detalles', 10, yPosition);
   yPosition += 10;
+
+
 
   // Recorremos el formulario en el orden de los elementos
   const formulario = document.getElementById('petcicionComercial');
@@ -1783,6 +1808,16 @@ function generarPDF() {
       if (campo.tagName.toLowerCase() === 'h1' || campo.tagName.toLowerCase() === 'h2' || campo.tagName.toLowerCase() === 'h3' || campo.tagName.toLowerCase() === 'h4' || campo.tagName.toLowerCase() === 'h5') {
         // Agregar encabezados con formato
         agregarTexto(campo.innerText, 'bold', [0, 0, 0], 14); // Títulos en negrita y mayor tamaño
+        if(campo.textContent.includes('Información adicional:')){
+          // Imprimir los valores de los checkboxes seleccionados con salto de línea por palabra
+          const documentosSeleccionados = obtenerCheckboxSeleccionados();
+          if (documentosSeleccionados) {
+            // Primer paso: agregar el título "Tipo de documentación aportada"
+            agregarTexto('Tipo de documentación aportada:', 'bold', [0, 0, 0], 12);
+            // Segundo paso: agregar cada palabra seleccionada en un salto de línea
+            agregarSaltoDeLineaPorPalabra(documentosSeleccionados);
+          }
+        }
       } else if (campo.type === 'checkbox' && campo.checked) {
         // Solo agregar los checkboxes seleccionados
         agregarTexto(`${campo.name} : Sí`, 'normal', [0, 0, 255]); // Azul para seleccionados
@@ -1790,7 +1825,7 @@ function generarPDF() {
         // Mostrar solo el radio seleccionado y cambiar color dependiendo de si es "Sí", "No" o cualquier otro valor
         if (campo.checked) {
           const valorRadio = campo.value.toLowerCase(); // Asegurar que el valor esté en minúsculas
-          const colorRadio = valorRadio === 'sí' ? [0, 128, 0] :
+          const colorRadio = valorRadio === 'si' ? [0, 128, 0] :
             valorRadio === 'no' ? [255, 0, 0] :
               [255, 165, 0]; // Naranja si no es "Sí" ni "No"
           agregarTexto(`${campo.name} : ${campo.value}`, 'normal', colorRadio);
@@ -1812,6 +1847,8 @@ function generarPDF() {
   // Abrir el cliente de correo con 'mailto'
   window.location.href = `mailto:${email}?subject=Formulario PDF&body=Adjunta el PDF descargado.`;
 }
+
+
 
 // Función para manejar el evento de clic en el botón "Enviar y Terminar"
 document.getElementById("enviarTerminar").addEventListener("click", function (event) {
@@ -1873,10 +1910,23 @@ document.getElementById("enviarSobreescribir").addEventListener("click", functio
     }
 
     // Mostrar mensaje de éxito
-    alert("Formulario enviado y campos específicos limpiados.\nReferencia\nIndicaciones del cliente\nCantidad de lote\nConsumo anual\nNúmero de ficha");
+    //alert("Formulario enviado y campos específicos limpiados.\nReferencia\nIndicaciones del cliente\nCantidad de lote\nConsumo anual\nNúmero de ficha");
   } else {
     console.log("Formulario no válido. No se generará el PDF ni se enviará el correo.");
   }
 });
+
+
+// Obtener todos los checkboxes
+const checkboxes = document.querySelectorAll('.checkbox-list-especiales input[type="checkbox"]');
+
+// Crear un array de los valores de los checkboxes seleccionados
+const valoresSeleccionados = [];
+checkboxes.forEach((checkbox) => {
+  if (checkbox.checked) {
+    valoresSeleccionados.push(checkbox.value);
+  }
+});
+
 
 
