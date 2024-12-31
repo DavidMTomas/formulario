@@ -50,36 +50,36 @@
   <h3>Datos cliente:</h3>
   <div class="input-check">
     <label for="nuevoCliente">Nuevo Cliente:</label>
-    <input type="checkbox" name="nuevoCliente" id="nuevoCliente" value="nuevo">
+    <input type="checkbox" name="nuevo_cliente" id="nuevoCliente" value="nuevo">
   </div>
   <div class="form-group">
 
     <div class="input-corto">
       <label for="numeroCliente">Código:</label>
-      <input type="text" id="numeroCliente" name="numeroCliente" required>
+      <input type="text" id="numeroCliente" name="numero_cliente" required>
     </div>
     <br>
 
     <div class="input-medio">
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" required>
+      <input type="text" id="nombre" name="nombre_cliente" required>
     </div>
 
     <div class="input-medio">
-      <label for="personaContaco">Persona de contacto:</label>
-      <input type="text" id="personaContaco" name="personaContaco" required>
+      <label for="personaContacto">Persona de contacto:</label>
+      <input type="text" id="personaContacto" name="persona_contacto" required>
     </div>
 
     <div class="input-medio">
       <label for="email">Email de contacto:</label>
-      <input type="email" id="email" name="email" required onblur="validarEmail()">
+      <input type="email" id="email" name="email_cliente" required onblur="validarEmail()">
       <!-- Mensaje de error para el email -->
       <span id="mensajeEmail" style="color: red;"></span>
     </div>
 
     <div class="input-intermedio">
       <label for="telefonoPersonaContaco">Teléfono de contacto</label>
-      <input type="text" id="telefonoPersonaContaco" name="telefonoPersonaContaco" required onblur="validarTelefono(this)">
+      <input type="text" id="telefonoPersonaContaco" name="telefono_persona_contaco" required onblur="validarTelefono(this)">
       <!-- Mensaje de error para el teléfono -->
       <span class="mensajeTelefono" style="color: red;"></span>
     </div>
@@ -96,7 +96,7 @@
         <option value="">Selecciona una opción</option>
         <option value="agricultura">Agricultura</option>
         <option value="ceramica">Cerámica</option>
-        <option value="conservasypescados">Conservas y pescados</option>
+        <option value="conservas_y_pescados">Conservas y pescados</option>
         <option value="pesca">Pesca</option>
         <option value="industria">Industria</option>
         <option value="interno">Interno grupo</option>
@@ -110,22 +110,21 @@
 
     <div class="input-medio">
       <label for="indicacionesCliente">Indicaciones del cliente / Observaciones:</label>
-      <textarea id="indicacionesCliente" name="indicacionesCliente" required></textarea>
+      <textarea id="indicacionesCliente" name="indicaciones_cliente" required></textarea>
     </div>
   </div>
   <div class="form-group">
     <div class="input-intermedio">
       <label for="cantidadLote">Cantidad lote:</label>
-      <input type="number" id="cantidadLote" name="cantidadLote" min="0" required>
+      <input type="number" id="cantidadLote" name="cantidad_lote" min="0" required>
     </div>
     <div class="input-intermedio">
       <label for="consumoAnual">Consumo anual estimado:</label>
-      <input type="number" id="consumoAnual" name="consumoAnual" min="0" required>
+      <input type="number" id="consumoAnual" name="consumo_anual" min="0" required>
     </div>
   </div>
 
   <div class="tip-hinge"></div>
-
 
   <h3>Información adicional:</h3>
   <div class="form-group">
@@ -135,26 +134,26 @@
       <button type="button" id="productosBtn">Seleccionar</button>
       <div class="dropdown-content">
         <label>
-          <input type="checkbox" name="documento" value="Muestra fisica para estructural"> Muestra física para
+          <input type="checkbox" name="documento" value="muestra_fisica_para_estructural"> Muestra física para
           estructural
         </label>
         <label>
-          <input type="checkbox" name="documento" value="Muestra para color"> Muestra para color
+          <input type="checkbox" name="documento" value="muestra_para_color"> Muestra para color
         </label>
         <label>
-          <input type="checkbox" name="documento" value="Producto"> Producto
+          <input type="checkbox" name="documento" value="producto"> Producto
         </label>
         <label>
-          <input type="checkbox" name="documento" value="Pdf"> Pdf
+          <input type="checkbox" name="documento" value="pdf"> Pdf
         </label>
         <label>
-          <input type="checkbox" name="documento" value="Arte final"> Arte final
+          <input type="checkbox" name="documento" value="arte_final"> Arte final
         </label>
         <label>
-          <input type="checkbox" name="documento" value="Plano Cad (No editable)"> Plano Cad (NO editable)
+          <input type="checkbox" name="documento" value="plano_cad_no_editable"> Plano Cad (NO editable)
         </label>
         <label>
-          <input type="checkbox" name="documento" value="Plano Cad (editable)"> Plano Cad (editable)
+          <input type="checkbox" name="documento" value="plano_cad_editable"> Plano Cad (editable)
         </label>
       </div>
     </div>
@@ -166,11 +165,11 @@
   <div class="form-group">
     <label for="siAnulaTroquel">¿Bloquea / Anula troquel?</label>
     <label for="siAnulaTroquel">
-      <input type="radio" id="siAnulaTroquel" name="anulaTroquel" value="Si" required >
+      <input type="radio" id="siAnulaTroquel" name="anula_troquel" value="si" required >
       Sí
     </label>
     <label for="noAnulaTroquel">
-      <input type="radio" id="noAnulaTroquel" name="anulaTroquel" value="No" checked>
+      <input type="radio" id="noAnulaTroquel" name="anula_troquel" value="no" checked>
       No
     </label>
 
@@ -179,7 +178,7 @@
     <div class="input-intermedio">
       <div id="contenedorNumeroTroquel" style="display:none;">
         <label for="numeroTroquelAnular">Número de troquel:</label>
-        <input type="number" id="numeroTroquelAnular" name="numeroTroquelAnular" required>
+        <input type="number" id="numeroTroquelAnular" name="numero_troquel_anular" required>
       </div>
     </div>
   </div>
@@ -188,11 +187,11 @@
     <div class="form-group">
       <label for="existeTroquelSi">¿Existe el troquel? </label>
       <label for="existeTroquelSi">
-        <input type="radio" id="existeTroquelSi" name="existeTroquel" value="Si" required checked>
+        <input type="radio" id="existeTroquelSi" name="existe_troquel" value="si" required checked>
         Sí
       </label>
       <label for="existeTroquelNo">
-        <input type="radio" id="existeTroquelNo" name="existeTroquel" value="No">
+        <input type="radio" id="existeTroquelNo" name="existe_troquel" value="no">
         No
       </label>
 
@@ -201,7 +200,7 @@
         <div id="campoNumeroTroquelExistente" style="display:block;">
           <!--      <div class="opcionesNumeroTroquel">-->
           <label for="numeroTroquelExistente">Número de troquel:</label>
-          <input type="number" id="numeroTroquelExistente" name="numeroTroquelExistente" required>
+          <input type="number" id="numeroTroquelExistente" name="numero_troquel_existente" required>
           <!--      opciones carton   se pueden añadir aqui-->
         </div>
       </div>
@@ -212,12 +211,12 @@
     <label for="siAnulaFicha">Anula FF anterior?:
 
       <label for="siAnulaFicha"  id="noAnulaFichaSi">
-      <input type="radio" id="siAnulaFicha" name="anulaFicha" value="Si">
+      <input type="radio" id="siAnulaFicha" name="anula_ficha" value="si">
       Si
       </label>
 
       <label for="noAnulaFicha" id="noAnulaFichaNo">
-        <input type="radio" id="noAnulaFicha" name="anulaFicha" value="No" checked>
+        <input type="radio" id="noAnulaFicha" name="anula_ficha" value="no" checked>
         No
       </label>
     </label>
@@ -226,7 +225,7 @@
     <div class="input-intermedio">
       <div id="contenedorFicha" style="display:none;">
         <label for="numeroFicha">Número de ficha:</label>
-        <input type="number" id="numeroFicha" name="numeroFicha" required>
+        <input type="number" id="numeroFicha" name="numero_ficha_anular" required>
       </div>
     </div>
   </div>
@@ -235,7 +234,9 @@
 
   <div class="tip-hinge"></div>
 
+  <div class="salto">
   <h3>Requerimientos:</h3>
+  </div>
   <h4>ESTRUCTURAL</h4>
 
   <div class="form-group">
@@ -614,13 +615,13 @@
           <legend>Tipo de dimensiones:</legend>
           <div class="radio-group">
             <label>
-              <input type="radio" name="dimensiones" value="dimensionesInteriores"> Dimensiones interiores
+              <input type="radio" name="dimensiones" value="dimensiones_interiores"> Dimensiones interiores
             </label>
             <label>
-              <input type="radio" name="dimensiones" value="dimensionesHendidos" checked> Dimensiones entre Hendidos
+              <input type="radio" name="dimensiones" value="dimensiones_entre_hendidos" checked> Dimensiones entre Hendidos
             </label>
             <label>
-              <input type="radio" name="dimensiones" value="dimensionesExteriores"> Dimensiones Exteriores
+              <input type="radio" name="dimensiones" value="dimensiones_exteriores"> Dimensiones Exteriores
             </label>
           </div>
           <table>
@@ -640,12 +641,12 @@
             </tr>
           </table>
           <label for="archivoAdjunto">
-            <input type="checkbox" id="archivoAdjunto" name="archivoAdjunto"> Archivo adjunto
+            <input type="checkbox" id="archivoAdjunto" name="archivo_adjunto"> Archivo adjunto
           </label>
           <!-- Botón para adjuntar archivo -->
           <input type="file" id="archivoSubidaMedidas" style="display: none" required>
           <label for="muestraFisica">
-            <input type="checkbox" id="muestraFisica" name="muestraFisica"> Entrega muestra física
+            <input type="checkbox" id="muestraFisica" name="muestra_fisica"> Entrega muestra física
           </label>
         </fieldset>
       </div>
@@ -654,16 +655,16 @@
 
     <div class="input-medio">
       <label for="complementoyasas">Complemento y asas:</label>
-      <select id="complementoyasas" name="complementoyasas">
+      <select id="complementoyasas" name="complemento_y_asas">
         <option value="">Selecciona una opcion</option>
-        <option value="asaa">asa A</option>
-        <option value="asab">asa B</option>
-        <option value="asac">asa C</option>
-        <option value="asacuerda">Asa cuerda</option>
-        <option value="asagrande">Asa grande</option>
-        <option value="asarefuerzo">Asa refuerzo</option>
-        <option value="asaspapel">Asas papel</option>
-        <option value="asaplasticodesplegable">Asa plástico desplegable</option>
+        <option value="asa_a">asa A</option>
+        <option value="asa_b">asa B</option>
+        <option value="asa_c">asa C</option>
+        <option value="asa_cuerda">Asa cuerda</option>
+        <option value="asa_grande">Asa grande</option>
+        <option value="asa_refuerzo">Asa refuerzo</option>
+        <option value="asas_papel">Asas papel</option>
+        <option value="asa_plastico_desplegable">Asa plástico desplegable</option>
       </select>
     </div>
 
@@ -672,14 +673,14 @@
       <label for="rejillas">Rejillas:</label>
       <select id="rejillas" name="rejillas">
         <option value="">Selecciona una opción</option>
-        <option value="montadas">A parte montadas</option>
-        <option value="aparte">Incorporadas</option>
+        <option value="a_parte_montadas">A parte montadas</option>
+        <option value="incorporadas">Incorporadas</option>
         <option value="otras">Otras</option>
       </select>
       <!-- Campo de texto oculto inicialmente -->
       <div id="otrasOpcion" style="display: none">
-        <label for="otras-texto">Especifique tipo de rejillas:</label>
-        <input type="text" id="otras-texto" name="otras-texto" placeholder="Tipo de rejillas otras" required>
+        <label for="otras_rejillas">Especifique tipo de rejillas:</label>
+        <input type="text" id="otras_rejillas" name="otras_rejillas" placeholder="Tipo de rejillas otras" required>
       </div>
     </div>
 
@@ -688,16 +689,16 @@
       <label for="pegado">Pegado:</label>
       <select id="pegado" name="pegado">
         <option value="">Selecciona una opción</option>
-        <option value="4Puntos">4 puntos</option>
-        <option value="6Puntos">6 puntos</option>
+        <option value="4_puntos">4 puntos</option>
+        <option value="6_puntos">6 puntos</option>
         <option value="especial">especial</option>
         <option value="fa">Fondo Automático</option>
         <option value="pestaña">pestaña</option>
-        <option value="pestañaFuera">pestaña por fuera</option>
+        <option value="pestaña_fuera">pestaña por fuera</option>
         <option value="plotter">plotter</option>
         <option value="rejilla">rejilla</option>
-        <option value="twinBox">twin box</option>
-        <option value="twinPack">twin pack</option>
+        <option value="twin_box">twin box</option>
+        <option value="twin_pack">twin pack</option>
       </select>
     </div>
   </div>
@@ -708,36 +709,38 @@
     <!-- Selección entre simple y multipieza -->
     <div class="form-group">
     <label>
-      <input type="radio" name="tipoDiseño" value="simple" checked> Estructural simple
+      <input type="radio" name="tipo_diseño" value="simple" checked> Estructural simple
     </label>
     <label>
-      <input type="radio" name="tipoDiseño" value="multiPieza" id="diseñoEstructuralMultiPieza"> Estructural
+      <input type="radio" name="tipo_diseño" value="multi_pieza" id="diseñoEstructuralMultiPieza"> Estructural
       multipieza
     </label>
     </div>
 
 
-    <br>
+
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
-    <div class="input-medio">
-      <label for="idPieza">
-        <input type="text" id="idPieza" name="familiaProductos" placeholder="Identificador de la pieza 1"
-               style="display: none;" required>
+    <div id="bloquesEstructurales" class="tipo-block" style="background:lightgray" >
+      <br>
+    <div class="input-medio" id="idPieza" style="display: none">
+      <h4>Pieza</h4>
+      <label for="numPieza">
+        <input type="text" id="numPieza" name="pieza_id" placeholder="Identificador de la pieza 1" required>
       </label>
     </div>
     <h4>Tipo papel</h4>
     <div class="form-group divTipoPapel">
       <!-- Radio buttons para seleccionar la familia de productos -->
       <label for="cartoncillo">
-        <input type="radio" id="cartoncillo" name="familiaProductos" value="Cartoncillo"> Cartoncillo
+        <input type="radio" id="cartoncillo" name="tipo_papel" value="Cartoncillo"> Cartoncillo
       </label>
 
       <label for="contraencolado">
-        <input type="radio" id="contraencolado" name="familiaProductos" value="Contraencolado"> Contraencolado
+        <input type="radio" id="contraencolado" name="tipo_papel" value="Contraencolado"> Contraencolado
       </label>
 
       <label for="ondulado">
-        <input type="radio" id="ondulado" name="familiaProductos" value="Ondulado" checked> Ondulado
+        <input type="radio" id="ondulado" name="tipo_papel" value="Ondulado" checked> Ondulado
       </label>
 
       <div class="input-corto">
@@ -750,34 +753,34 @@
         <select id="canal" name="canal" required>
           <option value="">Seleccionar</option>
           <!-- Opciones para Ondulado -->
-          <option value="G Nanomicro" class="canalOndulado">G Nanomicro</option>
-          <option value="F Minimicro" class="canalOndulado">F Minimicro 1,1mm</option>
-          <option value="F Micro" class="canalOndulado">E Micro 1,5-1,7mm</option>
-          <option value="D CanalD" class="canalOndulado">D Canal-D 2,5mm</option>
-          <option value="B Canal3" class="canalOndulado">B Canal-3 3mm</option>
-          <option value="C Canal5" class="canalOndulado">C Canal-5 4mm</option>
-          <option value="ED MicroD" class="canalOndulado">ED Micro-D 4mm</option>
-          <option value="EC Micro5" class="canalOndulado">EC Micro-5 6mm</option>
-          <option value="BC Canal3-5" class="canalOndulado">BC Canal 3-5 7mm</option>
+          <option value="g_nanomicro" class="canalOndulado">G Nanomicro</option>
+          <option value="f_minimicro" class="canalOndulado">F Minimicro 1,1mm</option>
+          <option value="e_micro" class="canalOndulado">E Micro 1,5-1,7mm</option>
+          <option value="d_canal_d" class="canalOndulado">D Canal-D 2,5mm</option>
+          <option value="b_canal_3" class="canalOndulado">B Canal-3 3mm</option>
+          <option value="c_canal_5" class="canalOndulado">C Canal-5 4mm</option>
+          <option value="ed_micro_d" class="canalOndulado">ED Micro-D 4mm</option>
+          <option value="ec_micro_5" class="canalOndulado">EC Micro-5 6mm</option>
+          <option value="bc_canal_3-5" class="canalOndulado">BC Canal 3-5 7mm</option>
           <!-- Opciones para Contraencolado -->
 
-          <option value="L+B" class="canalContraencolado">L+B</option>
-          <option value="L+BC" class="canalContraencolado">L+BC</option>
-          <option value="L+C" class="canalContraencolado">L+C</option>
-          <option value="L+D" class="canalContraencolado">L+D</option>
-          <option value="L+E" class="canalContraencolado">L+E</option>
-          <option value="L+EC" class="canalContraencolado">L+EC</option>
-          <option value="L+ED" class="canalContraencolado">L+ED</option>
-          <option value="L+F" class="canalContraencolado">L+F</option>
+          <option value="l+b" class="canalContraencolado">L+B</option>
+          <option value="l+bc" class="canalContraencolado">L+BC</option>
+          <option value="l+c" class="canalContraencolado">L+C</option>
+          <option value="l+d" class="canalContraencolado">L+D</option>
+          <option value="l+e" class="canalContraencolado">L+E</option>
+          <option value="l+ec" class="canalContraencolado">L+EC</option>
+          <option value="l+ed" class="canalContraencolado">L+ED</option>
+          <option value="l+f" class="canalContraencolado">L+F</option>
 
           <!-- Opciones para Cartoncillo -->
-          <option value="L" class="canalCartoncillo">L</option>
+          <option value="l" class="canalCartoncillo">L</option>
         </select>
 
       </div>
 
         <div class="input-corto" id="textoCartoncillo">
-        <div class="input-corto" id="mostrarcalidadcartoncillo" style="display:block;">
+        <div class="input-corto" id="mostrarcalidadcartoncillo" style="display:none;">
           <label for="cllo">Cllo</label>
           <input type="text" id="cllo" name="cllo" placeholder="Cllo" required/>
         </div>
@@ -790,11 +793,11 @@
     <div id="cartoncilloListado" style="display:none;">
       <h4>Tipos de impresión para Cartoncillo</h4>
       <label for="sinImpresionCartoncillo">
-        <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo" name="productoCartoncillo" value="sinImpresion" checked> Sin
+        <input class="trabajoImpresion" type="radio" id="sinImpresionCartoncillo" name="cartoncillo_impresion" value="sinImpresion" checked> Sin
         impresión
       </label>
       <label for="offsetCartoncillo">
-        <input type="radio" id="offsetCartoncillo" name="productoCartoncillo" value="offset"> Offset
+        <input type="radio" id="offsetCartoncillo" name="cartoncillo_impresion" value="offset"> Offset
       </label>
     </div>
 
@@ -802,33 +805,34 @@
     <div id="contraencoladoListado" style="display:none;">
       <h4>Tipos de impresión para Contraencolado</h4>
       <label for="sinImpresionContraencolado">
-        <input class="trabajoImpresion" type="radio" id="sinImpresionContraencolado" name="productoContraencolado" value="sinImpresion" checked> Sin
+        <input class="trabajoImpresion" type="radio" id="sinImpresionContraencolado" name="contraencolado_impresion" value="sinImpresion" checked> Sin
         impresión
       </label>
       <label for="offsetContraencolado">
-        <input  type="radio" id="offsetContraencolado" name="productoContraencolado" value="offset"> Offset
+        <input  type="radio" id="offsetContraencolado" name="contraencolado_impresion" value="offset"> Offset
       </label>
     </div>
+
     <!-- Ondulado -->
     <div id="onduladoListado" style="display:block;">
       <h4>Tipos de impresión para Ondulado</h4>
       <label for="sinImpresionOndulado">
-        <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="productoOndulado" value="sinImpresion" checked>Sin impresión
+        <input class="trabajoImpresion" type="radio" id="sinImpresionOndulado" name="ondulado_impresion" value="sinImpresion" checked>Sin impresión
       </label>
       <label for="offsetOndulado">
-        <input type="radio" id="offsetOndulado" name="productoOndulado" value="offset">Offset
+        <input type="radio" id="offsetOndulado" name="ondulado_impresion" value="offset">Offset
       </label>
       <label for="digitalOndulado">
-        <input type="radio" id="digitalOndulado" name="productoOndulado" value="digital">Digital
+        <input type="radio" id="digitalOndulado" name="ondulado_impresion" value="digital">Digital
       </label>
       <label for="flexoOndulado">
-        <input type="radio" id="flexoOndulado" name="productoOndulado" value="flexo">Flexo
+        <input type="radio" id="flexoOndulado" name="ondulado_impresion" value="flexo">Flexo
       </label>
       <label for="flexoMejoradoOndulado">
-        <input type="radio" id="flexoMejoradoOndulado" name="productoOndulado" value="flexo mejorado">Flexo mejorado
+        <input type="radio" id="flexoMejoradoOndulado" name="ondulado_impresion" value="flexo mejorado">Flexo mejorado
       </label>
       <label for="flexoHDOndulado">
-        <input type="radio" id="flexoHdOndulado" name="productoOndulado" value="flexo HD">Flexo HD
+        <input type="radio" id="flexoHdOndulado" name="ondulado_impresion" value="flexo HD">Flexo HD
       </label>
     </div>
 
@@ -836,30 +840,30 @@
       <h4>Tintas para Offset</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCoffset" name="cian" value="cian" checked> Cian (C)
+          <input type="checkbox" id="tintaCoffset" name="offset_cian" value="cian" checked> Cian (C)
         </label>
         <label>
-          <input type="checkbox" id="tintaMoffset" name="magenta" value="magenta" checked> Magenta (M)
+          <input type="checkbox" id="tintaMoffset" name="offset_magenta" value="magenta" checked> Magenta (M)
         </label>
         <label >
-          <input type="checkbox" id="tintaYoffset" name="amarillo" value="amarillo" checked> Amarillo (Y)
+          <input type="checkbox" id="tintaYoffset" name="offset_amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKoffset" name="negro" value="negro" checked> Negro (K)
+          <input type="checkbox" id="tintaKoffset" name="offset_negro" value="negro" checked> Negro (K)
         </label>
         <div class="input-corto">
           <label > Tinta 5
-          <input type="text" name="tinta5Offset" id="tinta5Offset" >
+          <input type="text" name="offset_tinta5" id="tinta5Offset" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 6
-          <input type="text" name="tinta6Offset" id="tinta6Offset" >
+          <input type="text" name="offset_tinta6" id="tinta6Offset" >
           </label>
         </div>
         <div class="input-corto">
           <label >Tinta 7
-          <input type="text" name="tinta7Offset" id="tinta7Offset">
+          <input type="text" name="offset_tinta7" id="tinta7Offset">
           </label>
         </div>
       </div>
@@ -882,33 +886,33 @@
         </div>
         <div class="input-intermedio">
           <label>Acabados especiales:</label>
-          <ul class="checkbox-list">
+          <ul class="checkbox-list-especiales">
             <li>
-              <input type="checkbox" id="cool_foild" value="coolFoild">
+              <input type="checkbox" id="cool_foild" name="cool_foild" value="cool_foild">
               <label for="cool_foild">COOL FOILD</label>
             </li>
             <li>
-              <input type="checkbox" id="glasofonado_brillo" value="glasofonadoBrillo">
+              <input type="checkbox" id="glasofonado_brillo" name="glasofonado_brillo" value="glasofonado_brillo">
               <label for="glasofonado_brillo">GLASOFONADO BRILLO</label>
             </li>
             <li>
-              <input type="checkbox" id="glasofonado_mate" value="glasofonadoMate">
+              <input type="checkbox" id="glasofonado_mate" name="glasofonado_mate" value="glasofonado_mate">
               <label for="glasofonado_mate">GLASOFONADO MATE</label>
             </li>
             <li>
-              <input type="checkbox" id="gofrado" value="gofrado">
+              <input type="checkbox" id="gofrado" name="gofrado" value="gofrado">
               <label for="gofrado">GOFRADO</label>
             </li>
             <li>
-              <input type="checkbox" id="relieve" value="relieve">
+              <input type="checkbox" id="relieve" name="relieve" value="relieve">
               <label for="relieve">RELIEVE</label>
             </li>
             <li>
-              <input type="checkbox" id="stamping" value="stamping">
+              <input type="checkbox" id="stamping" name="stamping" value="stamping">
               <label for="stamping">STAMPING</label>
             </li>
             <li>
-              <input type="checkbox" id="uvi_selectivo" value="uviSelectivo">
+              <input type="checkbox" id="uvi_selectivo" name="uvi_selectivo" value="uvi_selectivo">
               <label for="uvi_selectivo">UVI SELECTIVO</label>
             </li>
           </ul>
@@ -920,22 +924,22 @@
       <h4>Tintas para Digital</h4>
       <div class="form-group">
         <label >
-          <input type="checkbox" id="tintaCdigital" name="cian" value="cian" checked> Cian (C)
+          <input type="checkbox" id="tintaCdigital" name="digital_cian" value="cian" checked> Cian (C)
         </label>
         <label >
-          <input type="checkbox" id="tintaMdigital" name="magenta" value="magenta" checked> Magenta (M)
+          <input type="checkbox" id="tintaMdigital" name="digital_magenta" value="magenta" checked> Magenta (M)
         </label>
         <label>
-          <input type="checkbox" id="tintaYdigital" name="amarillo" value="amarillo" checked> Amarillo (Y)
+          <input type="checkbox" id="tintaYdigital" name="digital_amarillo" value="amarillo" checked> Amarillo (Y)
         </label>
         <label>
-          <input type="checkbox" id="tintaKdigital" name="negro" value="negro" checked> Negro (K)
+          <input type="checkbox" id="tintaKdigital" name="digital_negro" value="negro" checked> Negro (K)
         </label>
         <label>
-          <input type="checkbox" id="tintaOdigital" name="naranja" value="violeta" checked> Orange (O)
+          <input type="checkbox" id="tintaOdigital" name="digital_naranja" value="violeta" checked> Orange (O)
         </label>
         <label>
-          <input type="checkbox" id="tintaVdigital" name="violeta" value="violeta" checked> Violeta (V)
+          <input type="checkbox" id="tintaVdigital" name="digital_violeta" value="violeta" checked> Violeta (V)
         </label>
       </div>
     </div>
@@ -945,32 +949,32 @@
       <div class="form-group">
         <div class="input-corto">
           <label > Tinta 1
-          <input type="text" name="tinta1Flexo" id="tinta1Flexo" >
+          <input type="text" name="flexo_tinta1" id="tinta1Flexo" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 2
-            <input type="text" name="tinta2Flexo" id="tinta2Flexo" >
+            <input type="text" name="flexo_tinta2" id="tinta2Flexo" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 3
-            <input type="text" name="tinta3Flexo" id="tinta3Flexo" >
+            <input type="text" name="flexo_tinta3" id="tinta3Flexo" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 4
-            <input type="text" name="tinta4Flexo" id="tinta4Flexo" >
+            <input type="text" name="flexo_tinta4" id="tinta4Flexo" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 5
-            <input type="text" name="tinta5Flexo" id="tinta5Flexo" >
+            <input type="text" name="flexo_tinta5" id="tinta5Flexo" >
           </label>
         </div>
         <div class="input-corto">
           <label > Tinta 6
-            <input type="text" name="tinta6Flexo" id="tinta6Flexo" >
+            <input type="text" name="flexo_tinta6" id="tinta6Flexo" >
           </label>
         </div>
       </div>
@@ -991,31 +995,32 @@
       </div>
     </div>
 
-    <div id="fscQr" class="fscQrList" style="display: none">
+    <div id="fscQr" class="fscQrList" style="display:none">
         <div class="form-group">
           <label>FSC:</label>
           <label>
             <input type="radio" id="fscNo" name="fsc" value="no" checked>NO
           </label>
           <label>
-            <input type="radio" id="fscR" name="fsc" value="fscR">FSC R
+            <input type="radio" id="fscR" name="fsc" value="fsc_r">FSC R
           </label>
           <label>
-            <input type="radio" id="fscTm" name="fsc" value="fscTm">FSC TM
+            <input type="radio" id="fscTm" name="fsc" value="fsc_tm">FSC TM
           </label>
         </div>
       <div class="input-corto">
         <label for="llevaQr">Código QR:
-          <input type="checkbox" id="llevaQr" name="llevaQr">
+          <input type="checkbox" id="llevaQr" name="lleva_qr">
         </label>
       </div>
       <div class="input-medio">
         <label>Observaciones impresión:
-          <input type="text" id="obsImp" name="observacionesImpresion">
+          <input type="text" id="obsImp" name="observaciones_impresion">
         </label>
       </div>
     </div>
-
+      <br>
+    </div>
 
     <!-- Contenedor donde se generarán los bloques DESPUES DE ESTE BLOQUE-->
     <div id="numTiposContainer" style="display:none;">
@@ -1028,12 +1033,11 @@
     </div>
 
 
-    <div class="tip-hinge"></div>
-    <br>
   </div><!--fin acabado estructural-->
 
   <!-- Opciones comunes para todos los tipos de acabado -->
-
+  <div class="tip-hinge"></div>
+  <br>
 
   <div class="control-peticion ">
     <h4>MAQUETA</h4>
@@ -1046,7 +1050,7 @@
     <div id="mostrarDesplegableMuestras" class="dropdown" style="display: none;">
       <div class="custom-spinner">
         <button type="button" class="controlBtn" onclick="decrement('muestraExtra')">-</button>
-        <input type="number" id="muestraExtra" name="muestraExtra" min="1" value="0" readonly>
+        <input type="number" id="muestraExtra" name="muestras_total" min="1" value="0" readonly>
         <button type="button" class="controlBtn" onclick="increment('muestraExtra')">+</button>
       </div>
     </div>
@@ -1063,7 +1067,7 @@
       <div id="mostrarDesplegableBoceto" class="dropdown" style="display: none;">
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('bocetoExtra')">-</button>
-          <input type="number" id="bocetoExtra" name="bocetoExtra" min="1" value="0" readonly>
+          <input type="number" id="bocetoExtra" name="boceto_total" min="1" value="0" readonly>
           <button type="button" class="controlBtn" onclick="increment('bocetoExtra')">+</button>
         </div>
       </div>
@@ -1078,7 +1082,7 @@
       <div id="mostrarDesplegablePlotter" class="dropdown" style="display: none;">
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('plotterExtra')">-</button>
-          <input type="number" id="plotterExtra" name="plotterExtra" min="1" value="0" readonly>
+          <input type="number" id="plotterExtra" name="plotter_total" min="1" value="0" readonly>
           <button type="button" class="controlBtn" onclick="increment('plotterExtra')">+</button>
         </div>
       </div>
@@ -1087,13 +1091,13 @@
     <div class="control-impression-item">
       <div class="control-item">
         <label for="checkForrada">Muestra Forrada</label>
-        <input type="checkbox" name="muestraforrada" id="checkForrada"
+        <input type="checkbox" name="muestra_forrada" id="checkForrada"
                onclick="toggleDropdown('mostrarDesplegableForrada','forradaExtra')">
       </div>
       <div id="mostrarDesplegableForrada" class="dropdown" style="display: none;">
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('forradaExtra')">-</button>
-          <input type="number" id="forradaExtra" name="forradaExtra" min="1" value="0" readonly>
+          <input type="number" id="forradaExtra" name="muestra_forrada_total" min="1" value="0" readonly>
           <button type="button" class="controlBtn" onclick="increment('forradaExtra')">+</button>
         </div>
       </div>
@@ -1128,7 +1132,7 @@
   <div class="tip-hinge"></div>
   <h4>OTROS</h4>
   <label for=checkFichaTecnica>Ficha tecnica laboratotio
-    <input type="checkbox" name="checkFichaTecnica" id="checkFichaTecnica">
+    <input type="checkbox" name="ficha_tecnica" id="checkFichaTecnica">
   </label>
   <br>
   <br>
@@ -1140,7 +1144,7 @@
     <div class="input-intermedio">
       <label for="paletizado">Paletizado:</label>
       <select id="paletizado" name="paletizado">
-        <option value="aConvenir">A convenir</option>
+        <option value="a_convenir">A convenir</option>
         <option value="especificar">Especificar</option>
       </select>
     </div>
@@ -1209,17 +1213,17 @@
         <div class="row">
           <div class="field">
             <label for="alturaPalet">Altura máxima (incluido palet)</label>
-            <input type="number" id="alturaPalet" name="alturaPalet" placeholder="En centímetros">
+            <input type="number" id="alturaPalet" name="altura_palet" placeholder="En centímetros">
           </div>
           <div class="field">
             <label for="cajasPalet">Cajas por palet</label>
-            <input type="number" id="cajasPalet" name="cajasPalet">
+            <input type="number" id="cajasPalet" name="cajas_palet">
           </div>
           <div class="field">
             <label>Caja agrupadora</label>
             <div>
-              <input type="radio" name="pCajaAgrupadora" value="si">Si
-              <input type="radio" name="pCajaAgrupadora" value="no">No
+              <input type="radio" name="caja_agrupadora" value="si">Si
+              <input type="radio" name="caja_agrupadora" value="no">No
             </div>
           </div>
         </div>
@@ -1227,15 +1231,15 @@
         <div class="row">
           <div class="field">
             <label for="unidadesPaquete">Unidades por paquete</label>
-            <input type="number" id="unidadesPaquete" name="unidadesPaquete">
+            <input type="number" id="unidadesPaquete" name="unidades_paquete">
           </div>
           <div class="field">
             <label for="unidadesBase">Unidades de base</label>
-            <input type="number" id="unidadesBase" name="unidadesBase">
+            <input type="number" id="unidadesBase" name="unidades_base">
           </div>
           <div class="field">
             <label for="unidadesAltura">Unidades de altura</label>
-            <input type="number" id="unidadesAltura" name="unidadesAltura">
+            <input type="number" id="unidadesAltura" name="unidades_altura">
           </div>
         </div>
 
@@ -1243,22 +1247,22 @@
           <div class="field">
             <label>Palet tablero</label>
             <div>
-              <input type="radio" name="pTablero" value="si">Si
-              <input type="radio" name="pTablero" value="no">No
+              <input type="radio" name="palet_tablero" value="si">Si
+              <input type="radio" name="palet_tablero" value="no">No
             </div>
           </div>
           <div class="field">
             <label>Puede sobresalir</label>
             <div>
-              <input type="radio" name="sobresalir" value="si">Si
-              <input type="radio" name="sobresalir" value="no">No
+              <input type="radio" name="puede_sobresalir" value="si">Si
+              <input type="radio" name="puede_sobresalir" value="no">No
             </div>
           </div>
           <div class="field">
             <label>Paquetes volteados</label>
             <div>
-              <input type="radio" name="volteados" value="si">Si
-              <input type="radio" name="volteados" value="no">No
+              <input type="radio" name="paquetes_volteados" value="si">Si
+              <input type="radio" name="paquetes_volteados" value="no">No
             </div>
           </div>
         </div>
@@ -1267,22 +1271,22 @@
           <div class="field">
             <label>Flejado</label>
             <div>
-              <input type="radio" name="pFlejado" value="si">Si
-              <input type="radio" name="pFlejado" value="no">No
+              <input type="radio" name="flejado" value="si">Si
+              <input type="radio" name="flejado" value="no">No
             </div>
           </div>
           <div class="field">
             <label>Retractilado</label>
             <div>
-              <input type="radio" name="pRetractilado" value="si">Si
-              <input type="radio" name="pRetractilado" value="no">No
+              <input type="radio" name="retractilado" value="si">Si
+              <input type="radio" name="retractilado" value="no">No
             </div>
           </div>
           <div class="field">
             <label>Cantoneras</label>
             <div>
-              <input type="radio" name="pCantoneras" value="si">Si
-              <input type="radio" name="pCantoneras" value="no">No
+              <input type="radio" name="cantoneras" value="si">Si
+              <input type="radio" name="cantoneras" value="no">No
             </div>
           </div>
         </div>
@@ -1291,16 +1295,16 @@
     </div>
     <div class="input-medio">
       <label for="observacionesPaletizado">Observaciones paletizado:</label>
-      <input type="text" id="observacionesPaletizado" name="observacionesPaletizado">
+      <input type="text" id="observacionesPaletizado" name="observaciones_paletizado">
     </div>
     <div class="input-medio">
       <label for="horarioDescarga">Horario de descarga:</label>
-      <input type="text" id="horarioDescarga" name="horarioDescarga">
+      <input type="text" id="horarioDescarga" name="horario_descarga">
     </div>
     <div class="custom-spinner">
       <label for="etiquetasPaletizado">Etiquetas paletizado:</label>
       <button type="button" onclick="decrement('etiquetasPaletizado')">-</button>
-      <input type="number" id="etiquetasPaletizado" name="etiquetasPaletizado" min="0" value="1">
+      <input type="number" id="etiquetasPaletizado" name="etiquetas_paletizado" min="0" value="1">
       <button type="button" onclick="increment('etiquetasPaletizado')">+</button>
       <div id="textoExtra" style="display: none;">Para más de 1 etiqueta se requiere autorización</div>
     </div>
@@ -1310,19 +1314,19 @@
       <legend>Caja muestra por etiqueta:</legend>
       <div class="radio-group">
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="ninguna" checked onclick="checkValue()"> Ninguna
+          <input type="radio" name="caja_muestra_por_etiqueta" value="ninguna" checked onclick="checkValue()"> Ninguna
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="largo" onclick="checkValue()"> Largo
+          <input type="radio" name="caja_muestra_por_etiqueta" value="largo" onclick="checkValue()"> Largo
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="Ancho" onclick="checkValue()"> Ancho
+          <input type="radio" name="caja_muestra_por_etiqueta" value="Ancho" onclick="checkValue()"> Ancho
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="largoAncho" onclick="checkValue()"> Largo y ancho
+          <input type="radio" name="caja_muestra_por_etiqueta" value="largoAncho" onclick="checkValue()"> Largo y ancho
         </label>
         <label>
-          <input type="radio" name="CajaMuestraPorEtiqueta" value="4lados" onclick="checkValue()"> 4 lados
+          <input type="radio" name="caja_muestra_por_etiqueta" value="4lados" onclick="checkValue()"> 4 lados
         </label>
       </div>
     </fieldset>
@@ -1333,12 +1337,12 @@
   <div class="form-group">
     <div class="input-intermedio">
       <label for="fechaHora" >Fecha:</label>
-      <input type="datetime-local" id="fechaHora" name="fechaHora" required readonly>
+      <input type="datetime-local" id="fechaHora" name="fecha_hora" required readonly>
     </div>
 
     <div class="input-medio">
       <label for="nombreComercial">Comercial:</label>
-      <input class="campotextocorto" type="text" id="nombreComercial" name="nombreComercial" required>
+      <input class="campotextocorto" type="text" id="nombreComercial" name="nombre_comercial" required>
     </div>
 
     <!-- Campo honeypot -->
@@ -1346,7 +1350,7 @@
 
     <div class="input-medio">
       <label for="nombreGestor">Gestor de proyecto:</label>
-      <select class="campotextocorto" id="nombreGestor" name="nombreGestor" required>
+      <select class="campotextocorto" id="nombreGestor" name="nombre_gestor" required>
         <option value="">Seleccione un gestor</option>
         <option value="caldes">Abi</option>
         <option value="herrero">Gabriel</option>
