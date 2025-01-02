@@ -362,6 +362,8 @@ function toggleDropdown(divId,inputId) {
   validarCheckboxesMuestras()
 }
 
+
+
 // Función para incrementar el valor del input numérico
 function increment(inputId) {
   const input = document.getElementById(inputId);
@@ -374,6 +376,31 @@ function decrement(inputId) {
   const input = document.getElementById(inputId);
   input.stepDown();
   checkValue(); // Verifica si el valor es mayor que 1 y muestra el texto
+}
+
+
+function muestraMinima(event,inputId) {
+  const selectedRadio = event.target.value;
+
+  let valor = 0;
+  switch (selectedRadio) {
+    case "ninguna":
+      valor = 2;
+      break;
+    case "original":
+      valor = 1;
+      break;
+    case "copia":
+      valor = 2;
+      break;
+  }
+
+  const inputElement = document.getElementById(inputId);
+  inputElement.min = valor;
+  if(inputElement.value<valor){
+    inputElement.value=valor;
+  }
+
 }
 
 // Función para verificar el valor del input y las opciones seleccionadas
@@ -397,17 +424,32 @@ function checkValue() {
   }
 }
 
+
 // DIRECCIONES DE ENVIO
 window.addEventListener('DOMContentLoaded', function () {
   const seccionEnvios = document.getElementById("seccionEnvios");
 
   // Obtener valores iniciales de los inputs
   function obtenerTotalesIniciales() {
+    const noDevMuestra= document.getElementById("noDevuelveMuestra").checked
+    const noDevPlotter= document.getElementById("noDevuelvePlotter").checked
+
+
+    let plotters = parseInt(document.getElementById("plotterExtra").value, 10) || 0;
+    if(noDevPlotter){
+      plotters-=1;
+    }
+
+    let muestrasForradas = parseInt(document.getElementById("forradaExtra").value, 10) || 0;
+    if(noDevMuestra){
+      muestrasForradas-=1;
+    }
+
     return {
       maquetas: parseInt(document.getElementById("muestraExtra").value, 10) || 0,
       bocetos: parseInt(document.getElementById("bocetoExtra").value, 10) || 0,
-      plotters: parseInt(document.getElementById("plotterExtra").value, 10) || 0,
-      muestrasForradas: parseInt(document.getElementById("forradaExtra").value, 10) || 0,
+      plotters:plotters,
+      muestrasForradas:muestrasForradas,
     };
   }
 
@@ -438,13 +480,18 @@ window.addEventListener('DOMContentLoaded', function () {
 
   }
 
-
   // Agregar una nueva dirección
   document.getElementById("agregarDireccion").addEventListener("click", function () {
     if (!validarCheckboxesMuestras()) {
       alert("Debe seleccionar al menos una muestra para poder añadir una dirección de envío");
       return;
     }
+
+    const buttons = document.querySelectorAll(".controlBtn");  // Selecciona todos los botones con la clase "controlBtn"
+    buttons.forEach(button => {
+      button.disabled = true;  // Deshabilita cada botón
+      button.style.background = "grey";
+    });
 
     document.getElementById("eliminarDireccion").style.display = "block";
     const totalesDisponibles = calcularTotalesDisponibles();
@@ -455,6 +502,8 @@ window.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+
+    bloquearCheckboxesMuestras()
     const nuevaDireccion = document.createElement("div");
     nuevaDireccion.className = "envio form-group";
 
@@ -494,51 +543,68 @@ window.addEventListener('DOMContentLoaded', function () {
         </label>
       </div>
     </div>
+
+    <div class="form-group">
     <label>Maquetas a enviar:
          <div class="input-corto custom-spinner" >
-          <button type="button" class="controlBtn" onclick="decrement('maquetass${seccionEnvios.children.length}')">-</button>
+          <button type="button" class="controlBtnG" onclick="decrement('maquetass${seccionEnvios.children.length}')">-</button>
               <input type="number" class="numerosNoPermitidos" name="maquetass[]" id="maquetass${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly>
-        <button type="button" class="controlBtn" onclick="increment('maquetass${seccionEnvios.children.length}')">+</button>
+        <button type="button" class="controlBtnG" onclick="increment('maquetass${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
 
     <label>Bocetos a enviar:
           <div class="input-corto custom-spinner" >
-           <button type="button" class="controlBtn" onclick="decrement('bocetos${seccionEnvios.children.length}')">-</button>
+           <button type="button" class="controlBtnG" onclick="decrement('bocetos${seccionEnvios.children.length}')">-</button>
               <input type="number" class="numerosNoPermitidos" name="bocetos[]" id="bocetos${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" readonly>
-         <button type="button" class="controlBtn" onclick="increment('bocetos${seccionEnvios.children.length}')">+</button>
+         <button type="button" class="controlBtnG" onclick="increment('bocetos${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
 
     <label>Plotters a enviar:
         <div class="input-corto custom-spinner" >
-            <button type="button" class="controlBtn" onclick="decrement('plotters${seccionEnvios.children.length}')">-</button>
+            <button type="button" class="controlBtnG" onclick="decrement('plotters${seccionEnvios.children.length}')">-</button>
              <input type="number" class="numerosNoPermitidos" name="plotters[]" id="plotters${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" readonly>
-            <button type="button" class="controlBtn" onclick="increment('plotters${seccionEnvios.children.length}')">+</button>
+            <button type="button" class="controlBtnG" onclick="increment('plotters${seccionEnvios.children.length}')">+</button>
        </div>
     </label>
 
     <label>Muestras forradas a enviar:
 
          <div class="input-corto custom-spinner" >
-         <button type="button" class="controlBtn" onclick="decrement('muestrasForradas${seccionEnvios.children.length}')">-</button>
+         <button type="button" class="controlBtnG" onclick="decrement('muestrasForradas${seccionEnvios.children.length}')">-</button>
           <input type="number" class="numerosNoPermitidos" name="muestrasForradas[]" id="muestrasForradas${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" readonly>
-        <button type="button" class="controlBtn" onclick="increment('muestrasForradas${seccionEnvios.children.length}')">+</button>
+        <button type="button" class="controlBtnG" onclick="increment('muestrasForradas${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
+    </div>
 
     <hr>
   `;
 
     seccionEnvios.appendChild(nuevaDireccion);
-
+    agregarDatosContacto(nuevaDireccion)
     // Después de agregar la nueva dirección, vincula los eventos de 'keydown' para evitar la escritura de números
     agregarEventosCampos();
 
+
     // Actualizar dinámicamente los totales cuando cambien los valores
-    const inputs = nuevaDireccion.querySelectorAll('input[type="number"]');
-    inputs.forEach(input => input.addEventListener("input", actualizarTotales));
+    //const inputs = nuevaDireccion.querySelectorAll('input[type="number"]');
+   // inputs.forEach(input => input.addEventListener("input", actualizarTotales()));
   });
+
+// Manejo de eventos después de crear nueva dirección
+  function agregarDatosContacto(nuevaDireccion) {
+    const contactoCliente = document.getElementById("personaContacto").value;
+    const telefonoCliente = document.getElementById("telefonoPersonaContacto").value;
+
+    const nuevosCamposContacto = nuevaDireccion.querySelector("input[name='personaContacto[]']");
+    const nuevosCamposTelefono = nuevaDireccion.querySelector("input[name='telefono[]']");
+
+    nuevosCamposContacto.value = contactoCliente; // Asigna el valor al nuevo campo de contacto
+    nuevosCamposTelefono.value = telefonoCliente; // Asigna el valor al nuevo campo de teléfono
+  }
+
 
 
 // Recoger muestras por comerciales
@@ -563,9 +629,11 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Si el checkbox no está marcado, ocultar el contenedor y desmarcarlo
     if (!checkbox.checked) {
-          //if(document.getElementById("eliminarDireccion").style.display === "none"){
-            desbloquearCheckboxesMuestras();
-        //  }
+      const buttons = document.querySelectorAll(".controlBtnG");  // Selecciona todos los botones con la clase "controlBtn"
+      buttons.forEach(button => {
+        button.disabled = false;  // Deshabilita cada botón
+        button.style.background = "";
+      });
       contenedor.style.display = "none";  // Ocultar el contenedor si el checkbox no está marcado
       document.getElementById("agregarDireccion").disabled=false
       document.getElementById("agregarDireccion").style.background = "";
@@ -598,28 +666,25 @@ window.addEventListener('DOMContentLoaded', function () {
 
     <label>Maquetas a recoger:
         <div class="input-corto">
-            <input type="number" name="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly="true">
+            <input type="number" name="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly>
          </div>
     </label>
 
-
     <label>Bocetos a recoger:
        <div class="input-corto">
-            <input type="number" name="bocetos[]" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" readonly="true">
+            <input type="number" name="bocetos[]" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" readonly>
         </div>
     </label>
-
 
     <label>Plotters a recoger:
         <div class="input-corto">
-            <input type="number" name="plotters[]" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" readonly="true">
+            <input type="number" name="plotters[]" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" readonly>
         </div>
     </label>
 
-
     <label>Muestras forradas a recoger:
        <div class="input-corto">
-            <input type="number" name="muestrasForradas[]" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" readonly="true">
+            <input type="number" name="muestrasForradas[]" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" readonly>
         </div>
     </label>
 
@@ -637,16 +702,25 @@ window.addEventListener('DOMContentLoaded', function () {
     mensaje.style.display = 'block';
 
     // Ahora añadimos el evento de 'input' a cada campo de tipo number
-    const inputs = recoger.querySelectorAll('input[type="number"]');
-    inputs.forEach(input => input.addEventListener("input", actualizarTotales));
+   // const inputs = recoger.querySelectorAll('input[type="number"]');
+   // inputs.forEach(input => input.addEventListener("input", actualizarTotales));
   });
+
 
 
   function bloquearCheckboxesMuestras(){
     document.getElementById("checkDiseñoEstructural").disabled = true;
     document.getElementById("checkBoceto").disabled = true;
     document.getElementById("checkPlotter").disabled = true;
+    document.getElementById("opcionFirmasPlotter").disabled = true;
     document.getElementById("checkForrada").disabled = true;
+    document.getElementById("opcionFirmasMuestra").disabled = true;
+    const buttonsG = document.querySelectorAll(".controlBtnG");  // Selecciona todos los botones con la clase "controlBtn"
+    buttonsG.forEach(button => {
+      button.disabled = true;  // Deshabilita cada botón
+      button.style.background = "grey";
+    });
+
     const buttons = document.querySelectorAll(".controlBtn");  // Selecciona todos los botones con la clase "controlBtn"
     buttons.forEach(button => {
       button.disabled = true;  // Deshabilita cada botón
@@ -659,13 +733,24 @@ window.addEventListener('DOMContentLoaded', function () {
     document.getElementById("checkDiseñoEstructural").disabled = false;
     document.getElementById("checkBoceto").disabled = false;
     document.getElementById("checkPlotter").disabled = false;
+    document.getElementById("opcionFirmasPlotter").disabled = false;
     document.getElementById("checkForrada").disabled = false;
+    document.getElementById("opcionFirmasMuestra").disabled = false;
+
+    const buttonsG = document.querySelectorAll(".controlBtnG");  // Selecciona todos los botones con la clase "controlBtn"
+    buttonsG.forEach(button => {
+      button.disabled = false;  // Deshabilita cada botón
+      button.style.background = "";
+    });
+
     const buttons = document.querySelectorAll(".controlBtn");
     buttons.forEach(button => {
       button.disabled = false;  // Habilita cada botón
       button.style.background = "";
     });
   }
+
+
 
 
 // Seleccionar los elementos de entrada y agregar el evento de escucha
@@ -687,30 +772,21 @@ window.addEventListener('DOMContentLoaded', function () {
   document.getElementById("eliminarDireccion").addEventListener("click", function () {
     if (seccionEnvios.children.length > 0) {
       seccionEnvios.removeChild(seccionEnvios.lastElementChild);
-      actualizarTotales(); // Actualizar totales después de eliminar
+      const buttons = document.querySelectorAll(".controlBtnG");  // Selecciona todos los botones con la clase "controlBtn"
+      buttons.forEach(button => {
+        button.disabled = false;  // Deshabilita cada botón
+        button.style.background = "";
+      });
+
     }
     if(seccionEnvios.children.length === 0){
       document.getElementById("eliminarDireccion").style.display = "none";
+      desbloquearCheckboxesMuestras()
+
     }
   });
 
-  // Actualizar totales dinámicamente
-  function actualizarTotales() {
-    const totalesDisponibles = calcularTotalesDisponibles();
 
-    const direcciones = seccionEnvios.querySelectorAll('.envio');
-    direcciones.forEach(envio => {
-      const inputMaquetas = envio.querySelector('input[name="maquetass[]"]');
-      const inputBocetos = envio.querySelector('input[name="bocetos[]"]');
-      const inputPlotters = envio.querySelector('input[name="plotters[]"]');
-      const inputMuestrasForradas = envio.querySelector('input[name="muestrasForradas[]"]');
-
-      inputMaquetas.max = totalesDisponibles.maquetas + parseInt(inputMaquetas.value, 10);
-      inputBocetos.max = totalesDisponibles.bocetos + parseInt(inputBocetos.value, 10);
-      inputPlotters.max = totalesDisponibles.plotters + parseInt(inputPlotters.value, 10);
-      inputMuestrasForradas.max = totalesDisponibles.muestrasForradas + parseInt(inputMuestrasForradas.value, 10);
-    });
-  }
 });
 
 //FIN DIRECCION ENVIO
