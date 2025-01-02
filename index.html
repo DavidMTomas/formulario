@@ -67,7 +67,7 @@
 
     <div class="input-medio">
       <label for="personaContacto">Persona de contacto:</label>
-      <input type="text" id="personaContacto" name="persona_contacto" required oninput="sincronizarContacto()">
+      <input type="text" id="personaContacto" name="persona_contacto" required>
     </div>
 
     <div class="input-medio">
@@ -78,8 +78,8 @@
     </div>
 
     <div class="input-intermedio">
-      <label for="telefonoPersonaContaco">Teléfono de contacto</label>
-      <input type="text" id="telefonoPersonaContaco" name="telefono_persona_contaco" required onblur="validarTelefono(this)" oninput="sincronizarTelefono()">
+      <label for="telefonoPersonaContacto">Teléfono de contacto</label>
+      <input type="text" id="telefonoPersonaContacto" name="telefono_persona_contaco" required onblur="validarTelefono(this)">
       <!-- Mensaje de error para el teléfono -->
       <span class="mensajeTelefono" style="color: red;"></span>
     </div>
@@ -1081,6 +1081,20 @@
                onclick="toggleDropdown('mostrarDesplegablePlotter', 'plotterExtra')">
       </div>
       <div id="mostrarDesplegablePlotter" class="dropdown" style="display: none;">
+        <fieldset id="opcionFirmasPlotter">
+          <legend>Devuelve plotter:</legend>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="devolucion_muestra_plotter" id="noDevuelvePlotter"  value="ninguna" onclick="muestraMinima(event,'plotterExtra')"> No
+            </label>
+            <label>
+              <input type="radio" name="devolucion_muestra_plotter" value="original" checked onclick="muestraMinima(event,'plotterExtra')"> Si, firmado
+            </label>
+            <label>
+              <input type="radio" name="devolucion_muestra_plotter" value="copia" onclick="muestraMinima(event,'plotterExtra')"> Copia firmada
+            </label>
+          </div>
+        </fieldset>
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('plotterExtra')">-</button>
           <input type="number" id="plotterExtra" name="plotter_total" min="1" value="0" readonly>
@@ -1096,6 +1110,20 @@
                onclick="toggleDropdown('mostrarDesplegableForrada','forradaExtra')">
       </div>
       <div id="mostrarDesplegableForrada" class="dropdown" style="display: none;">
+        <fieldset id="opcionFirmasMuestra">
+          <legend>Devuelve muestra:</legend>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="devolucion_muestra_forrada" id="noDevuelveMuestra" value="ninguna" onclick="muestraMinima(event,'forradaExtra')"> No
+            </label>
+            <label>
+              <input type="radio" name="devolucion_muestra_forrada" value="original" checked onclick="muestraMinima(event,'forradaExtra')"> Si, firmado
+            </label>
+            <label>
+              <input type="radio" name="devolucion_muestra_forrada" value="copia" onclick="muestraMinima(event,'forradaExtra')"> Copia firmada
+            </label>
+          </div>
+        </fieldset>
         <div class="custom-spinner">
           <button type="button" class="controlBtn" onclick="decrement('forradaExtra')">-</button>
           <input type="number" id="forradaExtra" name="muestra_forrada_total" min="1" value="0" readonly>
@@ -1116,7 +1144,7 @@
   </div>
 
   <div id="mensaje" class="mensaje-superpuesto">
-    <span>ℹ️</span> Desmarque el checkbox si desea modificar las opciones de envío, o el número de muestras.
+    <span>ℹ️</span> Desmarque el checkbox si desea modificar las opciones de envío.
   </div>
 
 
