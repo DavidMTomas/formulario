@@ -512,7 +512,7 @@ window.addEventListener('DOMContentLoaded', function () {
       alert("Debe seleccionar al menos una muestra para poder añadir una dirección de envío");
       return;
     }
-
+    document.getElementById("agregarDireccion").scrollIntoView({ behavior: 'smooth', block: 'center' });
     const buttons = document.querySelectorAll(".controlBtn");  // Selecciona todos los botones con la clase "controlBtn"
     buttons.forEach(button => {
       button.disabled = true;  // Deshabilita cada botón
@@ -824,7 +824,9 @@ window.addEventListener('DOMContentLoaded', function () {
       document.getElementById("eliminarDireccion").style.display = "none";
       desbloquearCheckboxesMuestras()
     }
+    document.getElementById("eliminarDireccion").scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
+
 
 
 });
@@ -1171,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Función para generar bloques dinámicamente
 function generarBloques() {
   const container = document.getElementById('tiposGenerados');
-
+  document.getElementById("numTiposInc").scrollIntoView({ behavior: 'smooth', block: 'center' });
   if(contadorTipos >30) {
     alert(`No se pueden añadir más de ${contadorTipos-1} tipos, contacta con el administrador`);
     return;
@@ -1198,10 +1200,10 @@ function generarBloques() {
 
   // Aplicar un color de fondo más oscuro si el contador es par
   if (contadorTipos % 2 === 0) {
-    bloque.style.backgroundColor = '#cedce7'; // Azul claro
+    bloque.style.cssText = "background: transparent; border: 5px solid #2ecc71; border-radius: 12px; box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1); padding: 20px; transition: all 0.3s ease;";
       //'#f0f0f0'; // Color más oscuro (gris claro)
   } else {
-    bloque.style.backgroundColor = 'lightgray'; // Color blanco por defecto
+    bloque.style.cssText = "background: transparent; border: 5px solid #3498db; border-radius: 12px; box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1); padding: 20px; transition: all 0.3s ease;";
   }
 
   // El tipo será el valor del contador actual
@@ -1535,6 +1537,7 @@ function generarBloques() {
 // Función para eliminar bloques
 function eliminarBloques() {
   const container = document.getElementById('tiposGenerados');
+  document.getElementById("numTiposDec").scrollIntoView({ behavior: 'smooth', block: 'end' });
 
   // Verificar si hay bloques en el contenedor
   if (container.children.length > 1) {

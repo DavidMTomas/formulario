@@ -350,7 +350,6 @@ fieldset {
 /* Estilo del legend (el texto dentro del fieldset) */
 fieldset legend {
   font-size: 1.4em;
-  color: #2c3e50; /* Color del texto */
   font-weight: bold;
   padding: 0 10px; /* Espacio alrededor del texto */
   background-color: #3498db; /* Fondo del legend */
@@ -670,9 +669,11 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 .paletizado-container {
   width: 100%;
-  border: 1px solid #ccc;
   padding: 10px;
   box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color:  #f9f9f9;
 }
 
 .header {

@@ -218,7 +218,7 @@ div {
 
 .input-checkbox label {
   font-size: 16px; /* Tamaño de fuente */
-  color: #333; /* Color del texto */
+  color: #bdc3c7; /* Color del texto */
   font-weight: 500; /* Peso de fuente */
   display: block; /* Asegura que los labels se muestren en su propia línea */
 }
@@ -302,7 +302,7 @@ hr {
 }
 /* Estilo por defecto (modo claro) */
 .tipo-block {
-  color: #000000;  /* Texto negro para el bloque */
+  color: #f2f2f2;  /* Texto negro para el bloque */
   padding: 8px;
 }
 
@@ -313,7 +313,7 @@ hr {
 .tipo-block h4,
 .tipo-block h5,
 .tipo-block h6 {
-  color: #333333;  /* Color más oscuro para los encabezados */
+  color: #f2f2f2;  /* Color más oscuro para los encabezados */
 }
 
 label {
@@ -691,9 +691,11 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 .paletizado-container {
   width: 100%;
-  border: 1px solid #ccc;
   padding: 10px;
   box-sizing: border-box;
+  border: 2px solid #555;
+  border-radius: 5px;
+  background-color: #333;
 }
 
 .header {
@@ -765,6 +767,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
   .paletizado-container .field {
     flex: 1 1 100%; /* Cada campo ocupa toda la fila */
     margin-bottom: 15px;
+
   }
 
   /* Ajuste para los inputs y select */
