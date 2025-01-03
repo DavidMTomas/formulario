@@ -1085,20 +1085,20 @@
           <legend>Devuelve plotter:</legend>
           <div class="radio-group">
             <label>
-              <input type="radio" name="devolucion_muestra_plotter" id="noDevuelvePlotter"  value="ninguna" onclick="muestraMinima(event,'plotterExtra')"> No
+              <input type="radio" name="devolucion_muestra_plotter" value="original" checked onclick="muestraMinima(event,'plotterExtra','controlBtnPlotter')"> Si, firmado
             </label>
             <label>
-              <input type="radio" name="devolucion_muestra_plotter" value="original" checked onclick="muestraMinima(event,'plotterExtra')"> Si, firmado
+              <input type="radio" name="devolucion_muestra_plotter" value="copia" onclick="muestraMinima(event,'plotterExtra','controlBtnPlotter')"> Copia firmada
             </label>
             <label>
-              <input type="radio" name="devolucion_muestra_plotter" value="copia" onclick="muestraMinima(event,'plotterExtra')"> Copia firmada
+              <input type="radio" name="devolucion_muestra_plotter" id="noDevuelvePlotter"  value="ninguna" onclick="muestraMinima(event,'plotterExtra','controlBtnPlotter')"> No
             </label>
           </div>
         </fieldset>
         <div class="custom-spinner">
-          <button type="button" class="controlBtn" onclick="decrement('plotterExtra')">-</button>
+          <button type="button" class="controlBtn controlBtnPlotter" onclick="decrement('plotterExtra')" style="visibility: hidden">-</button>
           <input type="number" id="plotterExtra" name="plotter_total" min="1" value="0" readonly>
-          <button type="button" class="controlBtn" onclick="increment('plotterExtra')">+</button>
+          <button type="button" class="controlBtn controlBtnPlotter" onclick="increment('plotterExtra')" style="visibility: hidden">+</button>
         </div>
       </div>
     </div>
@@ -1114,20 +1114,20 @@
           <legend>Devuelve muestra:</legend>
           <div class="radio-group">
             <label>
-              <input type="radio" name="devolucion_muestra_forrada" id="noDevuelveMuestra" value="ninguna" onclick="muestraMinima(event,'forradaExtra')"> No
+              <input type="radio" name="devolucion_muestra_forrada" value="original" checked onclick="muestraMinima(event,'forradaExtra','controlBtnForrada')"> Si, firmado
             </label>
             <label>
-              <input type="radio" name="devolucion_muestra_forrada" value="original" checked onclick="muestraMinima(event,'forradaExtra')"> Si, firmado
+              <input type="radio" name="devolucion_muestra_forrada" value="copia" onclick="muestraMinima(event,'forradaExtra','controlBtnForrada')"> Copia firmada
             </label>
             <label>
-              <input type="radio" name="devolucion_muestra_forrada" value="copia" onclick="muestraMinima(event,'forradaExtra')"> Copia firmada
+              <input type="radio" name="devolucion_muestra_forrada" id="noDevuelveMuestra" value="ninguna" onclick="muestraMinima(event,'forradaExtra','controlBtnForrada')"> No
             </label>
           </div>
         </fieldset>
         <div class="custom-spinner">
-          <button type="button" class="controlBtn" onclick="decrement('forradaExtra')">-</button>
+          <button type="button" class="controlBtn controlBtnForrada" onclick="decrement('forradaExtra')" style="visibility: hidden">-</button>
           <input type="number" id="forradaExtra" name="muestra_forrada_total" min="1" value="0" readonly>
-          <button type="button" class="controlBtn" onclick="increment('forradaExtra')">+</button>
+          <button type="button" class="controlBtn controlBtnForrada" onclick="increment('forradaExtra')" style="visibility: hidden">+</button>
         </div>
       </div>
     </div>
@@ -1173,7 +1173,7 @@
     <div class="input-intermedio">
       <label for="paletizado">Paletizado:</label>
       <select id="paletizado" name="paletizado">
-        <option value="a_convenir">Vuestro criterio</option>
+        <option value="a_convenir">A su criterio</option>
         <option value="especificar">Especificar</option>
       </select>
     </div>
