@@ -379,27 +379,41 @@ function decrement(inputId) {
 }
 
 
-function muestraMinima(event,inputId) {
+function muestraMinima(event,inputId, estiloBotones) {
   const selectedRadio = event.target.value;
+  const inputElement = document.getElementById(inputId);
+  const botones = document.getElementsByClassName(estiloBotones);
 
   let valor = 0;
   switch (selectedRadio) {
-    case "ninguna":
-      valor = 2;
-      break;
     case "original":
       valor = 1;
+      inputElement.value=valor
+      Array.from(botones).forEach(boton => {
+        boton.style.visibility="hidden";
+      });
       break;
     case "copia":
       valor = 2;
+      Array.from(botones).forEach(boton =>{
+        boton.style.visibility="visible";
+      });
+      break;
+    case "ninguna":
+      valor = 2;
+      Array.from(botones).forEach(boton => {
+        boton.style.visibility="visible";
+      });
+
       break;
   }
 
-  const inputElement = document.getElementById(inputId);
+
   inputElement.min = valor;
   if(inputElement.value<valor){
     inputElement.value=valor;
   }
+
 
 }
 
@@ -425,6 +439,18 @@ function checkValue() {
 }
 
 
+function validarUnidadesEnvio(){
+  const contadorM = document.getElementById(`maquetas${contadorEnvios}`);
+  const contadorB = document.getElementById(`bocetos${contadorEnvios}`);
+  const contadorP = document.getElementById(`plotters${contadorEnvios}`);
+  const contadorF = document.getElementById(`muestrasForradas${contadorEnvios}`);
+
+  return contadorM.value === "0" && contadorB.value === "0" && contadorP.value === "0" && contadorF.value === "0";
+
+}
+
+
+let contadorEnvios=0;
 // DIRECCIONES DE ENVIO
 window.addEventListener('DOMContentLoaded', function () {
   const seccionEnvios = document.getElementById("seccionEnvios");
@@ -464,7 +490,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     const direcciones = seccionEnvios.querySelectorAll('.envio');
     direcciones.forEach(envio => {
-      usadosMaquetas += parseInt(envio.querySelector('input[name="maquetass[]"]').value, 10) || 0;
+      usadosMaquetas += parseInt(envio.querySelector('input[name="maquetas[]"]').value, 10) || 0;
       usadosBocetos += parseInt(envio.querySelector('input[name="bocetos[]"]').value, 10) || 0;
       usadosPlotters += parseInt(envio.querySelector('input[name="plotters[]"]').value, 10) || 0;
       usadosMuestrasForradas += parseInt(envio.querySelector('input[name="muestrasForradas[]"]').value, 10) || 0;
@@ -501,6 +527,14 @@ window.addEventListener('DOMContentLoaded', function () {
       alert("No hay recursos disponibles para añadir más direcciones.");
       return;
     }
+
+
+    if (contadorEnvios>0 && validarUnidadesEnvio()) {
+      alert("Para enviar los registros, al menos una cantidad debe ser mayor a 0. Modifique las cantidades.");
+      return;
+    }
+
+    contadorEnvios++;
 
 
     bloquearCheckboxesMuestras()
@@ -547,33 +581,33 @@ window.addEventListener('DOMContentLoaded', function () {
     <div class="form-group">
     <label>Maquetas a enviar:
          <div class="input-corto custom-spinner" >
-          <button type="button" class="controlBtnG" onclick="decrement('maquetass${seccionEnvios.children.length}')">-</button>
-              <input type="number" class="numerosNoPermitidos" name="maquetass[]" id="maquetass${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly>
-        <button type="button" class="controlBtnG" onclick="increment('maquetass${seccionEnvios.children.length}')">+</button>
+          <button type="button" class="controlBtnG" onclick="decrement('maquetas${contadorEnvios}')">-</button>
+              <input type="number" class="numerosNoPermitidos" name="maquetas[]" id="maquetas${contadorEnvios}" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly>
+        <button type="button" class="controlBtnG" onclick="increment('maquetas${contadorEnvios}')">+</button>
         </div>
     </label>
 
     <label>Bocetos a enviar:
           <div class="input-corto custom-spinner" >
-           <button type="button" class="controlBtnG" onclick="decrement('bocetos${seccionEnvios.children.length}')">-</button>
-              <input type="number" class="numerosNoPermitidos" name="bocetos[]" id="bocetos${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" readonly>
-         <button type="button" class="controlBtnG" onclick="increment('bocetos${seccionEnvios.children.length}')">+</button>
+           <button type="button" class="controlBtnG" onclick="decrement('bocetos${contadorEnvios}')">-</button>
+              <input type="number" class="numerosNoPermitidos" name="bocetos[]" id="bocetos${contadorEnvios}" min="0" max="${totalesDisponibles.bocetos}" value="${totalesDisponibles.bocetos}" readonly>
+         <button type="button" class="controlBtnG" onclick="increment('bocetos${contadorEnvios}')">+</button>
         </div>
     </label>
 
     <label>Plotters a enviar:
         <div class="input-corto custom-spinner" >
-            <button type="button" class="controlBtnG" onclick="decrement('plotters${seccionEnvios.children.length}')">-</button>
-             <input type="number" class="numerosNoPermitidos" name="plotters[]" id="plotters${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" readonly>
-            <button type="button" class="controlBtnG" onclick="increment('plotters${seccionEnvios.children.length}')">+</button>
+            <button type="button" class="controlBtnG" onclick="decrement('plotters${contadorEnvios}')">-</button>
+             <input type="number" class="numerosNoPermitidos" name="plotters[]" id="plotters${contadorEnvios}" min="0" max="${totalesDisponibles.plotters}" value="${totalesDisponibles.plotters}" readonly>
+            <button type="button" class="controlBtnG" onclick="increment('plotters${contadorEnvios}')">+</button>
        </div>
     </label>
 
     <label>Muestras forradas a enviar:
 
          <div class="input-corto custom-spinner" >
-         <button type="button" class="controlBtnG" onclick="decrement('muestrasForradas${seccionEnvios.children.length}')">-</button>
-          <input type="number" class="numerosNoPermitidos" name="muestrasForradas[]" id="muestrasForradas${seccionEnvios.children.length}" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" readonly>
+         <button type="button" class="controlBtnG" onclick="decrement('muestrasForradas${contadorEnvios}')">-</button>
+          <input type="number" class="numerosNoPermitidos" name="muestrasForradas[]" id="muestrasForradas${contadorEnvios}" min="0" max="${totalesDisponibles.muestrasForradas}" value="${totalesDisponibles.muestrasForradas}" readonly>
         <button type="button" class="controlBtnG" onclick="increment('muestrasForradas${seccionEnvios.children.length}')">+</button>
         </div>
     </label>
@@ -610,6 +644,13 @@ window.addEventListener('DOMContentLoaded', function () {
 // Recoger muestras por comerciales
   document.getElementById("recogerMuestra").addEventListener("click", function (event) {
     const contenedor = document.getElementById("totalMuestrasArecoger");
+
+    if(validarUnidadesEnvio()){
+      alert("Las cantidades de la ultima dirección son todas 0. Elimine la dirección para activar esta opción");
+      event.target.checked=false;
+      return;
+    }
+
 
     // Obtener los totales disponibles
     const totalesDisponibles = calcularTotalesDisponibles();
@@ -666,7 +707,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     <label>Maquetas a recoger:
         <div class="input-corto">
-            <input type="number" name="maquetass[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly>
+            <input type="number" name="maquetas[]" min="0" max="${totalesDisponibles.maquetas}" value="${totalesDisponibles.maquetas}" readonly>
          </div>
     </label>
 
@@ -777,12 +818,11 @@ window.addEventListener('DOMContentLoaded', function () {
         button.disabled = false;  // Deshabilita cada botón
         button.style.background = "";
       });
-
+      contadorEnvios--;
     }
     if(seccionEnvios.children.length === 0){
       document.getElementById("eliminarDireccion").style.display = "none";
       desbloquearCheckboxesMuestras()
-
     }
   });
 
