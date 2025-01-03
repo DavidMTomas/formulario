@@ -724,9 +724,11 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 .paletizado-container {
   width: 100%;
-  border: 1px solid #ccc;
   padding: 10px;
   box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color:  #f9f9f9;
 }
 
 .header {
